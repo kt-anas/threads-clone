@@ -1,0 +1,42 @@
+// components/Navbar.module.scss
+
+
+
+.navbar {
+    // background-color: #0A0A0A;
+    background-color: #0a0303;
+    padding: 1rem;
+    width: 100px;
+    height: 100vh;
+    
+  }
+  
+  .logoContainer {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    height: 100px;
+  }
+
+  .navList {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navList li {
+    margin-right: 1rem;
+  }
+  
+  .navList li a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .navList li a:hover {
+    text-decoration: underline;
+  }
+  
