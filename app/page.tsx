@@ -1,5 +1,6 @@
-import Navbar from "../components/Navbar/Navbar";
+import Navbar from "./ui/sidebar/Navbar";
 import styles from "./page.module.css";
+ 
 
 export default function Home() {
   return (
@@ -7,7 +8,9 @@ export default function Home() {
       <div className={styles['navbar-container']}>
         <Navbar />
       </div>
-      <div className={styles.hello}>hello</div>
+      <div className={styles.hello}>
+
+        </div>
     </main>
   );
 }
