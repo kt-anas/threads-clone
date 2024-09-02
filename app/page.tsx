@@ -1,5 +1,5 @@
 import Navbar from "./ui/sidebar/Navbar";
-import styles from "./page.module.css";
+import styles from "./page.module.scss";
  
 
 export default function Home() {
