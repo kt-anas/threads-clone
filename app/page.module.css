@@ -1,19 +1,19 @@
 .main {
     display: flex;
-    justify-content: center; /* Centers the .hello div horizontally */
-    align-items: center; /* Centers the .hello div vertically */
+    justify-content: center;  
+    align-items: center;  
     background-color: #0A0A0A;
-    min-height: 100vh; /* Ensures the full viewport height is used */
-    position: relative; /* Allows positioning of the Navbar */
+    min-height: 100vh;  
+    position: relative;  
   }
   
   .navbar-container {
     position: absolute;
-    left: 0; /* Aligns the Navbar to the left */
-    top: 0; /* Aligns the Navbar to the top */
-    height: 100%; /* Makes the Navbar full height if necessary */
+    left: 0;  
+    top: 0;  
+    height: 100%;  
     display: flex;
-    align-items: center; /* Centers the Navbar content vertically */
+    align-items: center;  
   }
   
   .hello {

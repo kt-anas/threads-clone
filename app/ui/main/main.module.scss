@@ -1,7 +1,26 @@
+.container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;     /* Center vertically */
+    height: 100vh;  
+    position: relative; 
+            /* Ensure container takes full viewport height */
+  }
+  
+  .navbar-container {
+    position: absolute;
+    left: 0;  
+    top: 0;  
+    height: 100%;  
+    display: flex;
+    align-items: center;  
+  }
 
-.container{
-    display: flex; 
-   
- 
-    
-}
+  .main {
+    width: 640px;
+    height: 100vh;
+    color: white;
+    background-color: #ffffff;
+    text-align: center;
+  }
+  

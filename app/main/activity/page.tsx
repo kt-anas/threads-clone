@@ -3,7 +3,7 @@ import React from 'react'
 const ActivityPage = () => {
     return (
         <div>
-        <h1>Activity</h1>
+        <h1 style={{color:'red'}}>Activity</h1>
         </div>
     )
 }

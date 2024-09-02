@@ -5,16 +5,13 @@ import styles from '../ui/main/main.module.scss'
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className={styles.container}>
-     
-        <div>
+       <div className={styles['navbar-container']}>
             <Navbar />
         </div>
-        <div>
+        <div className={styles.main}>
             {children}
         </div>
-         
-       
-    </div>
+     </div>
   )
 }
 
