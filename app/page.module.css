@@ -1,14 +1,26 @@
-/* app\page.module.css */
-
 .main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6rem;
+    display: flex;
+    justify-content: center; /* Centers the .hello div horizontally */
+    align-items: center; /* Centers the .hello div vertically */
+    background-color: #0A0A0A;
+    min-height: 100vh; /* Ensures the full viewport height is used */
+    position: relative; /* Allows positioning of the Navbar */
+  }
   
-  background-color: #0A0A0A;
-}
-
-
-
+  .navbar-container {
+    position: absolute;
+    left: 0; /* Aligns the Navbar to the left */
+    top: 0; /* Aligns the Navbar to the top */
+    height: 100%; /* Makes the Navbar full height if necessary */
+    display: flex;
+    align-items: center; /* Centers the Navbar content vertically */
+  }
+  
+  .hello {
+    width: 640px;
+    height: 100vh;
+    color: white;
+    background-color: #ffffff;
+    text-align: center;
+  }
+  
