@@ -3,7 +3,7 @@ import React from 'react'
 const ProfilePage = () => {
   return (
     <div>
-      <h1>Profile</h1>
+      <h1 style={{color:'red'}}>Profile</h1>
     </div>
   )
 }

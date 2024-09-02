@@ -1,9 +1,13 @@
-import React from 'react'
+ 
 
+import React from 'react'
+ 
+ 
 const ActivityPage = () => {
+     
     return (
         <div>
-        <h1>Activity</h1>
+           <div> Activity</div>
         </div>
     )
 }

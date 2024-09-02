@@ -1,10 +1,10 @@
-.container {
+.main {
     display: flex;
     justify-content: center;  
-    align-items: center;      
-    height: 100vh;  
-    position: relative; 
-            
+    align-items: center;  
+    background-color: #0A0A0A;
+    min-height: 100vh;  
+    position: relative;  
   }
   
   .navbar-container {
@@ -15,8 +15,8 @@
     display: flex;
     align-items: center;  
   }
-
-  .main {
+  
+  .hello {
     width: 640px;
     height: 100vh;
     color: white;
