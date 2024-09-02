@@ -1,10 +1,10 @@
 .container {
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center;     /* Center vertically */
+    justify-content: center;  
+    align-items: center;      
     height: 100vh;  
     position: relative; 
-            /* Ensure container takes full viewport height */
+            
   }
   
   .navbar-container {
@@ -20,7 +20,7 @@
     width: 640px;
     height: 100vh;
     color: white;
-    background-color: #ffffff;
+    background-color: #0A0A0A;
     text-align: center;
   }
   
