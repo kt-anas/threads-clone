@@ -1,0 +1,24 @@
+ => axios inteseter
+ => react
+ => Shadcn
+ => Zustand / Redux
+
+
+ Week 2 =>
+
+    user Login
+    post 
+    login page
+
+ Week 3 =>
+
+    search user 
+    follow
+    comment
+    like 
+
+Week 4 => 
+  
+  User profile
+  user detail
+  

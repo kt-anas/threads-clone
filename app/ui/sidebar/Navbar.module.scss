@@ -1,0 +1,58 @@
+.navbar {
+  background-color: #0A0A0A;  
+
+     
+  
+  width: 60px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logoContainer {
+  margin-bottom: 2rem;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+}
+
+.navList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+  justify-content: center;  
+}
+
+.navList li {
+  margin-bottom: 1.5rem;
+}
+
+.utilityIcons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.utilityIcons a {
+  margin-bottom: 1.5rem;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.icon:hover {
+  transform: scale(1.2);
+  filter: brightness(1.5);
+}

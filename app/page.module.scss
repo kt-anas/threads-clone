@@ -1,0 +1,26 @@
+.main {
+    display: flex;
+    justify-content: center;  
+    align-items: center;  
+    background-color: #0A0A0A;
+    min-height: 100vh;  
+    position: relative;  
+  }
+  
+  .navbar-container {
+    position: absolute;
+    left: 0;  
+    top: 0;  
+    height: 100%;  
+    display: flex;
+    align-items: center;  
+  }
+  
+  .hello {
+    width: 640px;
+    height: 100vh;
+    color: white;
+    background-color: #0A0A0A;
+    text-align: center;
+  }
+  
