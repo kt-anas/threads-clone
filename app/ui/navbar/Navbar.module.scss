@@ -1,15 +1,17 @@
 .navbar {
-    background-color: #0A0A0A;  
-    width: 60px;
-    height: 100vh;
+    background-color: #0A0A0A0A;
+    width: 100vw; 
+    height: 60px;  
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+    align-items: center;  
+    justify-content: space-between;  
+    padding: 0 20px;  
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  
   }
   
   .logoContainer {
-    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
   }
   
   .logo {
@@ -19,7 +21,6 @@
   
   .navList {
     display: flex;
-    flex-direction: column;
     align-items: center;
     list-style: none;
     padding: 0;
@@ -29,19 +30,21 @@
   }
   
   .navList li {
-    margin-bottom: 1.5rem;
+    margin: 0 15px;  
   }
   
-  .utilityIcons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 1rem;
+  .navList a {
+    text-decoration: none;
+    color: #333;  
+    font-weight: 500;  
+    transition: color 0.3s ease;  
   }
   
-  .utilityIcons a {
-    margin-bottom: 1.5rem;
+  .navList a:hover {
+    color: #007bff;  
   }
+  
+  
   
   .icon {
     width: 30px;
@@ -50,7 +53,26 @@
   }
   
   .icon:hover {
-    transform: scale(1.2);
-    filter: brightness(1.5);
+    transform: scale(1.2); 
+    filter: brightness(1.5);  
   }
   
+  .loginButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    padding: 0 16px;
+    background-color: #fcfcfc;  
+    color: #0A0A0A; 
+    border: none;
+    border-radius: 5px;  
+    font-size: 16px;  
+    font-weight: 500;  
+    cursor: pointer;  
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+  }
+  
+   
+   

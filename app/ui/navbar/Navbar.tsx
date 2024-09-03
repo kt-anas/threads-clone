@@ -16,29 +16,41 @@ const NavbarHome: React.FC = () => {
             </div>
             <ul className={styles.navList}>
                 <li>
-                    <Link href="/main">
+                    <Link href="/">
                         <Icons.home />
                     </Link>
                 </li>
                 <li>
-                    <Link href="/main/search">
+                    <Link href="/">
                         {/* <Image src={searchIcon} alt="Search" className={styles.icon} /> */}
                         <Icons.search />
                     </Link>
-                </li>
+                </li> 
                 <li>
-                    <Link href="/main/activity">
+                    <Link href="/">
+                        {/* <Image src={searchIcon} alt="Search" className={styles.icon} /> */}
+                        <Icons.create />
+                    </Link>
+                </li>
+
+                <li>
+                    <Link href="/">
                         {/* <Image src={heartIcon} alt="Favorites" className={styles.icon} /> */}
                         <Icons.activity />
                     </Link>
                 </li>
                 <li>
-                    <Link href="/main/profile">
+                    <Link href="/">
                         {/* <Image src={profileIcon} alt="Profile" className={styles.icon} /> */}
                         <Icons.profile />
                     </Link>
                 </li>
             </ul>
+            <div>
+                <Link href="/login">
+                    <div className={styles.loginButton}>Log in</div>
+                </Link>
+            </div>
         </nav>
     );
 }
