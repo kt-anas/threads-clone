@@ -1,0 +1,34 @@
+ .container{
+    display: flex;
+    justify-content: center;  
+    align-items: center;      
+ }
+ .bgPhoto{
+    padding-top: 0;
+    padding-left: 1500px;
+    padding-right: 1500px;
+    background-color: #0A0A0A;
+ }
+
+ .login-container{
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+      
+    position: relative;
+    top: -150px;
+
+ }
+ .login-form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    max-width: 350px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ }

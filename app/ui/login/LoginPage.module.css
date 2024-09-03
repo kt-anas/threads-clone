@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bgPhoto {
+  padding-top: 0;
+  padding-left: 1500px;
+  padding-right: 1500px;
+  background-color: #0A0A0A;
+}/*# sourceMappingURL=LoginPage.module.css.map */
