@@ -9,7 +9,7 @@ import Navbar from '../ui/sidebar/Navbar'
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
-        <Navbar />
+      
       {children}
     </div>
   )
