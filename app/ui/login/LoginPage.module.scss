@@ -1,34 +1,61 @@
- .container{
-    display: flex;
-    justify-content: center;  
-    align-items: center;      
- }
- .bgPhoto{
-    padding-top: 0;
-    padding-left: 1500px;
-    padding-right: 1500px;
-    background-color: #0A0A0A;
+ .container {
+     display: flex;
+     justify-content: center;
+     align-items: center;
  }
 
- .login-container{
-    width: auto;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: transparent;
-      
-    position: relative;
-    top: -150px;
+ .bgPhoto {
+     padding-top: 0;
+     padding-left: 1500px;
+     padding-right: 1500px;
+     background-color: #0A0A0A;
+ }
+
+ .login-container {
+     width: auto;
+     height: auto;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background: transparent;
+
+     position: relative;
+     top: -300px;
 
  }
- .login-form{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    max-width: 350px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+ .login-form {
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+     max-width: 350px;
+     padding: 20px;
+     background: transparent;
+     border-radius: 5px;
+
+ }
+
+
+ .login-form input,
+ .login-form button {
+     padding: 16px;
+     margin-bottom: 10px;
+ }
+
+ .login-form input {
+     background-color: #1E1E1E;
+     border: 0.5px solid #1E1E1E;
+     border-radius: 16px;
+     outline: none;
+  
+ }
+
+ .login-form button {
+     background-color: #fff;
+     color: #0A0A0A;
+     border: none;
+     border-radius: 16px;
+     cursor: pointer;
+     transition: background-color 0.3s ease;
+    
  }

@@ -17,9 +17,8 @@ const LoginPage: React.FC = () => {
     </div>
      <div className={styles['login-container']}>
         <form action="/" className={styles['login-form']}>
-           
-            <input type="text" placeholder="Username" /> 
-            <input type="text" placeholder="Password" />
+           <input type="text" placeholder="Username, Email"  /> 
+            <input type="password" placeholder="Password" />
             <button type="submit">Login</button>
         </form>
      </div>
