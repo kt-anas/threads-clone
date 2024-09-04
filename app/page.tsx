@@ -1,16 +1,16 @@
-import Navbar from "./ui/sidebar/Navbar";
-import styles from "./page.module.scss";
- 
+import React from 'react';
+import NavbarHome from './ui/navbar/Navbar';
+import styles from './page.module.scss';
 
 export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles['navbar-container']}>
-        <Navbar />
+        <NavbarHome />
       </div>
       <div className={styles.hello}>
-
-        </div>
+        <h1>Welcome to My Website</h1>
+      </div>
     </main>
   );
 }

@@ -3,22 +3,24 @@
  => Shadcn
  => Zustand / Redux
 
+ 
+ Week 2: Login and Authentication
 
- Week 2 =>
+- Implement user login functionality
+- Allow users to logout
+- Handle POST requests for login and GET requests for user data
 
-    user Login
-    post 
-    login page
+Week 3: Social Interactions
 
- Week 3 =>
+- Implement search functionality for users
+- Allow users to follow and unfollow each other
+- Implement commenting and liking functionality
 
-    search user 
-    follow
-    comment
-    like 
+Week 4: User Profiles
 
-Week 4 => 
-  
-  User profile
-  user detail
-  
+- Create user profile pages
+- Allow users to edit their profiles
+- Implement thumbtack and pin to home features  
+Week 5: Appearance
+
+- Focus on improving the appearance of the application 

@@ -1,12 +1,29 @@
-import React from 'react'
+import React from 'react';
+import styles from '../ui/login/LoginPage.module.scss';  
+import Image from 'next/image';
+import bgPhoto from '../../public/assets/bg.webp';
 
-
-const loginPage = () => {
+const LoginPage: React.FC = () => {
   return (
-     <div>
-        <div>Login page</div>
+    <>
+    <div className={styles.container}>
+      <div className={styles.bgPhoto}>
+        <Image 
+          src={bgPhoto} 
+          alt="Background Image" 
+          width={2000}
+          />
+      </div> 
+    </div>
+     <div className={styles['login-container']}>
+        <form action="/" className={styles['login-form']}>
+           <input type="text" placeholder="Username, Email"  /> 
+            <input type="password" placeholder="Password" />
+            <button type="submit">Login</button>
+        </form>
      </div>
-  )
+    </>
+  );
 }
 
-export default loginPage
+export default LoginPage;
