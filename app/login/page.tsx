@@ -1,11 +1,25 @@
-import React from 'react';
+"use client";
+import React, { useState } from 'react';
 import styles from '../ui/login/LoginPage.module.scss';
 import Image from 'next/image';
 import bgPhoto from '../../public/assets/bg.webp';
 import Link from 'next/link';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 
 const LoginPage: React.FC = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    
+const [data,setData]=useState();
+
+    useEffect(()=>{
+    axios.get('https://social-media-rest-apis.onrender.com/api/users/')
+    .then(res=>setData(res.data.users))
+    .catch(err=>console.log(err))
+    },[])
+    console.log(data)
 
     return (
         <>
@@ -20,8 +34,16 @@ const LoginPage: React.FC = () => {
             </div>
             <div className={styles['login-container']}>
                 <form action="/" className={styles['login-form']}>
-                    <input type="text" placeholder="Username, Email" />
-                    <input type="password" placeholder="Password" />
+
+                    <input type="text" placeholder="Username, Email"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+
+                    <input type="password" placeholder="Password"
+                        value={password} onChange={(e) => setPassword(e.target.value)} />
+
+
                     <button type="submit">Login</button>
                 </form>
                 <div className={styles.line}>
