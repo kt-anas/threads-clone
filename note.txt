@@ -1,4 +1,4 @@
- => axios inteseter
+ => axios interceptors
  => react
  => Shadcn
  => Zustand / Redux
