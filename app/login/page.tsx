@@ -1,26 +1,48 @@
-"use client";
+ 'use client'
+
 import React, { useState } from 'react';
 import styles from '../ui/login/LoginPage.module.scss';
 import Image from 'next/image';
 import bgPhoto from '../../public/assets/bg.webp';
 import Link from 'next/link';
-import axios from 'axios';
-import { useEffect } from 'react';
 
+import { useRouter } from 'next/navigation'; 
+ 
+import { useEffect } from 'react';
+import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppSelector } from '@/hooks/useAppDispatch';
+import { fetchUser } from '@/store/reducers/userSlice';
+ 
 
 const LoginPage: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    
-const [data,setData]=useState();
+ 
+  const dispatch = useAppDispatch();
+ 
+  const router = useRouter();
 
-    useEffect(()=>{
-    axios.get('https://social-media-rest-apis.onrender.com/api/users/')
-    .then(res=>setData(res.data.users))
-    .catch(err=>console.log(err))
-    },[])
-    console.log(data)
+  const {users, status ,error} = useAppSelector((state) => state.users);
+  
+  
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
 
+  const handleSubmit =(e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const userExists = users.some(user => user.username === username);
+
+    if (userExists) {
+        // Proceed with login (e.g., authenticate the user)
+        console.log('User exists, proceed with login');
+        router.push('/main');
+    } else {
+        // If the user doesn't exist, redirect to the signup page
+        console.log('User does not exist, redirect to the signup page');
+        router.push('/signup');
+    }
+  };
     return (
         <>
             <div className={styles.container}>
@@ -33,7 +55,7 @@ const [data,setData]=useState();
                 </div>
             </div>
             <div className={styles['login-container']}>
-                <form action="/" className={styles['login-form']}>
+                <form onSubmit={handleSubmit} className={styles['login-form']}>
 
                     <input type="text" placeholder="Username, Email"
                         value={username}
@@ -61,5 +83,6 @@ const [data,setData]=useState();
         </>
     );
 }
+
 
 export default LoginPage;
