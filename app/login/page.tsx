@@ -24,7 +24,7 @@ const LoginPage: React.FC = () => {
 
   const {users, status ,error} = useAppSelector((state) => state.users);
   
-  
+
   useEffect(() => {
     dispatch(fetchUser());
   }, [dispatch]);
