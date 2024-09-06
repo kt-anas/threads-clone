@@ -9,6 +9,7 @@ function Layout({ children }: { children: React.ReactNode }) {
             <Navbar />
         </div>
         <div className={styles.main}>
+          
             {children}
         </div>
      </div>

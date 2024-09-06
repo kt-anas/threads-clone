@@ -1,13 +1,16 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/store/store';
 import { setUsername, setEmail, setPassword, setConfirmPassword, signupUser, setName, setPhone } from '@/store/reducers/signupSlice';
+import { useRouter } from 'next/navigation';
 import styles from '../ui/signup/SignupPage.module.scss';
 
 const Signup: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const { name, phone, username, email, password, confirmPassword, status, error } = useSelector((state: RootState) => state.signup);
+
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,6 +21,12 @@ const Signup: React.FC = () => {
       console.log('Passwords do not match');
     }
   };
+
+  useEffect(() => {
+    if (status === 'succeeded') {
+      router.push('/login');
+    }
+  }, [status]);
 
   return (
     <div className={styles.signupContainer}>
