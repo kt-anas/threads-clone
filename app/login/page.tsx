@@ -20,6 +20,7 @@ const LoginPage: React.FC = () => {
  
   const router = useRouter();
   const {users, status ,error} = useAppSelector((state) => state.users);
+  
   useEffect(() => {
     dispatch(fetchUser());
   }, [dispatch]);
@@ -32,10 +33,6 @@ const LoginPage: React.FC = () => {
   const handleSubmit =(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const user = users.find(user => user.username === username);
-
-    
-    
-
     if (user) {
         // Proceed with login (e.g., authenticate the user)
         localStorage.setItem('userId', user._id);
