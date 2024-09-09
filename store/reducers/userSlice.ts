@@ -10,8 +10,10 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
 // User interface
 interface User {
     username: string;
-    id: number;
+    _id: string;
     email: string;
+    profilePic: string;
+    
 }
 
 // Initial state for the slice

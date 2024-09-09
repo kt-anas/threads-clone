@@ -5,9 +5,7 @@ import styles from '../ui/login/LoginPage.module.scss';
 import Image from 'next/image';
 import bgPhoto from '../../public/assets/bg.webp';
 import Link from 'next/link';
-
 import { useRouter } from 'next/navigation'; 
- 
 import { useEffect } from 'react';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useAppSelector } from '@/hooks/useAppDispatch';
@@ -21,21 +19,31 @@ const LoginPage: React.FC = () => {
   const dispatch = useAppDispatch();
  
   const router = useRouter();
-
   const {users, status ,error} = useAppSelector((state) => state.users);
-  
+
   
   useEffect(() => {
     dispatch(fetchUser());
   }, [dispatch]);
 
+   
+  
+  
+  
+
   const handleSubmit =(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const userExists = users.some(user => user.username === username);
+    const user = users.find(user => user.username === username);
 
-    if (userExists) {
+    
+    
+
+    if (user) {
         // Proceed with login (e.g., authenticate the user)
+        localStorage.setItem('userId', user._id);
+       
         console.log('User exists, proceed with login');
+        console.log(user);
         router.push('/main');
     } else {
         // If the user doesn't exist, redirect to the signup page
