@@ -13,6 +13,7 @@ interface User {
     _id: string;
     email: string;
     profilePic: string;
+    
 }
 
 // Initial state for the slice
@@ -56,7 +57,6 @@ const userSlice = createSlice({
          */
         builder.addCase(fetchUser.fulfilled, (state, action) => {
             state.status = "succeeded";
-            
             state.users = action.payload;
         });
 

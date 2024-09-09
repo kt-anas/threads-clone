@@ -20,6 +20,8 @@ const LoginPage: React.FC = () => {
  
   const router = useRouter();
   const {users, status ,error} = useAppSelector((state) => state.users);
+
+  
   useEffect(() => {
     dispatch(fetchUser());
   }, [dispatch]);
