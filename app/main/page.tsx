@@ -17,9 +17,9 @@ const HomePage = () => {
         if (userStatus === 'idle' && userId) {
             dispatch(fetchUserById(userId));
         }
-    }, [userStatus, dispatch, userId]);
+    });
 
-    console.log(currentUser?.profilePic, 'current user profile pic');
+    console.log(typeof(currentUser?.profilePic), 'current user profile pic');
     
 
     return (
