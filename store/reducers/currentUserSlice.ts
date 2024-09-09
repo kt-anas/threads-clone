@@ -3,18 +3,19 @@ import axios from "axios";
 
 // Async thunk for fetching a user by ID
 export const fetchUserById = createAsyncThunk("user/fetchUserById", async (id: string) => {
-  const response = await axios.get(`http://social-media-rest-apis.onrender.com/api/users/${id}`);
+  const response = await axios.get(`https://social-media-rest-apis.onrender.com/api/users/${id}`);
   return response.data;
 });
 
 // Define the state interface
 interface CurrentUserState {
   currentUser: {
-    _id: string;
+    name: string;
     username: string;
     email: string;
+    bio: string | null;
     profilePic: string;
-  } | null; // null to indicate no user is loaded initially
+  } | null; 
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
 }

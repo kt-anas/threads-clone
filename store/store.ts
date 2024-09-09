@@ -6,7 +6,7 @@ export const store = configureStore({
     reducer: {
         users: userSlice,
         signup:signupSlice,
-        currentUser: currentUserSlice
+        user: currentUserSlice
     },
 });
 
