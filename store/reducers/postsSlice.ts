@@ -9,7 +9,7 @@ interface User {
 }
 interface Post {
     _id: string;
-    user: User[] ;
+    postById: User; 
     text: string;
     image: string;
     likes: string[];
@@ -32,6 +32,8 @@ export const fetchPosts = createAsyncThunk(
     "posts/fetchPosts",
     async () => {
          const response = await axios.get('https://social-media-rest-apis.onrender.com/api/posts');
+   
+         
         return response.data.posts;
     }
 );
