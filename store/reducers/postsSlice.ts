@@ -9,7 +9,7 @@ interface User {
 }
 interface Post {
     _id: string;
-    user: User;
+    user: User[] ;
     text: string;
     image: string;
     likes: string[];
