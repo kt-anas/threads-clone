@@ -57,13 +57,14 @@ const HomePage = () => {
                 </div>
                 <div className={styles["posts-list"]}>
                     <div className={styles["posts-list"]}>
-                        {posts.map(post => (
-                            <div key={post._id} className={styles["post-item"]}>
-                                <h3>{post.user._id}</h3>
-                                <p>{post.text} </p>
-                                <img src={post.image} alt="post" className={styles['post-image']} />
-                            </div>
-                        ))}
+                    {posts.map(post => (
+                        <div key={post._id} className={styles["post-item"]}>
+                            <h3>{post.text}</h3>
+                            <p>{post.text}</p>
+                            {post.image && <img src={post.image} alt="post" className={styles["post-image"]} />}
+                                
+                        </div>
+                    ))}
                     </div>
                 </div>
             </div>
