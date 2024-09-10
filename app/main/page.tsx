@@ -3,14 +3,17 @@ import React, { useEffect } from 'react'
 import styles from '../ui/main/main.module.scss'
 import { useAppSelector, useAppDispatch } from '@/hooks/useAppDispatch'
 import { fetchUser } from '@/store/reducers/userSlice'
+import { fetchPosts } from '@/store/reducers/postsSlice'
 
 const HomePage = () => {
     const dispatch = useAppDispatch();
     const { users, status } = useAppSelector((state) => state.users);
+    const { posts } = useAppSelector((state) => state.posts);
     const [currentUser, setCurrentUser] = React.useState<any>(null);
 
     useEffect(() => {
         dispatch(fetchUser());
+        dispatch(fetchPosts());
     }, [dispatch]);
 
     useEffect(() => {
@@ -21,9 +24,11 @@ const HomePage = () => {
         }
     }, [users]);
 
+    console.log(posts);
+
     return (
-        <div>
-            <h1 className={styles.heading}>For You</h1>
+        <div >
+            <h1 className={styles.heading}>For you</h1>
             <div className={styles["posts-container"]}>
                 <div className={styles["new-container"]}>
                     <div className={styles.new}>
@@ -50,7 +55,19 @@ const HomePage = () => {
                         Post
                     </div>
                 </div>
+                <div className={styles["posts-list"]}>
+                    <div className={styles["posts-list"]}>
+                        {posts.map(post => (
+                            <div key={post._id} className={styles["post-item"]}>
+                                <h3>{post.user._id}</h3>
+                                <p>{post.text} </p>
+                                <img src={post.image} alt="post" className={styles['post-image']} />
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
+
         </div>
     );
 }

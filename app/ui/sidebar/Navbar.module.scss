@@ -34,6 +34,18 @@
   margin-bottom: 1.5rem;
 }
 
+  
+.navList a {
+    text-decoration: none;
+    color: #333;  
+    font-weight: 500;  
+    transition: color 0.3s ease;  
+  }
+  
+  .navList a:hover {
+    color: #007bff;  
+  }
+  
 .utilityIcons {
   display: flex;
   flex-direction: column;

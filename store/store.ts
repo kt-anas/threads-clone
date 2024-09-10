@@ -1,12 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userSlice from "./reducers/userSlice";
  import signupSlice from "./reducers/signupSlice";
- import currentUserSlice from "./reducers/currentUserSlice";
+ import postsSlice from "./reducers/postsSlice";
+ 
 export const store = configureStore({
     reducer: {
         users: userSlice,
         signup:signupSlice,
-        currentUser: currentUserSlice
+        posts: postsSlice
     },
 });
 
