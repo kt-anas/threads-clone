@@ -2,5 +2,5 @@
 
 
   <p>
-  (ReactJS, NextJS, Typescript Redux ,scss)
+  ReactJS, NextJS, Typescript Redux ,scss
   </p>
