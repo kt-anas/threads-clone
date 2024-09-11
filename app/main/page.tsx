@@ -1,4 +1,4 @@
- 
+'use client'
 import React, { useEffect } from 'react'
 import styles from '../ui/main/main.module.scss'
 import { useAppSelector, useAppDispatch } from '@/hooks/useAppDispatch'
@@ -18,17 +18,43 @@ const HomePage = () => {
 
     useEffect(() => {
         const userId = localStorage.getItem('userId');
-        if (userId && users.length > 0) {  
+        if (userId && users.length > 0) {
             const user = users.find((user) => user._id === userId);
             setCurrentUser(user);
         }
     }, [users]);
 
+    const getTimeAgo = (dateString: string) => {
+        const postDate = new Date(dateString);
+        const now = new Date();
 
-    console.log(posts.map(post =>Array.isArray(post.postById)));
+        const seconds = Math.floor((now.getTime() - postDate.getTime()) / 1000);
+
+        let interval = Math.floor(seconds / 31536000);
+        if (interval > 1) {
+            return `${interval} y`;
+        }
+        interval = Math.floor(seconds / 2592000);
+        if (interval > 1) {
+            return `${interval} m`;
+        }
+        interval = Math.floor(seconds / 86400);
+        if (interval > 1) {
+            return `${interval} d`;
+        }
+        interval = Math.floor(seconds / 3600);
+        if (interval > 1) {
+            return `${interval} h`;
+        }
+        interval = Math.floor(seconds / 60);
+        if (interval > 1) {
+            return `${interval} min`;
+        }
+        return `Just now`;
+    };
 
     return (
-        <div >
+        <div>
             <h1 className={styles.heading}>For you</h1>
             <div className={styles["posts-container"]}>
                 <div className={styles["new-container"]}>
@@ -47,7 +73,7 @@ const HomePage = () => {
                                     className={styles['profile-image']}
                                 />
                             )}
--                        </div>
+                        </div>
                         <div className={styles['new-text']}>
                             <span>What's new?</span>
                         </div>
@@ -56,37 +82,44 @@ const HomePage = () => {
                         Post
                     </div>
                 </div>
+
                 <div className={styles["posts-list"]}>
-                    <div className={styles["posts-list"]}>
-                        {posts.map(post => (
-                            <div key={post._id} className={styles["post-item"]}>
-                               <div className={styles["post-user"]}>
-                                 {post.postById && post.postById.profilePic ? (    
-                                     <img
-                                     src={post.postById.profilePic}
-                                     alt="profile"
-                                     className={styles['profile-image']}
-                                 />
+                    {posts.map((post) => (
+                        <div key={post._id} className={styles["post-item"]}>
+                            <div className={styles["post-user"]}>
+                                {post.postById && post.postById.profilePic ? (
+                                    <img
+                                        src={post.postById.profilePic}
+                                        alt="profile"
+                                        className={styles['profile-image']}
+                                    />
                                 ) : (
                                     <img
-                                    src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                                    alt="profile"
-                                    className={styles['profile-image']}
-                                />
-                                    )}          
-                                  <p className={styles['profile-name']}>{post.postById.username}</p>
-                              </div>
-                                  
-                                <p>{post.text}</p>
-                                {post.image && <img src={post.image} alt="post" className={styles["post-image"]} />}
+                                        src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                                        alt="profile"
+                                        className={styles['profile-image']}
+                                    />
+                                )}
+                                <div className="text_userName">
+                                    <div className={styles['user-name_time']}>
+                                        <p className={styles['profile-name']}>
+                                            {post.postById.username}
+
+                                        </p>
+                                        <span className={styles['time']}>
+                                            {getTimeAgo(post.createdOn)}
+                                        </span>
+                                    </div>
+                                    <p className={styles['post-text']}>{post.text}</p>
+                                </div>
                             </div>
-                        ))}
-                    </div>
+                            {post.image && <img src={post.image} alt="post" className={styles["post-image"]} />}
+                        </div>
+                    ))}
                 </div>
             </div>
-
         </div>
     );
-}
+};
 
 export default HomePage;

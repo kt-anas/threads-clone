@@ -14,6 +14,7 @@ interface Post {
     image: string;
     likes: string[];
     comments: string[];
+    createdOn: string;
     
 }
 interface PostsState {
