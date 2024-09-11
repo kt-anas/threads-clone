@@ -1,4 +1,4 @@
-'use client'
+ 
 import React, { useEffect } from 'react'
 import styles from '../ui/main/main.module.scss'
 import { useAppSelector, useAppDispatch } from '@/hooks/useAppDispatch'
@@ -18,7 +18,7 @@ const HomePage = () => {
 
     useEffect(() => {
         const userId = localStorage.getItem('userId');
-        if (userId && users.length > 0) {
+        if (userId && users.length > 0) {  
             const user = users.find((user) => user._id === userId);
             setCurrentUser(user);
         }
@@ -47,7 +47,7 @@ const HomePage = () => {
                                     className={styles['profile-image']}
                                 />
                             )}
-                        </div>
+-                        </div>
                         <div className={styles['new-text']}>
                             <span>What's new?</span>
                         </div>

@@ -17,20 +17,17 @@ const LoginPage: React.FC = () => {
     const [password, setPassword] = useState('');
  
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
  
   const router = useRouter();
   const {users, status ,error} = useAppSelector((state) => state.users);
   
-  useEffect(() => {
-    dispatch(fetchUser());
-  }, [dispatch]);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
-   
   
-  
-  
-
-  const handleSubmit =(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const user = users.find(user => user.username === username);
     if (user) {
