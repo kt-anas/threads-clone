@@ -1,1 +1,1 @@
- Threads Clone with NEXT.JS
+ Threads Clone with NEXT.JS TypeScript and redux
