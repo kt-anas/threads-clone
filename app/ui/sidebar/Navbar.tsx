@@ -33,6 +33,13 @@ const Navbar: React.FC = () => {
                     </Link>
                 </li>
                 <li>
+                    <Link href='/'>
+                        <Icons.create />
+                    </Link>
+
+                </li>
+                <li>
+
                     <Link href="/main/activity">
                         {/* <Image src={heartIcon} alt="Favorites" className={styles.icon} /> */}
                         <Icons.activity />
