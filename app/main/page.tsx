@@ -1,15 +1,29 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../ui/main/main.module.scss'
 import { useAppSelector, useAppDispatch } from '@/hooks/useAppDispatch'
 import { fetchUser } from '@/store/reducers/userSlice'
 import { fetchPosts } from '@/store/reducers/postsSlice'
+import Threads from '@/components/threads'
 
-const HomePage = () => {
+
+const HomePage: React.FC = () => {
     const dispatch = useAppDispatch();
     const { users, status } = useAppSelector((state) => state.users);
     const { posts } = useAppSelector((state) => state.posts);
     const [currentUser, setCurrentUser] = React.useState<any>(null);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [username, setUserName] = useState<string>('')
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
 
     useEffect(() => {
         dispatch(fetchUser());
@@ -21,6 +35,7 @@ const HomePage = () => {
         if (userId && users.length > 0) {
             const user = users.find((user) => user._id === userId);
             setCurrentUser(user);
+            setUserName(user?.username || '')
         }
     }, [users]);
 
@@ -55,6 +70,29 @@ const HomePage = () => {
 
     return (
         <div>
+
+            <Threads isOpen={isModalOpen} onClose={closeModal}>
+                <div className={styles.dp}>
+                    {currentUser && currentUser.profilePic ? (
+                        <img
+                            src={currentUser.profilePic}
+                            alt="profile"
+                            className={styles['profile-image']}
+                        />
+                    ) : (
+                        <img
+                            src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                            alt="profile"
+                            className={styles['profile-image']}
+                        />
+
+                    )}
+                    <p className={styles['profile-name']}>
+                        {username}
+                    </p>
+                </div>
+            </Threads>
+
             <h1 className={styles.heading}>For you</h1>
             <div className={styles["posts-container"]}>
                 <div className={styles["new-container"]}>
@@ -78,7 +116,7 @@ const HomePage = () => {
                             <span>What's new?</span>
                         </div>
                     </div>
-                    <div className={styles['past-btn']}>
+                    <div className={styles['past-btn']} onClick={openModal}>
                         Post
                     </div>
                 </div>

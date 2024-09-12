@@ -33,7 +33,7 @@ const Navbar: React.FC = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link href='/'>
+                    <Link href=''>
                         <Icons.create />
                     </Link>
 

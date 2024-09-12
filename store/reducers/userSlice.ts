@@ -7,9 +7,9 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
 });
 
 interface User {
-    username: string;
     _id: string;
     email: string;
+    username: string;
     profilePic: string;
 }
 
