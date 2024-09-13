@@ -5,17 +5,18 @@ import { useAppSelector, useAppDispatch } from '@/hooks/useAppDispatch'
 import { fetchUser } from '@/store/reducers/userSlice'
 import { fetchPosts } from '@/store/reducers/postsSlice'
 import Threads from '@/components/threads'
-
+import { addNewPost } from '@/store/reducers/postsSlice'
+ 
 
 const HomePage: React.FC = () => {
     const dispatch = useAppDispatch();
     const { users, status } = useAppSelector((state) => state.users);
     const { posts } = useAppSelector((state) => state.posts);
-    const [currentUser, setCurrentUser] = React.useState<any>(null);
+    const [currentUser, setCurrentUser] = useState<any>(null);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [username, setUserName] = useState<string>('')
-
+    const [postContent, setPostContent] = useState<string>('')
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -23,6 +24,7 @@ const HomePage: React.FC = () => {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+
 
 
     useEffect(() => {
@@ -38,6 +40,36 @@ const HomePage: React.FC = () => {
             setUserName(user?.username || '')
         }
     }, [users]);
+
+    const handlePostChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setPostContent(event.target.value);  
+    };
+
+    const handlePostSubmit = async () => {
+        if (postContent.trim() === '') {
+            alert('Please write something before posting!');
+            return;
+        }
+
+        if (!currentUser) {
+            alert('User not found! Please log in.');
+            return;
+        }
+
+        const newPost = {
+            userId: currentUser._id,
+            text: postContent,
+            image: null,  
+        };
+
+
+        dispatch(addNewPost(newPost));
+        setPostContent('');
+      
+
+    };
+
+    
 
     const getTimeAgo = (dateString: string) => {
         const postDate = new Date(dateString);
@@ -68,6 +100,9 @@ const HomePage: React.FC = () => {
         return `Just now`;
     };
 
+    
+
+
     return (
         <div>
 
@@ -85,11 +120,24 @@ const HomePage: React.FC = () => {
                             alt="profile"
                             className={styles['profile-image']}
                         />
-
                     )}
-                    <p className={styles['profile-name']}>
-                        {username}
-                    </p>
+                    <p className={styles['profile-name']}>{username}</p>
+                </div>
+                <textarea
+                    name="thread"
+                    id="thread"
+                    placeholder="Write a post"
+                    value={postContent}
+                    onChange={handlePostChange}
+                    className={styles['thread-textarea']}
+                />
+                <div className={styles['post-thread']}>
+                    <button
+                        className={styles['past-btn']}
+                        onClick={handlePostSubmit}
+                    >
+                        Post
+                    </button>
                 </div>
             </Threads>
 
