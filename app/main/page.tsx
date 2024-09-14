@@ -17,6 +17,8 @@ const HomePage: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [username, setUserName] = useState<string>('')
     const [postContent, setPostContent] = useState<string>('')
+    const [postImage,setPostImage] = useState<any>(null)
+     
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -24,14 +26,12 @@ const HomePage: React.FC = () => {
     const closeModal = () => {
         setIsModalOpen(false);
     };
-
-
-
     useEffect(() => {
         dispatch(fetchUser());
         dispatch(fetchPosts());
+       
     }, [dispatch]);
-
+ 
     useEffect(() => {
         const userId = localStorage.getItem('userId');
         if (userId && users.length > 0) {
@@ -40,6 +40,9 @@ const HomePage: React.FC = () => {
             setUserName(user?.username || '')
         }
     }, [users]);
+ 
+       
+   
 
     const handlePostChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setPostContent(event.target.value);  
@@ -59,17 +62,23 @@ const HomePage: React.FC = () => {
         const newPost = {
             userId: currentUser._id,
             text: postContent,
-            image: null,  
+            image: postImage,  
         };
 
 
         dispatch(addNewPost(newPost));
         setPostContent('');
       
+        console.log(newPost);
 
     };
 
-    
+   
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setPostImage(e.target.files[0]);
+        }
+    };
 
     const getTimeAgo = (dateString: string) => {
         const postDate = new Date(dateString);
@@ -101,6 +110,7 @@ const HomePage: React.FC = () => {
     };
 
     
+    
 
 
     return (
@@ -131,6 +141,7 @@ const HomePage: React.FC = () => {
                     onChange={handlePostChange}
                     className={styles['thread-textarea']}
                 />
+                 <input type="file" accept="image/*"  onChange={handleImageChange}/>
                 <div className={styles['post-thread']}>
                     <button
                         className={styles['past-btn']}
