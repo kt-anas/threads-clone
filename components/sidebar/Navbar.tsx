@@ -1,14 +1,11 @@
 import Link from 'next/link';
 import styles from './Navbar.module.scss';
 import Image from 'next/image';
-import logo from '../../../public/assets/thread-logo-w.svg';
-// import homeIcon from '../../../public/assets/home.svg';
-// import searchIcon from '../../../public/assets/search-gray.svg';
-// import heartIcon from '../../../public/assets/heart-gray.svg';
-// import profileIcon from '../../../public/assets/user.svg';
-import thumbtack from '../../../public/assets/thumbtack.svg';
+import logo from '../../public/assets/thread-logo-w.svg';
+ 
+import thumbtack from '../../public/assets/thumbtack.svg';
 // import logOut from '../../../public/assets/logout.svg';
-import { Icons } from '../Icons/users';
+import { Icons } from '../../app/ui/Icons/users';
 // import { transform } from 'next/dist/build/swc';
 
 const Navbar: React.FC = () => {
@@ -69,3 +66,5 @@ const Navbar: React.FC = () => {
 };
 
 export default Navbar;
+
+

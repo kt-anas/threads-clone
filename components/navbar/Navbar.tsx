@@ -2,8 +2,8 @@ import React from 'react';
 import styles from './Navbar.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
-import logo from '../../../public/assets/thread-logo-w.svg';
-import { Icons } from '../Icons/users';
+import logo from '../../public/assets/thread-logo-w.svg';
+import { Icons } from '../../app/ui/Icons/users';
 
 const NavbarHome: React.FC = () => {
     return (
