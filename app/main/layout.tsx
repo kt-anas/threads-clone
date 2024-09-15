@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from '../../components/sidebar/Navbar'
-import styles from '../ui/main/main.module.scss'
+import styles from '../../ui/main/main.module.scss'
 
 function Layout({ children }: { children: React.ReactNode }) {
     return (

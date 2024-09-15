@@ -1,11 +1,12 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import styles from '../ui/main/main.module.scss'
+import styles from '../../ui/main/main.module.scss'
 import { useAppSelector, useAppDispatch } from '@/hooks/useAppDispatch'
 import { fetchUser } from '@/store/reducers/userSlice'
 import { fetchPosts } from '@/store/reducers/postsSlice'
 import Threads from '@/components/threads/threads'
 import { addNewPost } from '@/store/reducers/postsSlice'
+import ProfileImage from '@/components/ProfileImage'
 
 
 const HomePage: React.FC = () => {
@@ -185,19 +186,11 @@ const HomePage: React.FC = () => {
                 <div className={styles["new-container"]}>
                     <div className={styles.new}>
                         <div className={styles.dp}>
-                            {currentUser && currentUser.profilePic ? (
-                                <img
-                                    src={currentUser.profilePic}
-                                    alt="profile"
-                                    className={styles['profile-image']}
-                                />
-                            ) : (
-                                <img
-                                    src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                                    alt="profile"
-                                    className={styles['profile-image']}
-                                />
-                            )}
+                            <ProfileImage
+                                profilePic={currentUser?.profilePic}
+                                altText="profile"
+                                className={styles['profile-image']}
+                            />
                         </div>
                         <div className={styles['new-text']}>
                             <span>What's new?</span>

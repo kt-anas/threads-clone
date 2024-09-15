@@ -1,7 +1,7 @@
  'use client'
 
 import React, { useState } from 'react';
-import styles from '../ui/login/LoginPage.module.scss';
+import styles from '../../ui/login/LoginPage.module.scss';
 import Image from 'next/image';
 import bgPhoto from '../../public/assets/bg.webp';
 import Link from 'next/link';

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/store/store';
 import { setUsername, setEmail, setPassword, setConfirmPassword, signupUser, setName, setPhone } from '@/store/reducers/signupSlice';
 import { useRouter } from 'next/navigation';
-import styles from '../ui/signup/SignupPage.module.scss';
+import styles from '../../ui/signup/SignupPage.module.scss';
 
 const Signup: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
