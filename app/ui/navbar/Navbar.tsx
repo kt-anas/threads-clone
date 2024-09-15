@@ -3,12 +3,12 @@ import styles from './Navbar.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
 import logo from '../../../public/assets/thread-logo-w.svg';
-import { Icons } from '../types/users';
+import { Icons } from '../Icons/users';
 
 const NavbarHome: React.FC = () => {
     return (
         <nav className={styles.navbar}>
-              <div className={styles.logoContainer}>
+            <div className={styles.logoContainer}>
                 <Link href="/">
                     <Image src={logo} alt="logo" className={styles.logo} />
 
@@ -25,7 +25,7 @@ const NavbarHome: React.FC = () => {
                         {/* <Image src={searchIcon} alt="Search" className={styles.icon} /> */}
                         <Icons.search />
                     </Link>
-                </li> 
+                </li>
                 <li>
                     <Link href="/">
                         {/* <Image src={searchIcon} alt="Search" className={styles.icon} /> */}

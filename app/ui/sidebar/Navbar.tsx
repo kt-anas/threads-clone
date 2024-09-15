@@ -8,7 +8,7 @@ import logo from '../../../public/assets/thread-logo-w.svg';
 // import profileIcon from '../../../public/assets/user.svg';
 import thumbtack from '../../../public/assets/thumbtack.svg';
 // import logOut from '../../../public/assets/logout.svg';
-import { Icons } from '../types/users';
+import { Icons } from '../Icons/users';
 // import { transform } from 'next/dist/build/swc';
 
 const Navbar: React.FC = () => {

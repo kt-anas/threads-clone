@@ -41,7 +41,7 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
 // Thunk for adding a new post to the API
 export const addNewPost = createAsyncThunk(
     "posts/addNewPost",
-    async (newPost: { userId: string; text: string; image?: string | null }, { rejectWithValue }) => {
+    async (newPost: { userId: string; text: string; image:any }, { rejectWithValue }) => {
         try {
             const response = await axios.post('https://social-media-rest-apis.onrender.com/api/posts', newPost);
             return response.data; 

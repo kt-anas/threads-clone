@@ -4,9 +4,9 @@ import styles from '../ui/main/main.module.scss'
 import { useAppSelector, useAppDispatch } from '@/hooks/useAppDispatch'
 import { fetchUser } from '@/store/reducers/userSlice'
 import { fetchPosts } from '@/store/reducers/postsSlice'
-import Threads from '@/components/threads'
+import Threads from '@/components/threads/threads'
 import { addNewPost } from '@/store/reducers/postsSlice'
- 
+
 
 const HomePage: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -17,8 +17,8 @@ const HomePage: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [username, setUserName] = useState<string>('')
     const [postContent, setPostContent] = useState<string>('')
-    const [postImage,setPostImage] = useState<any>(null)
-     
+    const [postImage, setPostImage] = useState<any>(null)
+    const [preview, setPreview] = useState<string | null>(null)
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -29,9 +29,9 @@ const HomePage: React.FC = () => {
     useEffect(() => {
         dispatch(fetchUser());
         dispatch(fetchPosts());
-       
+
     }, [dispatch]);
- 
+
     useEffect(() => {
         const userId = localStorage.getItem('userId');
         if (userId && users.length > 0) {
@@ -40,12 +40,12 @@ const HomePage: React.FC = () => {
             setUserName(user?.username || '')
         }
     }, [users]);
- 
-       
-   
+
+
+
 
     const handlePostChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setPostContent(event.target.value);  
+        setPostContent(event.target.value);
     };
 
     const handlePostSubmit = async () => {
@@ -62,22 +62,34 @@ const HomePage: React.FC = () => {
         const newPost = {
             userId: currentUser._id,
             text: postContent,
-            image: postImage,  
+            image: postImage,
         };
 
 
         dispatch(addNewPost(newPost));
         setPostContent('');
-      
-        console.log(newPost);
+
+        console.log(postImage);
 
     };
 
-   
+
+    /**
+     * Handles the image change event from the file input.
+     * Updates the component state with the selected image.
+     * @param e - The event object from the file input change event.
+     */
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
-            setPostImage(e.target.files[0]);
+        const file = e.target.files?.[0];
+        if (file) {
+            setPostImage(file);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreview(reader.result as string);
+            }
+            reader.readAsDataURL(file);
         }
+        
     };
 
     const getTimeAgo = (dateString: string) => {
@@ -109,13 +121,13 @@ const HomePage: React.FC = () => {
         return `Just now`;
     };
 
-    
-    
+
+
 
 
     return (
         <div>
-
+            {/* new thread */}
             <Threads isOpen={isModalOpen} onClose={closeModal}>
                 <div className={styles.dp}>
                     {currentUser && currentUser.profilePic ? (
@@ -141,7 +153,22 @@ const HomePage: React.FC = () => {
                     onChange={handlePostChange}
                     className={styles['thread-textarea']}
                 />
-                 <input type="file" accept="image/*"  onChange={handleImageChange}/>
+
+                <input type="file" accept="image/*" onChange={handleImageChange} />
+                {preview && (
+                    <div className="mt-4">
+                        <h2 className="text">Image Preview</h2>
+                        <img src={preview} alt="Preview" className={styles['image-preview']} />
+                    </div>
+                )}
+                {postImage && (
+                    <div className="mt-4">
+                       
+                        <p><strong>Name:</strong> {postImage.name}</p>
+                        <p><strong>Size:</strong> {(postImage.size / 1024).toFixed(2)} KB</p>
+                        <p><strong>Type:</strong> {postImage.type}</p>
+                    </div>
+                )}
                 <div className={styles['post-thread']}>
                     <button
                         className={styles['past-btn']}
@@ -151,6 +178,7 @@ const HomePage: React.FC = () => {
                     </button>
                 </div>
             </Threads>
+
 
             <h1 className={styles.heading}>For you</h1>
             <div className={styles["posts-container"]}>
