@@ -7,6 +7,7 @@ import { fetchPosts } from '@/store/reducers/postsSlice'
 import Threads from '@/components/threads/threads'
 import { addNewPost } from '@/store/reducers/postsSlice'
 import ProfileImage from '@/components/ProfileImage'
+import { Icons } from '@/ui/Icons/users'
 
 
 const HomePage: React.FC = () => {
@@ -155,21 +156,14 @@ const HomePage: React.FC = () => {
                     className={styles['thread-textarea']}
                 />
 
-                <input type="file" accept="image/*" onChange={handleImageChange} />
                 {preview && (
                     <div className="mt-4">
-                        <h2 className="text">Image Preview</h2>
+                       
                         <img src={preview} alt="Preview" className={styles['image-preview']} />
                     </div>
                 )}
-                {postImage && (
-                    <div className="mt-4">
-                       
-                        <p><strong>Name:</strong> {postImage.name}</p>
-                        <p><strong>Size:</strong> {(postImage.size / 1024).toFixed(2)} KB</p>
-                        <p><strong>Type:</strong> {postImage.type}</p>
-                    </div>
-                )}
+                <input type="file" accept="image/*" onChange={handleImageChange} />
+                
                 <div className={styles['post-thread']}>
                     <button
                         className={styles['past-btn']}
@@ -232,9 +226,14 @@ const HomePage: React.FC = () => {
                                 </div>
                             </div>
                             {post.image && <img src={post.image} alt="post" className={styles["post-image"]} />}
+                            <div>
+                                
+                                <Icons.like />
+                            </div>
                         </div>
                     ))}
-                </div>
+                </div>             
+
             </div>
         </div>
     );
