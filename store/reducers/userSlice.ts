@@ -8,6 +8,12 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
 
 interface User {
     _id: string;
+    name: string;
+
+    followers: string[];
+
+    following: string[];
+
     email: string;
     username: string;
     profilePic: string;
@@ -57,7 +63,7 @@ const userSlice = createSlice({
                 state.status = "failed";
                 state.error = action.error?.message ?? null;
             });
-    } ,
+    },
 
 });
 

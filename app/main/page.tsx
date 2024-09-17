@@ -12,7 +12,8 @@ import { Icons } from '@/ui/Icons/users'
 
 const HomePage: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { users, status } = useAppSelector((state) => state.users);
+
+    const { users } = useAppSelector((state) => state.users);
     const { posts } = useAppSelector((state) => state.posts);
     const [currentUser, setCurrentUser] = useState<any>(null);
 
@@ -21,6 +22,7 @@ const HomePage: React.FC = () => {
     const [postContent, setPostContent] = useState<string>('')
     const [postImage, setPostImage] = useState<any>(null)
     const [preview, setPreview] = useState<string | null>(null)
+
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -28,10 +30,12 @@ const HomePage: React.FC = () => {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+
+
+
     useEffect(() => {
         dispatch(fetchUser());
         dispatch(fetchPosts());
-
     }, [dispatch]);
 
     useEffect(() => {
@@ -91,7 +95,7 @@ const HomePage: React.FC = () => {
             }
             reader.readAsDataURL(file);
         }
-        
+
     };
 
     const getTimeAgo = (dateString: string) => {
@@ -147,23 +151,40 @@ const HomePage: React.FC = () => {
                     )}
                     <p className={styles['profile-name']}>{username}</p>
                 </div>
-                <textarea
-                    name="thread"
-                    id="thread"
-                    placeholder="Write a post"
-                    value={postContent}
-                    onChange={handlePostChange}
-                    className={styles['thread-textarea']}
-                />
+                <div className={styles['thread']}>
+                    <textarea
+                        name="thread"
+                        id="thread"
+                        placeholder="Write a post"
+                        value={postContent}
+                        onChange={handlePostChange}
+                        className={styles['thread-textarea']}
+                    />
 
-                {preview && (
-                    <div className="mt-4">
-                       
-                        <img src={preview} alt="Preview" className={styles['image-preview']} />
+                    {preview && (
+                        <div className="mt-4">
+
+                            <img src={preview} alt="Preview" className={styles['image-preview']} />
+                        </div>
+                    )}
+
+                    <div className={styles['file-upload-container']}>
+                        <input
+                            type="file"
+                            id="file-upload"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            className={styles['file-input']}
+                        />
+                        <label htmlFor="file-upload" className={styles['file-upload-label']}>
+                          <Icons.image />
+                           
+                        </label>
                     </div>
-                )}
-                <input type="file" accept="image/*" onChange={handleImageChange} />
-                
+
+
+                </div>
+
                 <div className={styles['post-thread']}>
                     <button
                         className={styles['past-btn']}
@@ -226,13 +247,16 @@ const HomePage: React.FC = () => {
                                 </div>
                             </div>
                             {post.image && <img src={post.image} alt="post" className={styles["post-image"]} />}
-                            <div>
+                            <div className={styles['post-icons']}>
+
+                                <Icons.heart />
+                                <Icons.repost />
+                                <Icons.share />
                                 
-                                <Icons.like />
                             </div>
                         </div>
                     ))}
-                </div>             
+                </div>
 
             </div>
         </div>
