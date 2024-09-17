@@ -1,21 +1,26 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import styles from '../ui/main/main.module.scss'
+import styles from '../../ui/main/main.module.scss'
 import { useAppSelector, useAppDispatch } from '@/hooks/useAppDispatch'
 import { fetchUser } from '@/store/reducers/userSlice'
 import { fetchPosts } from '@/store/reducers/postsSlice'
-import Threads from '@/components/threads'
+import Threads from '@/components/threads/threads'
+import { addNewPost } from '@/store/reducers/postsSlice'
+import ProfileImage from '@/components/ProfileImage'
+import { Icons } from '@/ui/Icons/users'
 
 
 const HomePage: React.FC = () => {
     const dispatch = useAppDispatch();
     const { users, status } = useAppSelector((state) => state.users);
     const { posts } = useAppSelector((state) => state.posts);
-    const [currentUser, setCurrentUser] = React.useState<any>(null);
+    const [currentUser, setCurrentUser] = useState<any>(null);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [username, setUserName] = useState<string>('')
-
+    const [postContent, setPostContent] = useState<string>('')
+    const [postImage, setPostImage] = useState<any>(null)
+    const [preview, setPreview] = useState<string | null>(null)
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -23,11 +28,10 @@ const HomePage: React.FC = () => {
     const closeModal = () => {
         setIsModalOpen(false);
     };
-
-
     useEffect(() => {
         dispatch(fetchUser());
         dispatch(fetchPosts());
+
     }, [dispatch]);
 
     useEffect(() => {
@@ -38,6 +42,57 @@ const HomePage: React.FC = () => {
             setUserName(user?.username || '')
         }
     }, [users]);
+
+
+
+
+    const handlePostChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setPostContent(event.target.value);
+    };
+
+    const handlePostSubmit = async () => {
+        if (postContent.trim() === '') {
+            alert('Please write something before posting!');
+            return;
+        }
+
+        if (!currentUser) {
+            alert('User not found! Please log in.');
+            return;
+        }
+
+        const newPost = {
+            userId: currentUser._id,
+            text: postContent,
+            image: postImage,
+        };
+
+
+        dispatch(addNewPost(newPost));
+        setPostContent('');
+
+        console.log(postImage);
+
+    };
+
+
+    /**
+     * Handles the image change event from the file input.
+     * Updates the component state with the selected image.
+     * @param e - The event object from the file input change event.
+     */
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setPostImage(file);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreview(reader.result as string);
+            }
+            reader.readAsDataURL(file);
+        }
+        
+    };
 
     const getTimeAgo = (dateString: string) => {
         const postDate = new Date(dateString);
@@ -68,9 +123,13 @@ const HomePage: React.FC = () => {
         return `Just now`;
     };
 
+
+
+
+
     return (
         <div>
-
+            {/* new thread */}
             <Threads isOpen={isModalOpen} onClose={closeModal}>
                 <div className={styles.dp}>
                     {currentUser && currentUser.profilePic ? (
@@ -85,32 +144,47 @@ const HomePage: React.FC = () => {
                             alt="profile"
                             className={styles['profile-image']}
                         />
-
                     )}
-                    <p className={styles['profile-name']}>
-                        {username}
-                    </p>
+                    <p className={styles['profile-name']}>{username}</p>
+                </div>
+                <textarea
+                    name="thread"
+                    id="thread"
+                    placeholder="Write a post"
+                    value={postContent}
+                    onChange={handlePostChange}
+                    className={styles['thread-textarea']}
+                />
+
+                {preview && (
+                    <div className="mt-4">
+                       
+                        <img src={preview} alt="Preview" className={styles['image-preview']} />
+                    </div>
+                )}
+                <input type="file" accept="image/*" onChange={handleImageChange} />
+                
+                <div className={styles['post-thread']}>
+                    <button
+                        className={styles['past-btn']}
+                        onClick={handlePostSubmit}
+                    >
+                        Post
+                    </button>
                 </div>
             </Threads>
+
 
             <h1 className={styles.heading}>For you</h1>
             <div className={styles["posts-container"]}>
                 <div className={styles["new-container"]}>
                     <div className={styles.new}>
                         <div className={styles.dp}>
-                            {currentUser && currentUser.profilePic ? (
-                                <img
-                                    src={currentUser.profilePic}
-                                    alt="profile"
-                                    className={styles['profile-image']}
-                                />
-                            ) : (
-                                <img
-                                    src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                                    alt="profile"
-                                    className={styles['profile-image']}
-                                />
-                            )}
+                            <ProfileImage
+                                profilePic={currentUser?.profilePic}
+                                altText="profile"
+                                className={styles['profile-image']}
+                            />
                         </div>
                         <div className={styles['new-text']}>
                             <span>What's new?</span>
@@ -152,9 +226,14 @@ const HomePage: React.FC = () => {
                                 </div>
                             </div>
                             {post.image && <img src={post.image} alt="post" className={styles["post-image"]} />}
+                            <div>
+                                
+                                <Icons.like />
+                            </div>
                         </div>
                     ))}
-                </div>
+                </div>             
+
             </div>
         </div>
     );
