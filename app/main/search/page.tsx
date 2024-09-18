@@ -29,9 +29,11 @@ const SearchPage: React.FC = () => {
     };
     console.log(users) 
     console.log(filteredUsers);
-    console.log(5+5) 
+   
     
     return (
+        <>
+        <h1 className={styles.search}> Search</h1>
         <div className={styles['search-container']}>
             <div className={styles['search-bar']}>
                 <Icons.search />
@@ -80,6 +82,7 @@ const SearchPage: React.FC = () => {
                 )}
             </div>
         </div>
+        </>
     );
 };
 

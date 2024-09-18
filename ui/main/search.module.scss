@@ -1,9 +1,10 @@
 /* search.module.scss */
 
 .search-container {
+    padding-top: 100px;
     max-width: 800px;
     margin: 0 auto;
-    padding: 20px;
+    
   }
   
   .search-bar {
@@ -120,4 +121,11 @@
   .follow-btn:active{
     background-color: #fff;
     color: #181818;
+  }
+  .search{
+    z-index: 5;
+    background-color: #fff;
+    position: fixed;
+    width: 500px;
+     
   }

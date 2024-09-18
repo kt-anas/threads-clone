@@ -16,7 +16,6 @@ const HomePage: React.FC = () => {
     const { users } = useAppSelector((state) => state.users);
     const { posts } = useAppSelector((state) => state.posts);
     const [currentUser, setCurrentUser] = useState<any>(null);
-
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [username, setUserName] = useState<string>('')
     const [postContent, setPostContent] = useState<string>('')
