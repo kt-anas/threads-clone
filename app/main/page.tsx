@@ -12,7 +12,6 @@ import { Icons } from '@/ui/Icons/users'
 
 const HomePage: React.FC = () => {
     const dispatch = useAppDispatch();
-
     const { users } = useAppSelector((state) => state.users);
     const { posts } = useAppSelector((state) => state.posts);
     const [currentUser, setCurrentUser] = useState<any>(null);
@@ -52,7 +51,20 @@ const HomePage: React.FC = () => {
     const handlePostChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setPostContent(event.target.value);
     };
+    
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setPostImage(file);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreview(reader.result as string);
+            }
+            reader.readAsDataURL(file);
+        }
 
+    };
+    
     const handlePostSubmit = async () => {
         if (postContent.trim() === '') {
             alert('Please write something before posting!');
@@ -70,32 +82,15 @@ const HomePage: React.FC = () => {
             image: postImage,
         };
 
-
         dispatch(addNewPost(newPost));
         setPostContent('');
 
-        console.log(postImage);
+        
 
     };
 
-
-    /**
-     * Handles the image change event from the file input.
-     * Updates the component state with the selected image.
-     * @param e - The event object from the file input change event.
-     */
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            setPostImage(file);
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setPreview(reader.result as string);
-            }
-            reader.readAsDataURL(file);
-        }
-
-    };
+ 
+    
 
     const getTimeAgo = (dateString: string) => {
         const postDate = new Date(dateString);
@@ -161,8 +156,7 @@ const HomePage: React.FC = () => {
                     />
 
                     {preview && (
-                        <div className="mt-4">
-
+                        <div className={styles['image-preview-container']}>
                             <img src={preview} alt="Preview" className={styles['image-preview']} />
                         </div>
                     )}

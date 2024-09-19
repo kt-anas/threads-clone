@@ -35,7 +35,7 @@
   .results-container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
   }
   
   .result-item {
@@ -124,8 +124,9 @@
   }
   .search{
     z-index: 5;
-    background-color: #fff;
+    background-color: #0A0A0A;
     position: fixed;
-    width: 500px;
-     
+    width: 640px;
+    height: 70px;
+    padding:10px;
   }
