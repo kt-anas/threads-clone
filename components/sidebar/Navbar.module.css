@@ -10,6 +10,7 @@
 
 .logoContainer {
   margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
 .logo {
@@ -30,6 +31,17 @@
 
 .navList li {
   margin-bottom: 1.5rem;
+}
+
+.navList a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navList a:hover {
+  color: #007bff;
 }
 
 .utilityIcons {

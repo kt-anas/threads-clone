@@ -9,4 +9,93 @@
   padding-left: 1500px;
   padding-right: 1500px;
   background-color: #0A0A0A;
+}
+
+.login-container {
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  position: relative;
+  padding-bottom: 0;
+  top: -300px;
+}
+
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  max-width: 350px;
+  padding: 20px;
+  padding-bottom: 0;
+  background: transparent;
+  border-radius: 5px;
+}
+
+.login-form input,
+.login-form button {
+  padding: 16px;
+  margin-bottom: 10px;
+}
+
+.login-form input {
+  background-color: #1E1E1E;
+  border: 0.5px solid #1E1E1E;
+  border-radius: 16px;
+  outline: none;
+}
+
+.login-form button {
+  background-color: #fff;
+  color: #0A0A0A;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  margin-top: 0;
+  width: 300px;
+}
+
+.line p {
+  margin: 0 10px;
+  font-size: 14px;
+  color: #888;
+}
+
+.line1,
+.line2 {
+  flex-grow: 1;
+  height: 1px;
+  background-color: #ddd;
+}
+
+.signUpContainer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.signUpContainer p {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.signUpButton {
+  padding: 16px;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }/*# sourceMappingURL=LoginPage.module.css.map */

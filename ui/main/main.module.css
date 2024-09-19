@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  position: relative;
+  position: static;
 }
 
 .navbar-container {
@@ -18,7 +18,201 @@
 .main {
   width: 640px;
   height: 100vh;
-  color: white;
-  background-color: #0A0A0A;
+  background: transparent;
   text-align: center;
+  border-radius: 16px;
+}
+
+.heading {
+  background-color: #0A0A0A;
+  padding: 16px;
+}
+
+.posts-container {
+  background-color: #181818;
+  padding-top: 16px;
+  height: 100%;
+  width: 100%;
+  border-radius: 16px;
+}
+
+.new-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 24px;
+  border-bottom: #fff 1px solid;
+}
+
+.dp {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.profile-image {
+  width: 50px;
+  height: 50px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.new {
+  color: #696969;
+  padding: 12px 24px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.past-btn {
+  background-color: #0A0A0A;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.posts-list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.post-item {
+  background-color: #fff;
+  color: #333;
+  padding: 15px;
+  border-bottom: gray 0.5px solid;
+}
+
+.post-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.post-image {
+  width: 50%;
+  height: 50%;
+  margin-left: 50px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 8px;
+  align-self: flex-start;
+}
+
+.time {
+  color: red;
+  align-self: flex-end;
+}
+
+.post-user {
+  display: flex;
+  width: 100%;
+}
+
+.profile-name:hover {
+  text-decoration: underline;
+}
+
+.profile-name {
+  color: #fff;
+  font-size: 20px;
+}
+
+.user-name_time {
+  margin-left: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.post-text {
+  text-align: left;
+  margin-left: 10px;
+}
+
+.post-thread {
+  display: flex;
+  justify-content: end;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 8px;
+  align-self: flex-start;
+}
+
+.thread {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 50px;
+}
+.thread .thread-textarea {
+  outline: none;
+  background-color: #181818;
+  padding: 16px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  resize: none;
+}
+.thread .thread-textarea::-moz-placeholder {
+  color: #aaa;
+  font-size: 14px;
+}
+.thread .thread-textarea::placeholder {
+  color: #aaa;
+  font-size: 14px;
+}
+
+.file-upload-container {
+  position: relative;
+  display: inline-block;
+}
+.file-upload-container .file-input {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.file-upload-container .file-upload-label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.post-icons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0px 24px;
+  align-items: center;
+  width: 100%;
 }/*# sourceMappingURL=main.module.css.map */
