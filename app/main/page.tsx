@@ -9,25 +9,36 @@ import { addNewPost } from '@/store/reducers/postsSlice'
 import ProfileImage from '@/components/ProfileImage'
 import { Icons } from '@/ui/Icons/users'
 import LikeButton from '@/components/likeButton'
-
-
+import Replay from '@/components/replay/replay'
 const HomePage: React.FC = () => {
     const dispatch = useAppDispatch();
     const { users } = useAppSelector((state) => state.users);
     const { posts } = useAppSelector((state) => state.posts);
     const [currentUser, setCurrentUser] = useState<any>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
     const [username, setUserName] = useState<string>('')
     const [postContent, setPostContent] = useState<string>('')
     const [postImage, setPostImage] = useState<any>(null)
     const [preview, setPreview] = useState<string | null>(null)
 
+    const [isCommentOpen, setIsCommentOpen] = useState(false)
     const openModal = () => {
         setIsModalOpen(true);
     };
     const closeModal = () => {
         setIsModalOpen(false);
     };
+
+
+    // comment
+    const openComment = () => {
+        setIsCommentOpen(true)
+    }
+    const closeComment = () => {
+        setIsCommentOpen(false)
+    }
+
     useEffect(() => {
         dispatch(fetchUser());
         dispatch(fetchPosts());
@@ -79,10 +90,6 @@ const HomePage: React.FC = () => {
         setPostContent('');
 
     };
-
-
-
-
     const getTimeAgo = (dateString: string) => {
         const postDate = new Date(dateString);
         const now = new Date();
@@ -111,7 +118,7 @@ const HomePage: React.FC = () => {
         }
         return `Just now`;
     };
-    
+
     return (
         <div>
             {/* new thread */}
@@ -141,7 +148,6 @@ const HomePage: React.FC = () => {
                         onChange={handlePostChange}
                         className={styles['thread-textarea']}
                     />
-
                     {preview && (
                         <div className={styles['image-preview-container']}>
                             <img src={preview} alt="Preview" className={styles['image-preview']} />
@@ -173,8 +179,35 @@ const HomePage: React.FC = () => {
                         Post
                     </button>
                 </div>
+
             </Threads>
 
+            {/*  reapay*/}
+
+
+            <Replay isOpen={isCommentOpen} onClose={closeComment}>
+                <div>
+                    <div>
+                        
+                    </div>
+                    <div>
+                        {currentUser && currentUser.profilePic ? (
+                            <img
+                                src={currentUser.profilePic}
+                                alt="profile"
+                                className={styles['profile-image']}
+                            />
+                        ) : (
+                            <img
+                                src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                                alt="profile"
+                                className={styles['profile-image']}
+                            />
+                        )}
+                        <p className={styles['profile-name']}>{username}</p>
+                    </div>
+                </div>
+            </Replay>
 
             <h1 className={styles.heading}>For you</h1>
             <div className={styles["posts-container"]}>
@@ -233,13 +266,17 @@ const HomePage: React.FC = () => {
                                     <LikeButton
                                         initialLike={post.likes.length}
                                         postId={post._id}
-                                        userId={currentUser._id} 
+                                        userId={currentUser._id}
                                         likedUsers={post.likes}
                                     />
                                 ) : (
                                     <p>Please log in to like this post</p>
                                 )}
-                                <Icons.reply />
+
+                                <div className={styles['reply']} onClick={openComment}>
+                                    <Icons.reply />
+                                </div>
+
                                 <Icons.repost />
                                 <Icons.share />
                             </div>
@@ -248,6 +285,7 @@ const HomePage: React.FC = () => {
                 </div>
 
             </div>
+
         </div>
     );
 };
