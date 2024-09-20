@@ -8,6 +8,7 @@ import Threads from '@/components/threads/threads'
 import { addNewPost } from '@/store/reducers/postsSlice'
 import ProfileImage from '@/components/ProfileImage'
 import { Icons } from '@/ui/Icons/users'
+import LikeButton from '@/components/likeButton'
 
 
 const HomePage: React.FC = () => {
@@ -24,13 +25,9 @@ const HomePage: React.FC = () => {
     const openModal = () => {
         setIsModalOpen(true);
     };
-
     const closeModal = () => {
         setIsModalOpen(false);
     };
-
-
-
     useEffect(() => {
         dispatch(fetchUser());
         dispatch(fetchPosts());
@@ -40,18 +37,17 @@ const HomePage: React.FC = () => {
         const userId = localStorage.getItem('userId');
         if (userId && users.length > 0) {
             const user = users.find((user) => user._id === userId);
-            setCurrentUser(user);
-            setUserName(user?.username || '')
+            if (user) {
+                setCurrentUser(user);
+                setUserName(user.username || '');
+            }
         }
     }, [users]);
-
-
-
 
     const handlePostChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setPostContent(event.target.value);
     };
-    
+
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
@@ -62,20 +58,17 @@ const HomePage: React.FC = () => {
             }
             reader.readAsDataURL(file);
         }
-
     };
-    
+
     const handlePostSubmit = async () => {
         if (postContent.trim() === '') {
             alert('Please write something before posting!');
             return;
         }
-
         if (!currentUser) {
             alert('User not found! Please log in.');
             return;
         }
-
         const newPost = {
             userId: currentUser._id,
             text: postContent,
@@ -85,12 +78,10 @@ const HomePage: React.FC = () => {
         dispatch(addNewPost(newPost));
         setPostContent('');
 
-        
-
     };
 
- 
-    
+
+
 
     const getTimeAgo = (dateString: string) => {
         const postDate = new Date(dateString);
@@ -120,11 +111,7 @@ const HomePage: React.FC = () => {
         }
         return `Just now`;
     };
-
-
-
-
-
+    
     return (
         <div>
             {/* new thread */}
@@ -170,8 +157,8 @@ const HomePage: React.FC = () => {
                             className={styles['file-input']}
                         />
                         <label htmlFor="file-upload" className={styles['file-upload-label']}>
-                          <Icons.image />
-                           
+                            <Icons.image />
+
                         </label>
                     </div>
 
@@ -240,12 +227,21 @@ const HomePage: React.FC = () => {
                                 </div>
                             </div>
                             {post.image && <img src={post.image} alt="post" className={styles["post-image"]} />}
-                            <div className={styles['post-icons']}>
 
-                                <Icons.heart />
+                            <div className={styles['post-icons']}>
+                                {currentUser ? (
+                                    <LikeButton
+                                        initialLike={post.likes.length}
+                                        postId={post._id}
+                                        userId={currentUser._id} 
+                                        likedUsers={post.likes}
+                                    />
+                                ) : (
+                                    <p>Please log in to like this post</p>
+                                )}
+                                <Icons.reply />
                                 <Icons.repost />
                                 <Icons.share />
-                                
                             </div>
                         </div>
                     ))}

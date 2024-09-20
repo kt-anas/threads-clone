@@ -123,7 +123,7 @@ export const Icons = {
         </svg>
     ),
     heart: (props: IconProps | React.SVGProps<SVGSVGElement>) => (
-        <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <svg width="23" height="22" viewBox="0 0 23 22" fill="transparent" xmlns="http://www.w3.org/2000/svg" {...props}>
             <g clipPath="url(#clip0_2_816)">
                 <path d="M0.9375 7.55625C0.9375 11.8453 4.59281 16.0744 10.3003 19.6819C10.6172 19.8722 10.9941 20.0625 11.25 20.0625C11.5153 20.0625 11.8931 19.8722 12.1997 19.6819C17.9062 16.0744 21.5625 11.8444 21.5625 7.55625C21.5625 3.8775 18.9797 1.3125 15.63 1.3125C13.6903 1.3125 12.1687 2.19375 11.25 3.5175C10.3519 2.205 8.82 1.3125 6.87 1.3125C3.53062 1.3125 0.9375 3.8775 0.9375 7.55625Z" stroke="currentColor" strokeWidth="1.875" />
             </g>

@@ -1,6 +1,6 @@
-// components/Threads.tsx
+ 
 import React, { ReactNode } from 'react';
-import { useState } from 'react';
+ 
 import styles from './threads.module.scss';
 
 interface ThreadsProps {
