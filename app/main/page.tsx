@@ -10,6 +10,7 @@ import ProfileImage from '@/components/ProfileImage';
 import { Icons } from '@/ui/Icons/users';
 import LikeButton from '@/components/likeButton';
 import Replay from '@/components/reply/reply';
+import ReplyButton from '@/components/replyButton';
 
 const HomePage: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -230,12 +231,14 @@ const HomePage: React.FC = () => {
                                 ) : (
                                     <p>Please log in to like this post</p>
                                 )}
+
                                 <div className={styles['reply']} onClick={() => {
                                     openComment();
                                     setPostId(post._id);
                                 }}>
-                                    <Icons.reply />
-                                </div>
+                                    <ReplyButton replyCount={post.replies.length}/>
+                                </div> 
+                                
                                 <Icons.repost />
                                 <Icons.share />
                             </div>

@@ -15,7 +15,7 @@ interface Post {
     text: string;
     image?: string;
     likes: string[];
-    comments: string[];
+    replies: string[];
     createdOn: string;
 }
 
@@ -24,29 +24,29 @@ interface PostsState {
     status: "idle" | "loading" | "succeeded" | "failed";
     error: string | null;
 }
- 
+
 const initialState: PostsState = {
     posts: [],
     status: "idle",
     error: null,
 };
- 
+
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
     const response = await axios.get('https://social-media-rest-apis.onrender.com/api/posts');
     return response.data.posts;
 });
 
- 
+
 export const addNewPost = createAsyncThunk(
     "posts/addNewPost",
     async (newPost: { userId: string; text: string; image: string }, { rejectWithValue }) => {
         try {
             console.log('Sending new post data:', newPost); // Log before the request
-            const response = await axios.post('https://social-media-rest-apis.onrender.com/api/posts', newPost);  
+            const response = await axios.post('https://social-media-rest-apis.onrender.com/api/posts', newPost);
             console.log("Received response:", response); // Log the whole response
             console.log("Response data:", response.data); // Log response data
-            return response.data; 
-        } catch (error: any) { 
+            return response.data;
+        } catch (error: any) {
             console.error('Error in addNewPost:', error); // Log the error
             if (error.response) {
                 console.error('Error response from API:', error.response);
@@ -59,14 +59,14 @@ export const addNewPost = createAsyncThunk(
 );
 
 
- 
+
 const postsSlice = createSlice({
     name: "posts",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-           
+
             .addCase(fetchPosts.pending, (state) => {
                 state.status = "loading";
                 state.error = null;
@@ -79,14 +79,14 @@ const postsSlice = createSlice({
                 state.status = "failed";
                 state.error = action.error.message || "Failed to fetch posts.";
             })
- 
+
             .addCase(addNewPost.pending, (state) => {
                 state.status = "loading";
                 state.error = null;
             })
             .addCase(addNewPost.fulfilled, (state, action: PayloadAction<Post>) => {
                 state.status = "succeeded";
-                state.posts.unshift(action.payload);   
+                state.posts.unshift(action.payload);
             })
             .addCase(addNewPost.rejected, (state, action) => {
                 state.status = "failed";
