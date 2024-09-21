@@ -26,8 +26,6 @@ const LoginPage: React.FC = () => {
   const {users, status ,error} = useAppSelector((state) => state.users);
   
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-
-  
     e.preventDefault();
     const user = users.find(user => user.username === username);
     if (user) {
