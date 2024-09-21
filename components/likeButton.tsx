@@ -7,15 +7,12 @@ interface LikeButtonProps {
     initialLike: number
     postId: string
     userId: string
-    likedUsers: string[] // Array of user IDs who liked the post
+    likedUsers: string[]  
 }
 
 const LikeButton = ({ initialLike, postId, userId, likedUsers }: LikeButtonProps) => {
-    // Initialize the like count and whether the user has liked the post
     const [like, setLike] = useState(initialLike)
     const [isLiked, setIsLiked] = useState(false)
-
-    // Check if the current user has already liked the post
     useEffect(() => {
         if (likedUsers.includes(userId)) {
             setIsLiked(true)
@@ -28,7 +25,7 @@ const LikeButton = ({ initialLike, postId, userId, likedUsers }: LikeButtonProps
         setIsLiked(!isLiked)
 
         try {
-            // Dynamically choose the endpoint based on whether the post is liked or unliked
+            
             const endpoint = isLiked 
                 ? `https://social-media-rest-apis.onrender.com/api/posts/unlike/${postId}` 
                 : `https://social-media-rest-apis.onrender.com/api/posts/like/${postId}`
@@ -41,7 +38,7 @@ const LikeButton = ({ initialLike, postId, userId, likedUsers }: LikeButtonProps
             }
         } catch (error) {
             console.error('Error updating like:', error)
-            // Revert like state on error
+    
             setLike(isLiked ? like + 1 : like - 1)
             setIsLiked(isLiked)
         }
@@ -50,7 +47,6 @@ const LikeButton = ({ initialLike, postId, userId, likedUsers }: LikeButtonProps
     return (
         <button onClick={handleLike}>
             <span>{like}</span>
-            {/* Change the fill of the heart icon based on whether the post is liked */}
             <Icons.heart fill={isLiked ? 'currentColor' : 'transparent'} />
         </button>
     )

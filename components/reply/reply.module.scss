@@ -11,6 +11,30 @@
     z-index: 1999;
   }
   
+  .post-image {
+    width: 50%;
+    height: 50%;
+    margin-left: 50px;
+    object-fit: cover;
+    border-radius: 8px;
+    align-self: flex-start;          
+  }
+  .user-info {
+    display: flex;
+    align-items: center;   
+    margin-bottom: 15px;   
+  }
+  
+  .profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;   
+    object-fit: cover;    
+    margin-right: 10px;   
+  }
+  
+  
+  
   .modal {
     background-color: #181818;  
     border-radius: 8px;
