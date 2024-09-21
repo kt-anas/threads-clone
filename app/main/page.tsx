@@ -58,7 +58,11 @@ const HomePage: React.FC = () => {
     useEffect(() => {
         if (currentUser) {
             setUserId(currentUser._id);
-            setProfilePic(currentUser.profilePic);
+            if(currentUser.profilePic){
+                setProfilePic(currentUser.profilePic);
+            }else{
+                setProfilePic('https://cdn-icons-png.flaticon.com/512/149/149071.png');
+            }
         }
     }, [currentUser]);
 
