@@ -11,6 +11,8 @@ import { Icons } from '@/ui/Icons/users';
 import LikeButton from '@/components/likeButton';
 import Replay from '@/components/reply/reply';
 import ReplyButton from '@/components/replyButton';
+import RepostButton from '@/components/repostButton';
+import Repost from '@/components/repost/repost';
 
 const HomePage: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -23,6 +25,7 @@ const HomePage: React.FC = () => {
     const [postImage, setPostImage] = useState<any>(null);
     const [preview, setPreview] = useState<string | null>(null);
     const [isCommentOpen, setIsCommentOpen] = useState(false);
+    const [isRepostOpen, setIsRepostOpen] = useState(false);
     const [postId, setPostId] = useState<string>('');
     const [userId, setUserId] = useState<string>('');
     const [userProfilePic, setProfilePic] = useState<string>('');
@@ -32,6 +35,9 @@ const HomePage: React.FC = () => {
 
     const openComment = () => setIsCommentOpen(true);
     const closeComment = () => setIsCommentOpen(false);
+
+    const openRepost = () => setIsRepostOpen(true);
+    const closeRepost = () => setIsRepostOpen(false);
 
     useEffect(() => {
         dispatch(fetchUser());
@@ -54,7 +60,7 @@ const HomePage: React.FC = () => {
             setUserId(currentUser._id);
             setProfilePic(currentUser.profilePic);
         }
-    }, [currentUser]); // Only run when currentUser changes
+    }, [currentUser]);
 
     const handlePostChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setPostContent(event.target.value);
@@ -236,10 +242,21 @@ const HomePage: React.FC = () => {
                                     openComment();
                                     setPostId(post._id);
                                 }}>
-                                    <ReplyButton replyCount={post.replies.length}/>
-                                </div> 
-                                
-                                <Icons.repost />
+                                    <ReplyButton replyCount={post.replies.length} />
+                                </div>
+                                <Repost
+                                    isOpen={isRepostOpen}
+                                    onClose={closeRepost}
+                                    postId={post._id}
+                                    userId={userId}
+                                    userProfilePic={userProfilePic}
+                                    username={username}
+                                />
+                                <div onClick={() => openRepost()}>
+                                    <RepostButton repostCount={post.reposts.length} />
+                                </div>
+
+
                                 <Icons.share />
                             </div>
                         </div>
