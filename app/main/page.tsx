@@ -13,6 +13,7 @@ import Replay from '@/components/reply/reply';
 import ReplyButton from '@/components/replyButton';
 import RepostButton from '@/components/repostButton';
 import Repost from '@/components/repost/repost';
+import TimeAgo from '@/components/TimeAgo';
 
 const HomePage: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -58,9 +59,9 @@ const HomePage: React.FC = () => {
     useEffect(() => {
         if (currentUser) {
             setUserId(currentUser._id);
-            if(currentUser.profilePic){
+            if (currentUser.profilePic) {
                 setProfilePic(currentUser.profilePic);
-            }else{
+            } else {
                 setProfilePic('https://cdn-icons-png.flaticon.com/512/149/149071.png');
             }
         }
@@ -99,23 +100,6 @@ const HomePage: React.FC = () => {
 
         dispatch(addNewPost(newPost));
         setPostContent('');
-    };
-
-    const getTimeAgo = (dateString: string) => {
-        const postDate = new Date(dateString);
-        const now = new Date();
-        const seconds = Math.floor((now.getTime() - postDate.getTime()) / 1000);
-        let interval = Math.floor(seconds / 31536000);
-        if (interval > 1) return `${interval} y`;
-        interval = Math.floor(seconds / 2592000);
-        if (interval > 1) return `${interval} m`;
-        interval = Math.floor(seconds / 86400);
-        if (interval > 1) return `${interval} d`;
-        interval = Math.floor(seconds / 3600);
-        if (interval > 1) return `${interval} h`;
-        interval = Math.floor(seconds / 60);
-        if (interval > 1) return `${interval} min`;
-        return `Just now`;
     };
 
     return (
@@ -223,7 +207,7 @@ const HomePage: React.FC = () => {
                                             {post.postById.username}
                                         </p>
                                         <span className={styles['time']}>
-                                            {getTimeAgo(post.createdOn)}
+                                            <TimeAgo dateString={post.createdOn} />
                                         </span>
                                     </div>
                                     <p className={styles['post-text']}>{post.text}</p>
@@ -248,14 +232,7 @@ const HomePage: React.FC = () => {
                                 }}>
                                     <ReplyButton replyCount={post.replies.length} />
                                 </div>
-                                <Repost
-                                    isOpen={isRepostOpen}
-                                    onClose={closeRepost}
-                                    postId={post._id}
-                                    userId={userId}
-                                    userProfilePic={userProfilePic}
-                                    username={username}
-                                />
+
                                 <div onClick={() => openRepost()}>
                                     <RepostButton repostCount={post.reposts.length} />
                                 </div>
@@ -263,6 +240,14 @@ const HomePage: React.FC = () => {
 
                                 <Icons.share />
                             </div>
+                            <Repost
+                                isOpen={isRepostOpen}
+                                onClose={closeRepost}
+                                postId={postId}
+                                userId={userId}
+                                userProfilePic={userProfilePic}
+                                username={username}
+                            />
                         </div>
                     ))}
                 </div>

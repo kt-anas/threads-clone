@@ -8,6 +8,9 @@ const ProfilePage:React.FC = () => {
   return (
     <div  className={style.container}>
         <h1 className={style.title}>Profile</h1>
+        <div className={style['profile-container']}>
+            <h1>hello</h1>
+        </div>
     </div>
   )
 }
