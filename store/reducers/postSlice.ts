@@ -43,6 +43,7 @@ export const fetchPostByUserId = createAsyncThunk(
     }
 );
 
+
 const postSlice = createSlice({
     name: "posts",
     initialState,

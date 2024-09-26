@@ -14,7 +14,7 @@ const Reposts: React.FC = () => {
            
             {posts.length > 0 ? (
                 posts.map((post) => (
-                    post.reposts && post.reposts.length > 0 ? ( // Check for reposts
+                    post.reposts && post.reposts.length > 0 ? (  
                         <div key={post._id} className={styles['repost-item']}>
                             <h2>{post.username} reposted:</h2>
                             <p>{post.text}</p>

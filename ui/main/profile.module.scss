@@ -1,0 +1,18 @@
+
+.replies-section{
+    width: 500px;
+    display: flex;
+    margin-left: 100px;
+    justify-content: space-between;
+    background-color: #181818;
+    flex-direction: column;
+}
+.reply-item{
+    display: flex;
+}
+
+.replay-user{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
