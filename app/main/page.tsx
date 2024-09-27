@@ -238,7 +238,7 @@ const HomePage: React.FC = () => {
                                 </div>
 
 
-                                <Icons.share />
+                                {/* <Icons.share /> */}
                             </div>
                             <Repost
                                 isOpen={isRepostOpen}

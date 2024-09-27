@@ -117,11 +117,12 @@ export const Icons = {
         </svg>
     ),
     menu: (props: IconProps | React.SVGProps<SVGSVGElement>) => (
-        <svg width="20" height="10" viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <svg width="20" height="10" viewBox="0 0 20 10" fill="currentColor" xmlns="http://www.w3.org/2000/svg" {...props}>
             <path d="M1 1H19" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
             <path d="M8 9H19" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
         </svg>
     ),
+
     heart: (props: IconProps | React.SVGProps<SVGSVGElement>) => (
         <svg width="23" height="22" viewBox="0 0 23 22" fill="transparent" xmlns="http://www.w3.org/2000/svg" {...props}>
             <g clipPath="url(#clip0_2_816)">

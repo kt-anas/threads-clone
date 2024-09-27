@@ -34,9 +34,9 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
         }
     }, [isOpen, postId]);
 
-    // Handle reply submission
+ 
     const handleReplySubmit = async () => {
-        if (!comment.trim()) return;  // Avoid submitting an empty comment
+        if (!comment.trim()) return;   
 
         const reply = {
             text: comment,

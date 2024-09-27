@@ -3,7 +3,7 @@ import styles from './Navbar.module.scss';
 import Image from 'next/image';
 import logo from '../../public/assets/thread-logo-w.svg';
  
-import thumbtack from '../../public/assets/thumbtack.svg';
+// import thumbtack from '../../public/assets/thumbtack.svg';
 // import logOut from '../../../public/assets/logout.svg';
 import { Icons } from '../../ui/Icons/users';
 // import { transform } from 'next/dist/build/swc';
@@ -49,14 +49,12 @@ const Navbar: React.FC = () => {
                     </Link>
                 </li>
             </ul>
-            <div className={styles.utilityIcons}>
-                <Link href="/">
+            <div className={styles.menuIcons}>
+                {/* <Link href="/">
                     <Image src={thumbtack} alt="Pin" className={styles.icon} />
-                </Link>
+                </Link> */}
                 <Link href="/">
                     {/* <Image src={logOut} alt="Logout" className={styles.icon} /> */}
-
-
                     <Icons.menu />
 
                 </Link>
