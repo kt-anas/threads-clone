@@ -8,10 +8,10 @@ import Threads from '@/components/threads/threads';
 import { addNewPost } from '@/store/reducers/postsSlice';
 import ProfileImage from '@/components/ProfileImage';
 import { Icons } from '@/ui/Icons/users';
-import LikeButton from '@/components/likeButton';
+import LikeButton from '@/components/likeButton/likeButton';
 import Replay from '@/components/reply/reply';
-import ReplyButton from '@/components/replyButton';
-import RepostButton from '@/components/repostButton';
+import ReplyButton from '@/components/replyButton/replyButton';
+import RepostButton from '@/components/repostButton/repostButton';
 import Repost from '@/components/repost/repost';
 import TimeAgo from '@/components/TimeAgo';
 

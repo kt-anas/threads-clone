@@ -1,6 +1,7 @@
 'use client'
 import { Icons } from '@/ui/Icons/users'
 import React, { useState, useEffect } from 'react'
+import styles from './likeButton.module.scss'
 import axios from 'axios'
 
 interface LikeButtonProps {
@@ -45,9 +46,9 @@ const LikeButton = ({ initialLike, postId, userId, likedUsers }: LikeButtonProps
     }
 
     return (
-        <button onClick={handleLike}>
-            <span>{like}</span>
+        <button onClick={handleLike} className={styles.likeButton}>
             <Icons.heart fill={isLiked ? 'currentColor' : 'transparent'} />
+            <span>{like}</span>
         </button>
     )
 }

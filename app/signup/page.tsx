@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/store/store';
 import { setUsername, setEmail, setPassword, setConfirmPassword, signupUser, setName, setPhone } from '@/store/reducers/signupSlice';
 import { useRouter } from 'next/navigation';
+import InputField from '@/components/InputField'; // Adjust the path if necessary
 import styles from '../../ui/signup/SignupPage.module.scss';
 
 const Signup: React.FC = () => {
@@ -26,42 +27,42 @@ const Signup: React.FC = () => {
     if (status === 'succeeded') {
       router.push('/login');
     }
-  }, [status]);
+  }, [status, router]);
 
   return (
     <div className={styles.signupContainer}>
       <form onSubmit={handleSubmit} className={styles.signupForm}>
-        <input
+        <InputField
           type="text"
           placeholder="Name"
           value={name}
           onChange={(e) => dispatch(setName(e.target.value))}
         />
-        <input
+        <InputField
           type="text"
           placeholder="Username"
           value={username}
           onChange={(e) => dispatch(setUsername(e.target.value))}
         />
-        <input
+        <InputField
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => dispatch(setEmail(e.target.value))}
         />
-        <input
+        <InputField
           type="text"
           placeholder="Phone"
           value={phone}
           onChange={(e) => dispatch(setPhone(e.target.value))}
         />
-        <input
+        <InputField
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => dispatch(setPassword(e.target.value))}
         />
-        <input
+        <InputField
           type="password"
           placeholder="Confirm Password"
           value={confirmPassword}

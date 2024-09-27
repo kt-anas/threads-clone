@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation'; 
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
   import { loginUser } from '@/store/reducers/loginSlice';
+  import InputField from '@/components/InputField';
 const LoginPage: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -43,13 +44,13 @@ const LoginPage: React.FC = () => {
             </div>
             <div className={styles['login-container']}>
                 <form onSubmit={handleSubmit} className={styles['login-form']}>
-                    <input
+                    <InputField
                         type="text"
                         placeholder="Username, Email"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                     />
-                    <input
+                    <InputField
                         type="password"
                         placeholder="Password"
                         value={password}
