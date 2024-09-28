@@ -34,9 +34,9 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
         }
     }, [isOpen, postId]);
 
- 
+
     const handleReplySubmit = async () => {
-        if (!comment.trim()) return;   
+        if (!comment.trim()) return;
 
         const reply = {
             text: comment,
@@ -71,11 +71,11 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
                     </button>
                 </div>
 
-                {/* Display the fetched post content */}
+
                 {post && (
                     <div className={styles['post-content']}>
                         <div className={styles['user-info']}>
-                            {/* Display profile picture */}
+
                             {post.postById.profilePic ? (
                                 <img
                                     src={post.postById.profilePic}
@@ -89,12 +89,15 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
                                     className={styles['profile-image']}
                                 />
                             )}
+
                             <div>
                                 <h1>{post.postById.username}</h1>
                                 <h2>{post.text}</h2>
                             </div>
                         </div>
+                        <div className={styles['the-line']}>
 
+                        </div>
                         {post.image && (
                             <div className={styles['post-image-container']}>
                                 <img src={post.image} alt="Post" className={styles['post-image']} />
@@ -103,6 +106,8 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
                         )}
                     </div>
                 )}
+
+
 
                 <div className={styles.user}>{children}</div>
 
