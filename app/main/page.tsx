@@ -66,43 +66,7 @@ const HomePage: React.FC = () => {
             }
         }
     }, [currentUser]);
-
-    const handlePostChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setPostContent(event.target.value);
-    };
-
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            setPostImage(file);
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setPreview(reader.result as string);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
-    const handlePostSubmit = async () => {
-        if (postContent.trim() === '') {
-            alert('Please write something before posting!');
-            return;
-        }
-        if (!currentUser) {
-            alert('User not found! Please log in.');
-            return;
-        }
-        const newPost = {
-            userId: currentUser._id,
-            text: postContent,
-            image: postImage,
-        };
-
-        dispatch(addNewPost(newPost));
-        setPostContent('');
-    };
-
-    return (
+ return (
         <div>
             {/* New thread modal */}
             <Threads isOpen={isModalOpen} onClose={closeModal}>
@@ -114,44 +78,9 @@ const HomePage: React.FC = () => {
                     />
                     <p className={styles['profile-name']}>{username}</p>
                 </div>
-                <div className={styles['thread']}>
-                    <textarea
-                        name="thread"
-                        id="thread"
-                        placeholder="Write a post"
-                        value={postContent}
-                        onChange={handlePostChange}
-                        className={styles['thread-textarea']}
-                    />
-                    {preview && (
-                        <div className={styles['image-preview-container']}>
-                            <img src={preview} alt="Preview" className={styles['image-preview']} />
-                        </div>
-                    )}
-                    <div className={styles['file-upload-container']}>
-                        <input
-                            type="file"
-                            id="file-upload"
-                            accept="image/*"
-                            onChange={handleImageChange}
-                            className={styles['file-input']}
-                        />
-                        <label htmlFor="file-upload" className={styles['file-upload-label']}>
-                            <Icons.image />
-                        </label>
-                    </div>
-                </div>
-                <div className={styles['post-thread']}>
-                    <button
-                        className={styles['past-btn']}
-                        onClick={handlePostSubmit}
-                    >
-                        Post
-                    </button>
-                </div>
+                
             </Threads>
-
-            {/* Reply modal */}
+              {/* Reply modal */}
             <Replay
                 isOpen={isCommentOpen}
                 onClose={closeComment}

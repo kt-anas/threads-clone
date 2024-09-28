@@ -22,8 +22,7 @@ export const loginUser = createAsyncThunk(
         console.log(userData)
       const response = await axiosInstance.post('/users/login', userData);
       return response.data;
-      
-      
+       
     } catch (error: any) {
       // Send backend error message as rejected value
       return rejectWithValue(error.response?.data?.message || 'An error occurred');
