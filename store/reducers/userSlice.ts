@@ -1,9 +1,10 @@
+import axiosInstance from "@/axios/axiosInstance";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // Fetch all users
 export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
-    const response = await axios.get('https://social-media-rest-apis.onrender.com/api/users/');
+    const response = await axiosInstance.get('/users/');
     return response.data.users; // Adjust based on your API response structure
 });
 
@@ -11,7 +12,7 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
  
 // Fetch specific user details by user ID
 export const fetchUserData = createAsyncThunk("user/fetchUserData", async (userId: string) => {
-    const response = await axios.get(`https://social-media-rest-apis.onrender.com/api/users/${userId}`);
+    const response = await axiosInstance.get(`/users/${userId}`);
     return response.data; // Assuming this returns a single user object
 })
 
