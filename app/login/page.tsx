@@ -4,11 +4,11 @@ import styles from '../../ui/login/LoginPage.module.scss';
 import Image from 'next/image';
 import bgPhoto from '../../public/assets/bg.webp';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation'; 
+import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
-  import { loginUser } from '@/store/reducers/loginSlice';
-  import InputField from '@/components/InputField';
-const LoginPage: React.FC = () => {
+import { loginUser } from '@/store/reducers/loginSlice';
+import InputField from '@/components/InputField';
+    const LoginPage: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -18,19 +18,21 @@ const LoginPage: React.FC = () => {
 
     useEffect(() => {
         if (status === 'succeeded' && user) {
+            const userId = user._id;
             // User logged in successfully, navigate to main page
+            localStorage.setItem('userId', userId);
             router.push('/main');
         }
     }, [status, user, router]);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(loginUser({ username, password }));  
+        dispatch(loginUser({ username, password }));
         // if(status === 'succeeded' && user) {    
         //     router.push('/main');
         // }
     };
-
+  
     return (
         <>
             <div className={styles.container}>

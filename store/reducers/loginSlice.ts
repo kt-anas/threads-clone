@@ -1,27 +1,26 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
+// import axios from "axios";
+import axiosInstance from "../../axios/axiosInstance";
 
-// Define a type for the slice state
+ 
 interface UserState {
-  user: any | null; // Replace 'any' with your user type if you have one defined
+  user: any | null;  
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
-
-// Initial state with type
+ 
 const initialState: UserState = {
   user: null,
   status: 'idle',
   error: null,
 };
-
-// Define the async thunk
+ 
 export const loginUser = createAsyncThunk(
   'login/loginUser',
   async (userData: { username: string; password: string }, { rejectWithValue }) => {
     try {
         console.log(userData)
-      const response = await axios.post('https://social-media-rest-apis.onrender.com/api/users/login', userData);
+      const response = await axiosInstance.post('/users/login', userData);
       return response.data;
       
       
