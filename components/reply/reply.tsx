@@ -2,6 +2,7 @@
 import React, { useEffect, useState, ReactNode } from 'react';
 import styles from './reply.module.scss';
 import axios from 'axios';
+import ProfileImage from '../ProfileImage';
 
 interface ReplyProps {
     isOpen: boolean;
@@ -26,6 +27,7 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
                         `https://social-media-rest-apis.onrender.com/api/posts/post/${postId}`
                     );
                     setPost(response.data.post);
+                    console.log('this is a post', post)
                 } catch (error) {
                     console.error("Failed to fetch post:", error);
                 }
@@ -51,7 +53,7 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
                 `https://social-media-rest-apis.onrender.com/api/posts/${postId}/reply`,
                 reply
             );
-            console.log("Replied to post:", response.data);
+
             setComment('');  // Clear comment input after successful submission
         } catch (error) {
             console.error("Failed to reply to post:", error);
@@ -59,6 +61,8 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
             setLoading(false);  // Reset loading state after submission
         }
     };
+
+
 
     if (!isOpen) return null;
 
@@ -70,8 +74,6 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
                         &times;
                     </button>
                 </div>
-
-
                 {post && (
                     <div className={styles['post-content']}>
                         <div className={styles['user-info']}>
@@ -118,7 +120,6 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
                         onChange={(e) => setComment(e.target.value)}
                     />
                 </div>
-
                 <div className={styles.footer}>
                     <button
                         className={styles['submit-btn']}
@@ -128,6 +129,26 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
                         {loading ? 'Posting...' : 'Post'}
                     </button>
                 </div>
+                <div className={styles.repliesContainer}>
+                    {post?.replies?.length > 0 ? (
+                        post.replies.map((reply: any, index: number) => (
+                            <div key={index} className={styles.reply}>
+                                <div className={styles['reply-user-info']}>
+                                    <ProfileImage profilePic={reply.userProfilePic
+                                    }
+                                        altText={reply.username}
+                                        className={styles['profile-image']}
+                                    />
+                                    <p>{reply.username}</p>
+                                </div>
+                                <p>{reply.text}</p>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No replies yet.</p>
+                    )}
+                </div>
+                
             </div>
         </div>
     );

@@ -48,7 +48,7 @@ const Repost: React.FC<RepostProps> = ({ isOpen, onClose, postId, userProfilePic
         <button className={styles.closeButton} onClick={onClose}>
           &times;
         </button>
-        <h2>Repost Content {postId}</h2>
+         
        
         {error && <p className={styles.errorMessage}>{error}</p>}
         
