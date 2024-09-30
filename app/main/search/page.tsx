@@ -33,7 +33,7 @@ const SearchPage: React.FC = () => {
     
     return (
         <>
-        <h1 className={styles.search}> Search</h1>
+        <p className={styles.search}> Search</p>
         <div className={styles['search-container']}>
             <div className={styles['search-bar']}>
                 <Icons.search />

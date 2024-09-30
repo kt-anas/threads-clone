@@ -127,7 +127,20 @@
         }
     }
 }
-
+.reply{
+    display:  flex;
+    align-items: center;
+    gap: 10px;
+}
+.reply-user-info{
+    display: flex;
+    padding: 10px;
+}
+.reply-info{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
 @keyframes fadeIn {
     from {
         opacity: 0;

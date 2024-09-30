@@ -14,6 +14,8 @@ import ReplyButton from '@/components/replyButton/replyButton';
 import RepostButton from '@/components/repostButton/repostButton';
 import Repost from '@/components/repost/repost';
 import TimeAgo from '@/components/TimeAgo';
+import PostBtn from '@/components/postButton/postBtn';
+ 
 
 const HomePage: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -66,6 +68,7 @@ const HomePage: React.FC = () => {
             }
         }
     }, [currentUser]);
+
     return (
         <div>
             {/* New thread modal */}
@@ -101,7 +104,7 @@ const HomePage: React.FC = () => {
                 </div>
             </Replay>
 
-            <h1 className={styles.heading}>For you</h1>
+            <p className={styles.heading}>For you</p>
             <div className={styles["posts-container"]}>
                 <div className={styles["new-container"]}>
                     <div className={styles.new}>
@@ -116,9 +119,12 @@ const HomePage: React.FC = () => {
                             <span>What's new?</span>
                         </div>
                     </div>
-                    <div className={styles['past-btn']} onClick={openModal}>
-                        Post
-                    </div>
+{/* ----------------------------post--------------------------- */}
+                    {/* <div className={styles['past-btn']} onClick={openModal}> */}
+                         <PostBtn />
+                    {/* </div> */}
+
+
                 </div>
 
                 <div className={styles["posts-list"]}>

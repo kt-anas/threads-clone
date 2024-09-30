@@ -24,7 +24,7 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
         if (isOpen) {
             const fetchPost = async () => {
                 try {
-                    const response = await  axiosInstance.get(
+                    const response = await axiosInstance.get(
                         `/posts/post/${postId}`
                     );
                     setPost(response.data.post);
@@ -94,8 +94,8 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
                             )}
 
                             <div>
-                                <h1>{post.postById.username}</h1>
-                                <h2>{post.text}</h2>
+                                <p>{post.postById.username}</p>
+                                <p>{post.text}</p>
                             </div>
                         </div>
                         <div className={styles['the-line']}>
@@ -132,7 +132,7 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
                 </div>
                 <div className={styles.repliesContainer}>
                     {post?.replies?.length > 0 ? (
-                        post.replies.map((reply: any, index: number) => (
+                       [...post.replies].reverse().map((reply: any, index: number) => (
                             <div key={index} className={styles.reply}>
                                 <div className={styles['reply-user-info']}>
                                     <ProfileImage profilePic={reply.userProfilePic
@@ -140,16 +140,18 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
                                         altText={reply.username}
                                         className={styles['profile-image']}
                                     />
-                                    <p>{reply.username}</p>
+                                    <div className={styles['reply-info']}>
+                                        <p>{reply.username}</p>
+                                        <p>{reply.text}</p>
+                                    </div>
                                 </div>
-                                <p>{reply.text}</p>
                             </div>
                         ))
                     ) : (
                         <p>No replies yet.</p>
                     )}
                 </div>
-                
+
             </div>
         </div>
     );

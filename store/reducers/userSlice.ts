@@ -1,19 +1,19 @@
 import axiosInstance from "@/axios/axiosInstance";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+ 
 
-// Fetch all users
+
 export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
     const response = await axiosInstance.get('/users/');
-    return response.data.users; // Adjust based on your API response structure
+    return response.data.users; 
 });
 
-// Fetch user posts by user ID
  
-// Fetch specific user details by user ID
+ 
+ 
 export const fetchUserData = createAsyncThunk("user/fetchUserData", async (userId: string) => {
     const response = await axiosInstance.get(`/users/${userId}`);
-    return response.data; // Assuming this returns a single user object
+    return response.data; 
 })
 
 interface User {
@@ -28,15 +28,15 @@ interface User {
 
 interface UserState {
     users: User[];
-    userData: User[]; // Add userData to the state for specific user data
-    posts: any[]; // Add posts to the state
+    userData: User[]; 
+    posts: any[]; 
     status: "idle" | "loading" | "succeeded" | "failed";
     error: string | null;
 }
 
 const initialState: UserState = {
     users: [],
-    userData: [], // Initialize userData to null
+    userData: [], 
     posts: [],
     status: "idle",
     error: null,
@@ -47,7 +47,7 @@ const userSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        // Handle fetching all users
+        
         builder
             .addCase(fetchUser.pending, (state) => {
                 state.status = "loading";

@@ -12,7 +12,7 @@ interface UserState {
 const initialState: UserState = {
   user: null,
   status: 'idle',
-  error: null,
+  error: null, 
 };
  
 export const loginUser = createAsyncThunk(

@@ -7,8 +7,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import { loginUser } from '@/store/reducers/loginSlice';
-import InputField from '@/components/InputField';
-    const LoginPage: React.FC = () => {
+import InputField from '@/components/Inputs/InputField';
+const LoginPage: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -32,7 +32,7 @@ import InputField from '@/components/InputField';
         //     router.push('/main');
         // }
     };
-  
+
     return (
         <>
             <div className={styles.container}>
