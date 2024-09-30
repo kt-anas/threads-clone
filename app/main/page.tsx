@@ -66,7 +66,7 @@ const HomePage: React.FC = () => {
             }
         }
     }, [currentUser]);
- return (
+    return (
         <div>
             {/* New thread modal */}
             <Threads isOpen={isModalOpen} onClose={closeModal}>
@@ -78,9 +78,9 @@ const HomePage: React.FC = () => {
                     />
                     <p className={styles['profile-name']}>{username}</p>
                 </div>
-                
+
             </Threads>
-              {/* Reply modal */}
+            {/* Reply modal */}
             <Replay
                 isOpen={isCommentOpen}
                 onClose={closeComment}
@@ -124,6 +124,8 @@ const HomePage: React.FC = () => {
                 <div className={styles["posts-list"]}>
                     {posts.map((post) => (
                         <div key={post._id} className={styles["post-item"]}>
+
+
                             <div className={styles["post-user"]}>
                                 <img
                                     src={post.postById?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
@@ -162,21 +164,23 @@ const HomePage: React.FC = () => {
                                     <ReplyButton replyCount={post.replies.length} />
                                 </div>
 
-                                <div onClick={() => openRepost()}>
+                                <div onClick={() => { setPostId(post._id); openRepost() }}>
                                     <RepostButton repostCount={post.reposts.length} />
                                 </div>
 
 
                                 {/* <Icons.share /> */}
+
+                                <Repost
+                                    isOpen={isRepostOpen}
+                                    onClose={closeRepost}
+                                    postId={postId}
+                                    userId={userId}
+                                    userProfilePic={userProfilePic}
+                                    username={username}
+                                />
                             </div>
-                            <Repost
-                                isOpen={isRepostOpen}
-                                onClose={closeRepost}
-                                postId={postId}
-                                userId={userId}
-                                userProfilePic={userProfilePic}
-                                username={username}
-                            />
+
                         </div>
                     ))}
                 </div>

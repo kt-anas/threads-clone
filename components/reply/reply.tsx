@@ -3,6 +3,7 @@ import React, { useEffect, useState, ReactNode } from 'react';
 import styles from './reply.module.scss';
 import axios from 'axios';
 import ProfileImage from '../ProfileImage';
+import axiosInstance from '@/axios/axiosInstance';
 
 interface ReplyProps {
     isOpen: boolean;
@@ -23,8 +24,8 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
         if (isOpen) {
             const fetchPost = async () => {
                 try {
-                    const response = await axios.get(
-                        `https://social-media-rest-apis.onrender.com/api/posts/post/${postId}`
+                    const response = await  axiosInstance.get(
+                        `/posts/post/${postId}`
                     );
                     setPost(response.data.post);
                     console.log('this is a post', post)

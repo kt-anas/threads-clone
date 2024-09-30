@@ -16,6 +16,18 @@ interface ThreadsProps {
     children: ReactNode;
 }
 
+/**
+ * Threads is a modal component that allows users to create a new post.
+ * It takes in the following props:
+ * - isOpen: a boolean indicating whether the modal is open or not
+ * - onClose: a function to call when the user closes the modal
+ * - children: any ReactNode that will be rendered inside the modal
+ *
+ * The component renders a modal with a textarea for the user to write a post,
+ * a button to upload an image, and a button to post the thread.
+ * When the user clicks the post button, the component will send a request to the server to add a new post to the database.
+ * If the request is successful, the component will close the modal.
+ */
 const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
     const [postContent, setPostContent] = useState<string>('');
     const [postImage, setPostImage] = useState<any>(null);

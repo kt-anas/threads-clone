@@ -25,13 +25,17 @@
     border-radius: 16px;
   }
   .heading{
-    
+    z-index: 5;
     background-color: #0A0A0A;
-    padding: 16px;
+    position: fixed;
+    width: 640px;
+    height: 70px;
+    padding:10px;
   }
   .posts-container {
      background-color: #181818;
-     padding-top: 16px;
+     
+     padding-top: 100px;
      height: 100%;
      width: 100%;
      border-radius: 16px;
