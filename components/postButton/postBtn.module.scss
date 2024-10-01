@@ -1,5 +1,26 @@
-.postBtn{
-   padding: 8px 16px;
-    background-color: #a70606;
-    color: red;
+.postBtn {
+    padding: 8px 16px;
+    border: 1px solid #383939;
+    background-color: #181818;
+    color: rgb(243, 245, 247);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;  
+    font-weight: 600;
+    outline: none;
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+    // transition-timing-function: ease-in-out;
+    
+    &:active {
+        background-color: #2b2b2b;
+    }
 }
