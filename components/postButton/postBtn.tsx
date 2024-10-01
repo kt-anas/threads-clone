@@ -1,9 +1,13 @@
 import React from 'react'
 import style from './postBtn.module.scss'
-const PostBtn: React.FC = () => {
+interface PostBtnProps {
+    onClick: () => void
+}
+const PostBtn: React.FC<PostBtnProps> = ({onClick}) => {
+
   return (
-    <div className={style.postBtn}>
-        post
+    <div className={style.postBtn} onClick={onClick}>
+      Post
     </div>
   )
 }

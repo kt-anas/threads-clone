@@ -1,9 +1,6 @@
 import axiosInstance from "@/axios/axiosInstance";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-
-
-
 interface User {
     _id: string;
     username: string;
@@ -45,15 +42,10 @@ export const addNewPost = createAsyncThunk(
     "posts/addNewPost",
     async (newPost: { userId: string; text: string; image: string }, { rejectWithValue }) => {
         try {
-            console.log('Sending new post data:', newPost); // Log before the request
-            const response = await axios.post('https://social-media-rest-apis.onrender.com/api/posts', newPost);
-            console.log("Received response:", response); // Log the whole response
-            console.log("Response data:", response.data); // Log response data
+            const response = await axiosInstance.post('/posts', newPost);
             return response.data;
         } catch (error: any) {
-            console.error('Error in addNewPost:', error); // Log the error
             if (error.response) {
-                console.error('Error response from API:', error.response);
                 return rejectWithValue(error.response.data);
             } else {
                 return rejectWithValue({ message: 'Failed to add new post' });

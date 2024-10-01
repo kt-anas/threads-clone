@@ -8,6 +8,7 @@ import style from './threads.module.scss';
 // import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import { Icons } from '@/ui/Icons/users';
 import axiosInstance from '@/axios/axiosInstance';
+import PostBtn from '../postButton/postBtn';
  
 
 interface ThreadsProps {
@@ -123,12 +124,13 @@ const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
                         </div>
                     </div>
                     <div className={styles['post-thread']}>
-                        <button
+                        {/* <button
                             className={styles['past-btn']}
                             onClick={handlePostSubmit}
                         >
                             Post
-                        </button>
+                        </button> */}
+                        <PostBtn onClick={handlePostSubmit}/>
                     </div>
                 </div>
             </div>

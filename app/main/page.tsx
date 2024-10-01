@@ -131,7 +131,7 @@ const HomePage: React.FC = () => {
                     </div>
 {/* ----------------------------post--------------------------- */}
                     {/* <div className={styles['past-btn']} onClick={openModal}> */}
-                         <PostBtn />
+                         <PostBtn onClick={openModal}/>
                     {/* </div> */}
 
 

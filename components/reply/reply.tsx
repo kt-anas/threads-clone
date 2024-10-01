@@ -49,17 +49,17 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
         };
 
         try {
-            setLoading(true);  // Set loading state to true while submitting
+            setLoading(true);   
             const response = await axios.post(
                 `https://social-media-rest-apis.onrender.com/api/posts/${postId}/reply`,
                 reply
             );
 
-            setComment('');  // Clear comment input after successful submission
+            setComment('');   
         } catch (error) {
             console.error("Failed to reply to post:", error);
         } finally {
-            setLoading(false);  // Reset loading state after submission
+            setLoading(false);   
         }
     };
 
@@ -109,8 +109,6 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
                         )}
                     </div>
                 )}
-
-
 
                 <div className={styles.user}>{children}</div>
 
