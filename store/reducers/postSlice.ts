@@ -1,3 +1,4 @@
+import axiosInstance from "@/axios/axiosInstance";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -38,10 +39,10 @@ const initialState: PostsState = {
 export const fetchPostByUserId = createAsyncThunk(
     "posts/fetchPostByUserId",
     async (userId: string) => {
-        const response = await axios.get(`https://social-media-rest-apis.onrender.com/api/posts/${userId}`);
-        return response.data.post; // Adjust based on your API response structure
-    }
-);
+        const response = await axiosInstance.get(`/posts/${userId}`);
+        return response.data.post;  
+});
+
 
 const postSlice = createSlice({
     name: "posts",

@@ -33,7 +33,7 @@ const SearchPage: React.FC = () => {
     
     return (
         <>
-        <h1 className={styles.search}> Search</h1>
+        <p className={styles.search}> Search</p>
         <div className={styles['search-container']}>
             <div className={styles['search-bar']}>
                 <Icons.search />
@@ -48,7 +48,7 @@ const SearchPage: React.FC = () => {
 
             <div className={styles['results-container']}>
                 {filteredUsers.length > 0 ? (
-                    [...filteredUsers].reverse().map((user) => (
+                    filteredUsers.map((user) => (
                         <div key={user._id} className={styles['result-item']}>
                             <div className={styles['post-user']}>
                                 {user.profilePic ? (

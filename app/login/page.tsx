@@ -1,46 +1,44 @@
+<<<<<<< HEAD
 'use client'
 
 import React, { useState } from 'react';
+=======
+'use client';
+import React, { useState, useEffect } from 'react';
+>>>>>>> 67263c1502aceb387ab1210824a8879fe16ecb58
 import styles from '../../ui/login/LoginPage.module.scss';
 import Image from 'next/image';
 import bgPhoto from '../../public/assets/bg.webp';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation'; 
-import { useEffect } from 'react';
-import { useAppDispatch } from '@/hooks/useAppDispatch';
-import { useAppSelector } from '@/hooks/useAppDispatch';
-import { fetchUser } from '@/store/reducers/userSlice';
- 
-
+import { useRouter } from 'next/navigation';
+import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
+import { loginUser } from '@/store/reducers/loginSlice';
+import InputField from '@/components/Inputs/InputField';
 const LoginPage: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
- 
-  const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(fetchUser());
-  }, [dispatch]);
- 
-  const router = useRouter();
-  const {users, status ,error} = useAppSelector((state) => state.users);
-  
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const user = users.find(user => user.username === username);
-    if (user) {
-        // Proceed with login (e.g., authenticate the user)
-        localStorage.setItem('userId', user._id);
-       
-        console.log('User exists, proceed with login');
-        console.log(user);
-        router.push('/main');
-    } else {
-        // If the user doesn't exist, redirect to the signup page
-        console.log('User does not exist, redirect to the signup page');
-        router.push('/signup');
-    }
-  };
+    const dispatch = useAppDispatch();
+    const router = useRouter();
+    const { user, status, error } = useAppSelector((state) => state.login);
+
+    useEffect(() => {
+        if (status === 'succeeded' && user) {
+            const userId = user._id;
+            // User logged in successfully, navigate to main page
+            localStorage.setItem('userId', userId);
+            router.push('/main');
+        }
+    }, [status, user, router]);
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        dispatch(loginUser({ username, password }));
+        // if(status === 'succeeded' && user) {    
+        //     router.push('/main');
+        // }
+    };
+
     return (
         <>
             <div className={styles.container}>
@@ -54,18 +52,21 @@ const LoginPage: React.FC = () => {
             </div>
             <div className={styles['login-container']}>
                 <form onSubmit={handleSubmit} className={styles['login-form']}>
-
-                    <input type="text" placeholder="Username, Email"
+                    <InputField
+                        type="text"
+                        placeholder="Username, Email"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                     />
-
-                    <input type="password" placeholder="Password"
-                        value={password} onChange={(e) => setPassword(e.target.value)} />
-
-
+                    <InputField
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
                     <button type="submit">Login</button>
                 </form>
+                {error && <p className={styles.errorMessage}>{error}</p>}
                 <div className={styles.line}>
                     <div className={styles.line1}></div>
                     <p>or</p>
@@ -75,14 +76,10 @@ const LoginPage: React.FC = () => {
                     <Link href="/signup">
                         <button className={styles.signUpButton}>Sign Up</button>
                     </Link>
-
                 </div>
             </div>
         </>
     );
-}
-
-
-
+};
 
 export default LoginPage;

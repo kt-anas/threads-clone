@@ -2,6 +2,8 @@
 import React, { useEffect, useState, ReactNode } from 'react';
 import styles from './reply.module.scss';
 import axios from 'axios';
+import ProfileImage from '../ProfileImage';
+import axiosInstance from '@/axios/axiosInstance';
 
 interface ReplyProps {
     isOpen: boolean;
@@ -15,18 +17,18 @@ interface ReplyProps {
 
 const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId, userProfilePic, username }) => {
     const [post, setPost] = useState<any>(null);
-    const [comment, setComment] = useState<string>('');  // State for the comment
-    const [loading, setLoading] = useState<boolean>(false);  // State for loading
+    const [comment, setComment] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
 
-    // Fetch the post when the modal is opened
     useEffect(() => {
         if (isOpen) {
             const fetchPost = async () => {
                 try {
-                    const response = await axios.get(
-                        `https://social-media-rest-apis.onrender.com/api/posts/post/${postId}`
+                    const response = await axiosInstance.get(
+                        `/posts/post/${postId}`
                     );
                     setPost(response.data.post);
+                    console.log('this is a post', post)
                 } catch (error) {
                     console.error("Failed to fetch post:", error);
                 }
@@ -35,9 +37,9 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
         }
     }, [isOpen, postId]);
 
-    // Handle reply submission
+
     const handleReplySubmit = async () => {
-        if (!comment.trim()) return;  // Avoid submitting an empty comment
+        if (!comment.trim()) return;
 
         const reply = {
             text: comment,
@@ -49,10 +51,10 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
         try {
             setLoading(true);  // Set loading state to true while submitting
             const response = await axios.post(
-                `https://social-media-rest-apis.onrender.com/api/posts/${postId}/reply`, 
+                `https://social-media-rest-apis.onrender.com/api/posts/${postId}/reply`,
                 reply
             );
-            console.log("Replied to post:", response.data);
+
             setComment('');  // Clear comment input after successful submission
         } catch (error) {
             console.error("Failed to reply to post:", error);
@@ -60,6 +62,8 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
             setLoading(false);  // Reset loading state after submission
         }
     };
+
+
 
     if (!isOpen) return null;
 
@@ -71,17 +75,15 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
                         &times;
                     </button>
                 </div>
-
-                {/* Display the fetched post content */}
                 {post && (
                     <div className={styles['post-content']}>
                         <div className={styles['user-info']}>
-                            {/* Display profile picture */}
+
                             {post.postById.profilePic ? (
-                                <img 
-                                    src={post.postById.profilePic} 
-                                    alt={`${post.postById.username}'s profile`} 
-                                    className={styles['profile-image']} 
+                                <img
+                                    src={post.postById.profilePic}
+                                    alt={`${post.postById.username}'s profile`}
+                                    className={styles['profile-image']}
                                 />
                             ) : (
                                 <img
@@ -90,35 +92,66 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
                                     className={styles['profile-image']}
                                 />
                             )}
-                            <h1>{post.postById.username}</h1>
-                        </div>
 
-                        <h2>{post.text}</h2>
+                            <div>
+                                <p>{post.postById.username}</p>
+                                <p>{post.text}</p>
+                            </div>
+                        </div>
+                        <div className={styles['the-line']}>
+
+                        </div>
                         {post.image && (
-                            <img src={post.image} alt="Post" className={styles['post-image']} />
+                            <div className={styles['post-image-container']}>
+                                <img src={post.image} alt="Post" className={styles['post-image']} />
+
+                            </div>
                         )}
                     </div>
                 )}
 
-                <div>{children}</div>
+
+
+                <div className={styles.user}>{children}</div>
 
                 <div className={styles.body}>
                     <textarea
                         placeholder="Add your comment..."
                         value={comment}
-                        onChange={(e) => setComment(e.target.value)}  // Update comment state
+                        onChange={(e) => setComment(e.target.value)}
                     />
                 </div>
-
                 <div className={styles.footer}>
-                    <button 
-                        className={styles['submit-btn']} 
-                        onClick={handleReplySubmit}  // Trigger reply submission
-                        disabled={loading}  // Disable button while loading
+                    <button
+                        className={styles['submit-btn']}
+                        onClick={handleReplySubmit}
+                        disabled={loading}
                     >
-                        {loading ? 'Posting...' : 'Post'}  {/* Show loading state */}
+                        {loading ? 'Posting...' : 'Post'}
                     </button>
                 </div>
+                <div className={styles.repliesContainer}>
+                    {post?.replies?.length > 0 ? (
+                       [...post.replies].reverse().map((reply: any, index: number) => (
+                            <div key={index} className={styles.reply}>
+                                <div className={styles['reply-user-info']}>
+                                    <ProfileImage profilePic={reply.userProfilePic
+                                    }
+                                        altText={reply.username}
+                                        className={styles['profile-image']}
+                                    />
+                                    <div className={styles['reply-info']}>
+                                        <p>{reply.username}</p>
+                                        <p>{reply.text}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No replies yet.</p>
+                    )}
+                </div>
+
             </div>
         </div>
     );

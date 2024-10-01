@@ -46,16 +46,19 @@
     color: #007bff;  
   }
   
-.utilityIcons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.utilityIcons a {
-  margin-bottom: 1.5rem;
-}
+ .menuIcons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+    justify-content:flex-end; 
+    padding:10px; 
+    margin-bottom: 10px;
+    color: #333;  
+    &:hover {
+      color: #007bff;
+    }
+  }
 
 .icon {
   width: 30px;

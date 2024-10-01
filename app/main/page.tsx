@@ -8,12 +8,21 @@ import Threads from '@/components/threads/threads';
 import { addNewPost } from '@/store/reducers/postsSlice';
 import ProfileImage from '@/components/ProfileImage';
 import { Icons } from '@/ui/Icons/users';
+<<<<<<< HEAD
 import LikeButton from '@/components/likeButton';
 import Reply from '@/components/reply/reply';
 import ReplyButton from '@/components/replyButton';
 import RepostButton from '@/components/repostButton';
+=======
+import LikeButton from '@/components/likeButton/likeButton';
+import Replay from '@/components/reply/reply';
+import ReplyButton from '@/components/replyButton/replyButton';
+import RepostButton from '@/components/repostButton/repostButton';
+>>>>>>> 67263c1502aceb387ab1210824a8879fe16ecb58
 import Repost from '@/components/repost/repost';
 import TimeAgo from '@/components/TimeAgo';
+import PostBtn from '@/components/postButton/postBtn';
+ 
 
 const HomePage: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -70,41 +79,6 @@ const HomePage: React.FC = () => {
         }
     }, [currentUser]);
 
-    const handlePostChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setPostContent(event.target.value);
-    };
-
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            setPostImage(file);
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setPreview(reader.result as string);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
-    const handlePostSubmit = async () => {
-        if (postContent.trim() === '') {
-            alert('Please write something before posting!');
-            return;
-        }
-        if (!currentUser) {
-            alert('User not found! Please log in.');
-            return;
-        }
-        const newPost = {
-            userId: currentUser._id,
-            text: postContent,
-            image: postImage,
-        };
-
-        dispatch(addNewPost(newPost));
-        setPostContent('');
-    };
-
     return (
         <div>
             {/* New thread modal */}
@@ -117,43 +91,8 @@ const HomePage: React.FC = () => {
                     />
                     <p className={styles['profile-name']}>{username}</p>
                 </div>
-                <div className={styles['thread']}>
-                    <textarea
-                        name="thread"
-                        id="thread"
-                        placeholder="Write a post"
-                        value={postContent}
-                        onChange={handlePostChange}
-                        className={styles['thread-textarea']}
-                    />
-                    {preview && (
-                        <div className={styles['image-preview-container']}>
-                            <img src={preview} alt="Preview" className={styles['image-preview']} />
-                        </div>
-                    )}
-                    <div className={styles['file-upload-container']}>
-                        <input
-                            type="file"
-                            id="file-upload"
-                            accept="image/*"
-                            onChange={handleImageChange}
-                            className={styles['file-input']}
-                        />
-                        <label htmlFor="file-upload" className={styles['file-upload-label']}>
-                            <Icons.image />
-                        </label>
-                    </div>
-                </div>
-                <div className={styles['post-thread']}>
-                    <button
-                        className={styles['past-btn']}
-                        onClick={handlePostSubmit}
-                    >
-                        Post
-                    </button>
-                </div>
-            </Threads>
 
+            </Threads>
             {/* Reply modal */}
             <Reply
                 isOpen={isCommentOpen}
@@ -175,7 +114,7 @@ const HomePage: React.FC = () => {
                 </div>
             </Reply>
 
-            <h1 className={styles.heading}>For you</h1>
+            <p className={styles.heading}>For you</p>
             <div className={styles["posts-container"]}>
                 <div className={styles["new-container"]}>
                     <div className={styles.new}>
@@ -190,14 +129,19 @@ const HomePage: React.FC = () => {
                             <span>What's new?</span>
                         </div>
                     </div>
-                    <div className={styles['past-btn']} onClick={openModal}>
-                        Post
-                    </div>
+{/* ----------------------------post--------------------------- */}
+                    {/* <div className={styles['past-btn']} onClick={openModal}> */}
+                         <PostBtn />
+                    {/* </div> */}
+
+
                 </div>
 
                 <div className={styles["posts-list"]}>
                     {posts.map((post) => (
                         <div key={post._id} className={styles["post-item"]}>
+
+
                             <div className={styles["post-user"]}>
                                 <img
                                     src={post.postById?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
@@ -236,21 +180,23 @@ const HomePage: React.FC = () => {
                                     <ReplyButton replyCount={post.replies.length} />
                                 </div>
 
-                                <div onClick={() => openRepost()}>
+                                <div onClick={() => { setPostId(post._id); openRepost() }}>
                                     <RepostButton repostCount={post.reposts.length} />
                                 </div>
 
 
-                                <Icons.share />
+                                {/* <Icons.share /> */}
+
+                                <Repost
+                                    isOpen={isRepostOpen}
+                                    onClose={closeRepost}
+                                    postId={postId}
+                                    userId={userId}
+                                    userProfilePic={userProfilePic}
+                                    username={username}
+                                />
                             </div>
-                            <Repost
-                                isOpen={isRepostOpen}
-                                onClose={closeRepost}
-                                postId={postId}
-                                userId={userId}
-                                userProfilePic={userProfilePic}
-                                username={username}
-                            />
+
                         </div>
                     ))}
                 </div>
