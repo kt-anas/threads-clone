@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Define the types for User and Post
+
+
 interface User {
     _id: string;
     username: string;

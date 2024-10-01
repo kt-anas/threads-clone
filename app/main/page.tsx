@@ -9,7 +9,7 @@ import { addNewPost } from '@/store/reducers/postsSlice';
 import ProfileImage from '@/components/ProfileImage';
 import { Icons } from '@/ui/Icons/users';
 import LikeButton from '@/components/likeButton';
-import Replay from '@/components/reply/reply';
+import Reply from '@/components/reply/reply';
 import ReplyButton from '@/components/replyButton';
 import RepostButton from '@/components/repostButton';
 import Repost from '@/components/repost/repost';
@@ -30,6 +30,7 @@ const HomePage: React.FC = () => {
     const [postId, setPostId] = useState<string>('');
     const [userId, setUserId] = useState<string>('');
     const [userProfilePic, setProfilePic] = useState<string>('');
+    
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
@@ -45,6 +46,8 @@ const HomePage: React.FC = () => {
         dispatch(fetchPosts());
     }, [dispatch]);
 
+
+
     useEffect(() => {
         const userId = localStorage.getItem('userId');
         if (userId && users.length > 0) {
@@ -54,7 +57,7 @@ const HomePage: React.FC = () => {
                 setUserName(user.username || '');
             }
         }
-    }, [users]);
+    }, [users]) ;
 
     useEffect(() => {
         if (currentUser) {
@@ -152,7 +155,7 @@ const HomePage: React.FC = () => {
             </Threads>
 
             {/* Reply modal */}
-            <Replay
+            <Reply
                 isOpen={isCommentOpen}
                 onClose={closeComment}
                 postId={postId}
@@ -170,7 +173,7 @@ const HomePage: React.FC = () => {
                         <p className={styles['profile-name']}>{username}</p>
                     </div>
                 </div>
-            </Replay>
+            </Reply>
 
             <h1 className={styles.heading}>For you</h1>
             <div className={styles["posts-container"]}>
@@ -223,7 +226,7 @@ const HomePage: React.FC = () => {
                                         likedUsers={post.likes}
                                     />
                                 ) : (
-                                    <p>Please log in to like this post</p>
+                                    <p>Please login in to like this post</p>
                                 )}
 
                                 <div className={styles['reply']} onClick={() => {
