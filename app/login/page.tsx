@@ -1,5 +1,11 @@
+<<<<<<< HEAD
+'use client'
+
+import React, { useState } from 'react';
+=======
 'use client';
 import React, { useState, useEffect } from 'react';
+>>>>>>> 67263c1502aceb387ab1210824a8879fe16ecb58
 import styles from '../../ui/login/LoginPage.module.scss';
 import Image from 'next/image';
 import bgPhoto from '../../public/assets/bg.webp';
