@@ -44,14 +44,10 @@ export const addNewPost = createAsyncThunk(
     "posts/addNewPost",
     async (newPost: { userId: string; text: string; image: string }, { rejectWithValue }) => {
         try {
-           
-            const response = await axios.post('https://social-media-rest-apis.onrender.com/api/posts', newPost);
-             
+            const response = await axiosInstance.post('/posts', newPost);
             return response.data;
         } catch (error: any) {
-             
             if (error.response) {
-                
                 return rejectWithValue(error.response.data);
             } else {
                 return rejectWithValue({ message: 'Failed to add new post' });
