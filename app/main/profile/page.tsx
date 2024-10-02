@@ -23,9 +23,7 @@ const ProfilePage: React.FC = () => {
                     `https://social-media-rest-apis.onrender.com/api/posts/${userId}`
                 );
                 setPosts(response.data.post);
-            } else {
-                console.log('User ID not found in local storage');
-            }
+            }  
         } catch (error) {
             console.error('Error fetching posts:', error);
         }

@@ -1,6 +1,6 @@
 
 import React from 'react'
-import styles from '../ui/signup/SignupPage.module.scss';
+import styles from '../../ui/signup/SignupPage.module.scss';
 interface InputFieldProps {
     type: string;
     placeholder: string;

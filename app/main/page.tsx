@@ -15,7 +15,7 @@ import RepostButton from '@/components/repostButton/repostButton';
 import Repost from '@/components/repost/repost';
 import TimeAgo from '@/components/TimeAgo';
 import PostBtn from '@/components/postButton/postBtn';
- 
+
 
 const HomePage: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -119,9 +119,9 @@ const HomePage: React.FC = () => {
                             <span>What's new?</span>
                         </div>
                     </div>
-{/* ----------------------------post--------------------------- */}
+                    {/* --------------------------post--------------------------- */}
                     {/* <div className={styles['past-btn']} onClick={openModal}> */}
-                         <PostBtn onClick={openModal}/>
+                    <PostBtn onClick={openModal} />
                     {/* </div> */}
 
 

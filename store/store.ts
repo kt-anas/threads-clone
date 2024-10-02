@@ -4,6 +4,7 @@ import userSlice from "./reducers/userSlice";
  import postsSlice from "./reducers/postsSlice";
  import postSlice from "./reducers/postSlice";
  import loginSlice from "./reducers/loginSlice";
+import  notificationsSlice from "./reducers/notificationSlice";
 //  import { createWrapper } from "next-redux-wrapper";
  
 export const store = configureStore({
@@ -12,7 +13,8 @@ export const store = configureStore({
         signup:signupSlice,
         posts: postsSlice,
         post:postSlice,
-        login:loginSlice
+        login:loginSlice,
+        notifications:notificationsSlice
     },
 });
 

@@ -34,18 +34,18 @@
   }
   .posts-container {
      background-color: #181818;
-     
      padding-top: 100px;
      height: 100%;
      width: 100%;
-     border-radius: 16px;
+    //  border-radius: 16px;
+    border: 1px solid #383939;
   }
   .new-container{
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0px 24px;
-    border-bottom: #fff 1px solid;
+    border-bottom: 1px solid #383939;
   }
   .dp{
     width: 40px;
@@ -84,17 +84,18 @@
     transition: background-color 0.3s, color 0.3s;  
 }
 .posts-list {
-    margin-top: 20px;
+   
     display: flex;
     flex-direction: column;
     gap: 10px;
+    
 }
 
 .post-item {
     background-color: #fff;
     color: #333;
     padding: 15px; 
-    border-bottom: gray 0.5px solid;
+    border-bottom: 1px solid #383939;
 }
 .post-item{
     display: flex;
