@@ -1,8 +1,6 @@
 import axiosInstance from "@/axios/axiosInstance";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-
- 
 interface User {
     _id: string;
     username: string;

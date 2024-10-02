@@ -8,10 +8,17 @@ import Threads from '@/components/threads/threads';
 import { addNewPost } from '@/store/reducers/postsSlice';
 import ProfileImage from '@/components/ProfileImage';
 import { Icons } from '@/ui/Icons/users';
+<<<<<<< HEAD
+import LikeButton from '@/components/likeButton';
+import Reply from '@/components/reply/reply';
+import ReplyButton from '@/components/replyButton';
+import RepostButton from '@/components/repostButton';
+=======
 import LikeButton from '@/components/likeButton/likeButton';
 import Replay from '@/components/reply/reply';
 import ReplyButton from '@/components/replyButton/replyButton';
 import RepostButton from '@/components/repostButton/repostButton';
+>>>>>>> 67263c1502aceb387ab1210824a8879fe16ecb58
 import Repost from '@/components/repost/repost';
 import TimeAgo from '@/components/TimeAgo';
 import PostBtn from '@/components/postButton/postBtn';
@@ -32,6 +39,7 @@ const HomePage: React.FC = () => {
     const [postId, setPostId] = useState<string>('');
     const [userId, setUserId] = useState<string>('');
     const [userProfilePic, setProfilePic] = useState<string>('');
+    
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
@@ -47,6 +55,8 @@ const HomePage: React.FC = () => {
         dispatch(fetchPosts());
     }, [dispatch]);
 
+
+
     useEffect(() => {
         const userId = localStorage.getItem('userId');
         if (userId && users.length > 0) {
@@ -56,7 +66,7 @@ const HomePage: React.FC = () => {
                 setUserName(user.username || '');
             }
         }
-    }, [users]);
+    }, [users]) ;
 
     useEffect(() => {
         if (currentUser) {
@@ -84,7 +94,7 @@ const HomePage: React.FC = () => {
 
             </Threads>
             {/* Reply modal */}
-            <Replay
+            <Reply
                 isOpen={isCommentOpen}
                 onClose={closeComment}
                 postId={postId}
@@ -102,7 +112,7 @@ const HomePage: React.FC = () => {
                         <p className={styles['profile-name']}>{username}</p>
                     </div>
                 </div>
-            </Replay>
+            </Reply>
 
             <p className={styles.heading}>For you</p>
             <div className={styles["posts-container"]}>
@@ -160,7 +170,7 @@ const HomePage: React.FC = () => {
                                         likedUsers={post.likes}
                                     />
                                 ) : (
-                                    <p>Please log in to like this post</p>
+                                    <p>Please login in to like this post</p>
                                 )}
 
                                 <div className={styles['reply']} onClick={() => {

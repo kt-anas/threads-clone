@@ -7,14 +7,14 @@ import { Icons } from '../../ui/Icons/users';
 
 const NavbarHome: React.FC = () => {
     return (
-        <nav className={styles.navbar}>
+        <nav>
             <div className={styles.logoContainer}>
                 <Link href="/">
                     <Image src={logo} alt="logo" className={styles.logo} />
 
                 </Link>
             </div>
-            <ul className={styles.navList}>
+            <ul>
                 <li>
                     <Link href="/">
                         <Icons.home />
@@ -48,8 +48,8 @@ const NavbarHome: React.FC = () => {
             </ul>
             <div>
                 <Link href="/login">
-                    <div className={styles.loginButton}>Log in</div>
-                </Link>
+                    <div >Log in</div>
+                </Link>      
             </div>
         </nav>
     );
