@@ -8,12 +8,10 @@ import Threads from '@/components/threads/threads';
 import { addNewPost } from '@/store/reducers/postsSlice';
 import ProfileImage from '@/components/ProfileImage';
 import { Icons } from '@/ui/Icons/users';
- 
 import LikeButton from '@/components/likeButton/likeButton';
 import Reply from '@/components/reply/reply';
 import ReplyButton from '@/components/replyButton/replyButton';
 import RepostButton from '@/components/repostButton/repostButton';
-
 import Repost from '@/components/repost/repost';
 import TimeAgo from '@/components/TimeAgo';
 import PostBtn from '@/components/postButton/postBtn';
@@ -49,9 +47,7 @@ const HomePage: React.FC = () => {
         dispatch(fetchUser());
         dispatch(fetchPosts());
     }, [dispatch]);
-
-
-
+    
     useEffect(() => {
         const userId = localStorage.getItem('userId');
         if (userId && users.length > 0) {

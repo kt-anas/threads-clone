@@ -18,26 +18,20 @@ interface Post {
     createdOn: string;
     reposts: string[];
 }
-
 interface PostsState {
     posts: Post[];
     status: "idle" | "loading" | "succeeded" | "failed";
     error: string | null;
 }
-
 const initialState: PostsState = {
     posts: [],
     status: "idle",
     error: null,
 };
-
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
     const response = await axiosInstance.get('/posts');
     return response.data.posts;
 });
-
-
-
 export const addNewPost = createAsyncThunk(
     "posts/addNewPost",
     async (newPost: { userId: string; text: string; image: string }, { rejectWithValue }) => {
@@ -53,9 +47,6 @@ export const addNewPost = createAsyncThunk(
         }
     }
 );
-
-
-
 const postsSlice = createSlice({
     name: "posts",
     initialState,

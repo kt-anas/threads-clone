@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /.pnp
+ 
 .pnp.js
 .yarn/install-state.gz
 
@@ -13,6 +14,8 @@
 /.next/
 /out/
 
+#secret
+.env
 # production
 /build
 
