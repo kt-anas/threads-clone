@@ -4,12 +4,15 @@ import axiosInstance from "@/axios/axiosInstance";
 interface User {
   _id: string;
   name: string;
+  username: string;
+  email: string;
+  profilePic: string;
 }
 
 interface Notification {
   id: string;
   description: string;
-  senderUserId: User; // Treat `senderUserId` as an object instead of an array
+  senderUserId: User; 
 }
 
 interface NotificationState {

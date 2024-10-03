@@ -47,7 +47,7 @@ const HomePage: React.FC = () => {
         dispatch(fetchUser());
         dispatch(fetchPosts());
     }, [dispatch]);
-    
+
     useEffect(() => {
         const userId = localStorage.getItem('userId');
         if (userId && users.length > 0) {
@@ -120,10 +120,9 @@ const HomePage: React.FC = () => {
                             <span>What's new?</span>
                         </div>
                     </div>
-                    {/* --------------------------post--------------------------- */}
-                    {/* <div className={styles['past-btn']} onClick={openModal}> */}
+                    
                     <PostBtn onClick={openModal} />
-                    {/* </div> */}
+                
 
 
                 </div>

@@ -1,6 +1,5 @@
 .container{
     background-color: #181818;
-    
     width: 100%;
     
     .title{
@@ -8,4 +7,16 @@
          color: #fff;
          height: 40px;
     }
+}
+.profilePic{
+    width: 40px;
+    border-radius: 50%;
+    height: 40px;
+    object-fit: cover;
+}
+
+.senderInfo{
+    display: flex;
+    width: 100%;
+    background-color: #fff;
 }

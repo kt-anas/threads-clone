@@ -14,7 +14,7 @@ const initialState: UserState = {
   status: 'idle',
   error: null, 
 };
- 
+
 export const loginUser = createAsyncThunk(
   'login/loginUser',
   async (userData: { username: string; password: string }, { rejectWithValue }) => {
