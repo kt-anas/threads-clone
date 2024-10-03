@@ -8,17 +8,12 @@ import Threads from '@/components/threads/threads';
 import { addNewPost } from '@/store/reducers/postsSlice';
 import ProfileImage from '@/components/ProfileImage';
 import { Icons } from '@/ui/Icons/users';
-<<<<<<< HEAD
-import LikeButton from '@/components/likeButton';
-import Reply from '@/components/reply/reply';
-import ReplyButton from '@/components/replyButton';
-import RepostButton from '@/components/repostButton';
-=======
+ 
 import LikeButton from '@/components/likeButton/likeButton';
-import Replay from '@/components/reply/reply';
+import Reply from '@/components/reply/reply';
 import ReplyButton from '@/components/replyButton/replyButton';
 import RepostButton from '@/components/repostButton/repostButton';
->>>>>>> 67263c1502aceb387ab1210824a8879fe16ecb58
+
 import Repost from '@/components/repost/repost';
 import TimeAgo from '@/components/TimeAgo';
 import PostBtn from '@/components/postButton/postBtn';
