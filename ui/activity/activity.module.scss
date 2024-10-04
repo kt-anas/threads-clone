@@ -1,22 +1,34 @@
-.container{
+.container {
     background-color: #181818;
     width: 100%;
-    
-    .title{
-         background-color: #181818;
-         color: #fff;
-         height: 40px;
+
+    .title {
+        background-color: #181818;
+        color: #fff;
+        height: 40px;
     }
 }
-.profilePic{
+.profilePic {
     width: 40px;
     border-radius: 50%;
     height: 40px;
     object-fit: cover;
 }
 
-.senderInfo{
+.senderInfo {
     display: flex;
-    width: 100%;
-    background-color: #fff;
+    width: 100%; 
+    
+  .profilePicContainer {
+      padding:  12px 0px 12px 24px;
+  }
+    .senderName {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-left: 10px;
+        border-bottom: 1px solid #383939;
+    }
 }

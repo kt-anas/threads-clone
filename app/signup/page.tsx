@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/store/store';
 import { setUsername, setEmail, setPassword, setConfirmPassword, signupUser, setName, setPhone } from '@/store/reducers/signupSlice';
 import { useRouter } from 'next/navigation';
-import InputField from '@/components/Inputs/InputField'; // Adjust the path if necessary
+import InputField from '@/components/Inputs/InputField';
 import styles from '../../ui/signup/SignupPage.module.scss';
 
 const Signup: React.FC = () => {
@@ -16,7 +16,7 @@ const Signup: React.FC = () => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (password === confirmPassword) {
-            // Dispatch signup action with full user data
+
             dispatch(signupUser({ name, username, email, password, phone }));
         } else {
             console.log('Passwords do not match');

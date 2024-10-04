@@ -21,23 +21,25 @@ const ActivityPage: React.FC = () => {
                     <div>No notifications available.</div>
                 )}
                 {status === 'loading' && <div>Loading notifications...</div>}
-                {[...notifications].reverse().map((notification) => (
+                {notifications.map((notification) => (
                     <div key={notification.id}>
-                        {notification.senderUserId ? (
-                            <div className={activityStyles.senderInfo}>
-                                <div>
-                                    <ProfileImage profilePic={notification.senderUserId.profilePic}
-                                        altText='profile'
-                                        className={activityStyles.profilePic}
-                                    />
-                                </div>
+
+                        <div className={activityStyles.senderInfo}>
+                            <div className={activityStyles.profilePicContainer}>
+                                <ProfileImage profilePic={notification.senderUserId.profilePic}
+                                    altText='profile'
+                                    className={activityStyles.profilePic}
+                                />
+                            </div>
+                            <div className={activityStyles.senderName}>
                                 <div className={activityStyles.sender}>  {notification.senderUserId.name}</div>
 
+                                <div> {notification.description}</div>
                             </div>
-                        ) : (
-                            <div>No sender information available.</div>
-                        )}
-                        <div> {notification.description}</div>
+
+                        </div>
+
+
                     </div>
                 ))}
             </div>
