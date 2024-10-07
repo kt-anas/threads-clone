@@ -32,9 +32,9 @@ const HomePage: React.FC = () => {
     const [postId, setPostId] = useState<string>('');
     const [userId, setUserId] = useState<string>('');
     const [userProfilePic, setProfilePic] = useState<string>('');
-    
 
-    const openModal = () => setIsModalOpen(true);
+
+    const openModal = () => setIsModalOpen(true);       
     const closeModal = () => setIsModalOpen(false);
 
     const openComment = () => setIsCommentOpen(true);
@@ -57,7 +57,7 @@ const HomePage: React.FC = () => {
                 setUserName(user.username || '');
             }
         }
-    }, [users]) ;
+    }, [users]);
 
     useEffect(() => {
         if (currentUser) {
@@ -72,7 +72,7 @@ const HomePage: React.FC = () => {
 
     return (
         <div>
-            {/* New thread modal */}
+           
             <Threads isOpen={isModalOpen} onClose={closeModal}>
                 <div className={styles.dp}>
                     <img
@@ -84,7 +84,7 @@ const HomePage: React.FC = () => {
                 </div>
 
             </Threads>
-            {/* Reply modal */}
+          
             <Reply
                 isOpen={isCommentOpen}
                 onClose={closeComment}
@@ -120,10 +120,8 @@ const HomePage: React.FC = () => {
                             <span>What's new?</span>
                         </div>
                     </div>
-                    
-                    <PostBtn onClick={openModal} />
-                
 
+                    <PostBtn onClick={openModal} />
 
                 </div>
 
@@ -175,7 +173,7 @@ const HomePage: React.FC = () => {
                                 </div>
 
 
-                                {/* <Icons.share /> */}
+
 
                                 <Repost
                                     isOpen={isRepostOpen}

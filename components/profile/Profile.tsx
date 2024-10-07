@@ -14,7 +14,8 @@ const Profile = () => {
     const [name, setName] = useState<string>('');
     const [username, setUserName] = useState<string>('');
     const [profilePic, setProfilePic] = useState<string>('');
-    const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false); // State for modal
+    const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false); 
+    const [userBio, setUserBio] = useState<string>('');
 
     useEffect(() => {
         dispatch(fetchUser());
@@ -28,11 +29,12 @@ const Profile = () => {
                 setName(user.name || '');
                 setUserName(user.username || '');
                 setProfilePic(user.profilePic || '');
+                setUserBio(user.bio || '');
             }
         }
     }, [users]);
 
-    // Function to toggle Edit Profile modal
+   
     const handleEditProfileOpen = () => {
         setIsEditModalOpen(true);
     };
@@ -43,7 +45,7 @@ const Profile = () => {
 
     return (
         <div className={style.container}>
-            {/* Edit Profile Modal */}
+           
             <EditProfile isOpen={isEditModalOpen} onClose={handleEditProfileClose} />
 
             <h1 className={style.title}>Profile</h1>
@@ -53,6 +55,11 @@ const Profile = () => {
                     <div className={style['profile-details']}>
                         <h1>{name}</h1>
                         <span>{username}</span>
+
+                        <p className={style['profile-description']}>
+                          {userBio}
+                            </p>
+
                     </div>
 
                     <div className={style['profile-image']}>

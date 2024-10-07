@@ -24,6 +24,7 @@ interface User {
     email: string;
     username: string;
     profilePic: string;
+    bio: string;
 }
 
 interface UserState {

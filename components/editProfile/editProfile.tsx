@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './editProfile.module.scss'; // Import the CSS module
 import { BsPersonFillAdd } from 'react-icons/bs';
+import axiosInstance from '@/axios/axiosInstance';
+ 
+import { useRouter } from 'next/navigation';  
 
 interface EditProfileProps {
   isOpen: boolean;
@@ -8,10 +11,37 @@ interface EditProfileProps {
 }
 
 const EditProfile: React.FC<EditProfileProps> = ({ isOpen, onClose }) => {
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [bio, setBio] = useState('');
   const [profilePic, setProfilePic] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const router = useRouter();
 
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
+
+  // Fetch user data when the modal is opened
+  useEffect(() => {
+    if (isOpen) {
+      const fetchProfileData = async () => {
+        try {
+          const response = await axiosInstance.get(`/users/${localStorage.getItem('userId')}`);
+          if (response.status === 200) {
+            const userData = response.data.user;
+            setName(userData.name);
+            setUsername(userData.username);
+            setEmail(userData.email);
+            setBio(userData.bio);
+            setPreviewImage(userData.profilePic); // Assuming it's a URL string
+          }
+        } catch (error) {
+          console.log('Error fetching profile data:', error);
+        }
+      };
+      fetchProfileData();
+    }
+  }, [isOpen]);
 
   const handleImageUpload = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -28,6 +58,28 @@ const EditProfile: React.FC<EditProfileProps> = ({ isOpen, onClose }) => {
     }
   };
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('username', username);
+      formData.append('email', email);
+      formData.append('bio', bio);
+      if (profilePic) formData.append('profilePic', profilePic);
+
+      const response = await axiosInstance.patch(`/users/${localStorage.getItem('userId')}`, formData);
+      if (response.status === 200) {
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+      
+        onClose();
+      }
+    } catch (error) {
+      console.log('Error updating profile:', error);
+       
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -36,11 +88,16 @@ const EditProfile: React.FC<EditProfileProps> = ({ isOpen, onClose }) => {
         <button onClick={onClose} className={styles['modal-close-btn']}>
           ✕
         </button>
-       
-        <form className={styles['modal-form']}>
+
+        <form className={styles['modal-form']} onSubmit={handleSubmit}>
           <div className={styles['form-group']}>
             <label htmlFor="name">Name</label>
-            <input type="text" id="name" />
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </div>
 
           <div className={styles['form-group']}>
@@ -63,17 +120,32 @@ const EditProfile: React.FC<EditProfileProps> = ({ isOpen, onClose }) => {
 
           <div className={styles['form-group']}>
             <label htmlFor="username">Username</label>
-            <input type="text" id="username" />
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
           </div>
 
           <div className={styles['form-group']}>
             <label htmlFor="bio">Bio</label>
-            <input type="text" id="bio" />
+            <input
+              type="text"
+              id="bio"
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+            />
           </div>
 
           <div className={styles['form-group']}>
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" />
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
 
           <button type="submit" className={styles['submit-btn']}>

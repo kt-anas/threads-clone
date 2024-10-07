@@ -1,5 +1,4 @@
-
-.replies-section{
+.replies-section {
     width: 500px;
     display: flex;
     margin-left: 100px;
@@ -7,12 +6,20 @@
     background-color: #181818;
     flex-direction: column;
 }
-.reply-item{
+.reply-item {
     display: flex;
 }
 
-.replay-user{
+.replay-user {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+.post-actions-container {
+    display: flex;
+    width: 100%;
+    margin-left: 55px;
+    gap: 10px;
+    align-items: center;
+    align-content: flex-start;
 }

@@ -70,3 +70,25 @@
   transform: scale(1.2);
   filter: brightness(1.5);
 }
+.dropdown {
+    position: absolute;
+    bottom:20px;  
+    background:transparent;
+    padding: 10px;
+    z-index: 101;
+    margin-left: 100px;
+    margin-top: 100px;
+  } 
+  
+  .dropdown button {
+    background-color: #181818;
+    margin-top: 100px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    width: 50px;
+    height: 30px;
+    text-align: left;
+  }
+  
+ 
