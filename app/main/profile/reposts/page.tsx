@@ -1,8 +1,9 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useAppSelector, useAppDispatch } from '@/hooks/useAppDispatch';
-import axios from 'axios'; // Missing axios import
-import styles from '../../../../ui/main/main.module.scss';
+import { useAppDispatch } from '@/hooks/useAppDispatch';
+import axios from 'axios'; 
+import style from '../../../../ui/profile/repost.module.scss';
+import ProfileImage from '@/components/ProfileImage';
 
 const Reposts: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -53,23 +54,26 @@ const Reposts: React.FC = () => {
     }, []);
 
     return (
-        <div>
+        <div className={style['repost-container']}>
             {loading ? (
-                <p>Loading...</p>
+                <p className={style['loading-text']}>Loading...</p>
             ) : error ? (
-                <p>{error}</p>
+                <p className={style['error-text']}>{error}</p>
             ) : posts.length > 0 ? (
                 posts.map((post) =>
                     post.reposts && post.reposts.length > 0 ? (
-                        <div key={post._id} className={styles['repost-item']}>
-                            <h2>{post.username} reposted:</h2>
-                            <p>{post.text}</p>
-                            {post.image && <img src={post.image} alt="Repost" className={styles['repost-image']} />}
+                        <div key={post._id} className={style['repost-item']}>
+                            <div className={style['user-info']}>
+                                <ProfileImage  profilePic={post.userProfilePic} className={style['profile-pic']} />
+                                <h2 className={style['username']}>{post.username}</h2>
+                            </div>
+                            <p className={style['repost-text']}>{post.text}</p>
+                            {post.image && <img src={post.image} alt="Repost" className={style['repost-image']} />}
                         </div>
                     ) : null
                 )
             ) : (
-                <p>No reposts available</p>
+                <p className={style['no-reposts']}>No reposts available</p>
             )}
         </div>
     );

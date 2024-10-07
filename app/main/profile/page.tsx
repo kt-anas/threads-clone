@@ -121,21 +121,7 @@ const ProfilePage: React.FC = () => {
                             <ReplyButton replyCount={post.replies.length} />
                             <RepostButton repostCount={post.reposts.length} />
                         </div>
-                        <div className={styles["post-actions"]}>
-                            {post.replies?.length > 0 && (
-                                <div className={style["replies-section"]}>
-                                    {post.replies.map((reply) => (
-                                        <div key={reply._id} className={style["reply-item"]}>
-                                            <div className={style["reply-user"]}>
-                                                <ProfileImage profilePic={reply.userProfilePic} altText="Profile" className={styles['profile-image']} />
-                                                <h5>{reply.username}</h5>
-                                            </div>
-                                            <p>{reply.text}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
+                        
                     </div>
                 ))
             ) : (

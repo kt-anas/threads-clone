@@ -1,11 +1,12 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch'; // Import both hooks correctly
+import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import axios from 'axios';
-import styles from '../../../../ui/main/main.module.scss';
+import styles from '../../../../ui/profile/reply.module.scss';
+import ProfileImage from '@/components/ProfileImage';
 
 const Replies: React.FC = () => {
-    const { posts: reduxPosts } = useAppSelector((state) => state.post);  // Renamed to avoid conflict
+    const { posts: reduxPosts } = useAppSelector((state) => state.post);
     const dispatch = useAppDispatch();
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -54,36 +55,36 @@ const Replies: React.FC = () => {
     }, []);
 
     if (loading) {
-        return <p>Loading...</p>;
+        return <p className={styles['loading-text']}>Loading...</p>;
     }
 
     if (error) {
-        return <p>{error}</p>;
+        return <p className={styles['error-text']}>{error}</p>;
     }
 
     return (
-        <div>
+        <div className={styles['replies-container']}>
             {posts.length > 0 ? (
                 posts.map((post) =>
-                    post.replies
-                        && post.replies
-                            .length > 0 ? (
+                    post.replies && post.replies.length > 0 ? (
                         <div key={post._id} className={styles['reply-item']}>
-                            <h2>{post.username} replied:</h2>
+                            <h2 className={styles['post-username']}>{post.username}</h2>
                             {post.replies.map((reply) => (
                                 <div key={reply._id} className={styles['reply-content']}>
-                                    <h4>{reply.username}</h4>
-                                    <p>{reply.text}</p>
-                                    {reply.userProfilePic && (
-                                        <img src={reply.userProfilePic} alt={reply.username} className={styles['reply-image']} />
-                                    )}
+                                    <div className={styles['reply-user-info']}>
+                                        {reply.userProfilePic && (
+                                            <ProfileImage profilePic={reply.userProfilePic} className={styles['reply-image']} />
+                                        )}
+                                        <h4 className={styles['reply-username']}>{reply.username}</h4>
+                                    </div>
+                                    <p className={styles['reply-text']}>{reply.text}</p>
                                 </div>
                             ))}
                         </div>
                     ) : null
                 )
             ) : (
-                <p>No replies available</p>
+                <p className={styles['no-replies']}>No replies available</p>
             )}
         </div>
     );
