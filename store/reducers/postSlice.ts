@@ -1,6 +1,6 @@
 import axiosInstance from "@/axios/axiosInstance";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
+ 
 
 interface Reply {
     _id: string;
@@ -13,7 +13,7 @@ interface Post {
     username: string;
     userProfilePic: string;
     text: string;
-    image?: string; // Optional, as some posts may not have images
+    image?: string; 
     likes: number;
     comments: number;
     createdAt: string;
@@ -50,17 +50,17 @@ const postSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            // Handle pending state
+            
             .addCase(fetchPostByUserId.pending, (state) => {
                 state.status = "loading";
                 state.error = null;
             })
-            // Handle fulfilled state
+             
             .addCase(fetchPostByUserId.fulfilled, (state, action: PayloadAction<Post[]>) => {
                 state.status = "succeeded";
-                state.posts = action.payload; // Store the fetched posts
+                state.posts = action.payload; 
             })
-            // Handle rejected state
+            
             .addCase(fetchPostByUserId.rejected, (state, action) => {
                 state.status = "failed";
                 state.error = action.error.message || "Failed to fetch posts.";

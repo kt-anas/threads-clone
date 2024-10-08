@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import activityStyles from '../../../ui/activity/activity.module.scss';
 import { fetchNotifications } from '@/store/reducers/notificationSlice';
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
@@ -8,9 +8,38 @@ import ProfileImage from '@/components/ProfileImage';
 const ActivityPage: React.FC = () => {
     const dispatch = useAppDispatch();
     const { notifications, status, error } = useAppSelector((state) => state.notifications);
+
+    const [showNotifications, setShowNotifications] = useState(10);
+
     useEffect(() => {
         dispatch(fetchNotifications());
     }, [dispatch]);
+
+
+    const loadMoreNotifications = () => {
+        if (showNotifications < notifications.length) {
+            setShowNotifications((prev) => Math.min(prev + 10, notifications.length));
+        }
+    };
+
+
+    const handleScroll = () => {
+        const scrollPosition = window.innerHeight + window.scrollY;
+        const bottomPosition = document.documentElement.scrollHeight - 100;
+
+
+        if (scrollPosition >= bottomPosition) {
+            loadMoreNotifications();
+        }
+    };
+
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [showNotifications]);
 
     return (
         <div className={activityStyles.container}>
@@ -21,25 +50,25 @@ const ActivityPage: React.FC = () => {
                     <div>No notifications available.</div>
                 )}
                 {status === 'loading' && <div>Loading notifications...</div>}
-                {notifications.map((notification) => (
-                    <div key={notification.id}>
 
+
+                {notifications.slice(0, showNotifications).map((notification) => (
+                    <div key={notification.id}>
                         <div className={activityStyles.senderInfo}>
                             <div className={activityStyles.profilePicContainer}>
-                                <ProfileImage profilePic={notification.senderUserId.profilePic}
-                                    altText='profile'
+                                <ProfileImage
+                                    profilePic={notification.senderUserId.profilePic}
+                                    altText="profile"
                                     className={activityStyles.profilePic}
                                 />
                             </div>
                             <div className={activityStyles.senderName}>
-                                <div className={activityStyles.sender}>  {notification.senderUserId.name}</div>
-
-                                <div> {notification.description}</div>
+                                <div className={activityStyles.sender}>
+                                    {notification.senderUserId.name}
+                                </div>
+                                <div>{notification.description}</div>
                             </div>
-
                         </div>
-
-
                     </div>
                 ))}
             </div>

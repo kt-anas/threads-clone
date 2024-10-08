@@ -1,3 +1,5 @@
+ 
+
 .container {
     display: flex;
     justify-content: center;  
@@ -17,20 +19,29 @@
   }
 
   .main {
-    
     width: 640px;
     height: 100vh;
     background:transparent;
     text-align: center;
     border-radius: 16px;
   }
+
   .heading{
     z-index: 5;
     background-color: #0A0A0A;
+    font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
     position: fixed;
     width: 640px;
     height: 70px;
     padding:10px;
+    border-bottom: 1px solid #383939;
   }
   .posts-container {
      background-color: #181818;

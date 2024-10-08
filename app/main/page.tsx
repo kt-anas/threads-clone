@@ -106,7 +106,9 @@ const HomePage: React.FC = () => {
             </Reply>
 
             <p className={styles.heading}>For you</p>
+         
             <div className={styles["posts-container"]}>
+                
                 <div className={styles["new-container"]}>
                     <div className={styles.new}>
                         <div className={styles.dp}>
