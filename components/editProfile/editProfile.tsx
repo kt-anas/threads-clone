@@ -1,160 +1,179 @@
 import React, { useEffect, useState } from 'react';
-import styles from './editProfile.module.scss'; // Import the CSS module
+import styles from './editProfile.module.scss';
 import { BsPersonFillAdd } from 'react-icons/bs';
 import axiosInstance from '@/axios/axiosInstance';
- 
-import { useRouter } from 'next/navigation';  
+import { useRouter } from 'next/navigation';
 
 interface EditProfileProps {
-  isOpen: boolean;
-  onClose: () => void;
+    isOpen: boolean;
+    onClose: () => void;
 }
 
 const EditProfile: React.FC<EditProfileProps> = ({ isOpen, onClose }) => {
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [bio, setBio] = useState('');
-  const [profilePic, setProfilePic] = useState<File | null>(null);
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const router = useRouter();
+    const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [bio, setBio] = useState('');
+    const [profilePic, setProfilePic] = useState<File | null>(null);
+    const [previewImage, setPreviewImage] = useState<string | null>(null);
+    const router = useRouter();
 
-  const fileInputRef = React.useRef<HTMLInputElement | null>(null);
+    const fileInputRef = React.useRef<HTMLInputElement | null>(null);
 
-  // Fetch user data when the modal is opened
-  useEffect(() => {
-    if (isOpen) {
-      const fetchProfileData = async () => {
-        try {
-          const response = await axiosInstance.get(`/users/${localStorage.getItem('userId')}`);
-          if (response.status === 200) {
-            const userData = response.data.user;
-            setName(userData.name);
-            setUsername(userData.username);
-            setEmail(userData.email);
-            setBio(userData.bio);
-            setPreviewImage(userData.profilePic); // Assuming it's a URL string
-          }
-        } catch (error) {
-          console.log('Error fetching profile data:', error);
+    useEffect(() => {
+        if (isOpen) {
+            const fetchProfileData = async () => {
+                try {
+                    const response = await axiosInstance.get(`/users/${localStorage.getItem('userId')}`);
+                    if (response.status === 200) {
+                        const userData = response.data.user;
+                        setName(userData.name);
+                        setUsername(userData.username);
+                        setEmail(userData.email);
+                        setBio(userData.bio);
+                        setPreviewImage(userData.profilePic);
+                    }
+                } catch (error) {
+                    console.log('Error fetching profile data:', error);
+                }
+            };
+            fetchProfileData();
         }
-      };
-      fetchProfileData();
-    }
-  }, [isOpen]);
+    }, [isOpen]);
 
-  const handleImageUpload = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    if (fileInputRef.current) {
-      fileInputRef.current.click(); // Open the file input dialog
-    }
-  };
+    const handleImageUpload = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setProfilePic(file);
-      setPreviewImage(URL.createObjectURL(file)); // Preview the uploaded image
-    }
-  };
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setProfilePic(file);
+            setPreviewImage(URL.createObjectURL(file));
+        }
+    };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const formData = new FormData();
-      formData.append('name', name);
-      formData.append('username', username);
-      formData.append('email', email);
-      formData.append('bio', bio);
-      if (profilePic) formData.append('profilePic', profilePic);
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('username', username);
+            formData.append('email', email);
+            formData.append('bio', bio);
+            if (profilePic) formData.append('profilePic', profilePic);
 
-      const response = await axiosInstance.patch(`/users/${localStorage.getItem('userId')}`, formData);
-      if (response.status === 200) {
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-      
-        onClose();
-      }
-    } catch (error) {
-      console.log('Error updating profile:', error);
-       
-    }
-  };
+            const response = await axiosInstance.patch(`/users/${localStorage.getItem('userId')}`, formData);
+            if (response.status === 200) {
+                localStorage.setItem('user', JSON.stringify(response.data.user));
 
-  if (!isOpen) return null;
+                onClose();
+            }
+        } catch (error) {
+            console.log('Error updating profile:', error);
 
-  return (
-    <div className={styles['modal-overlay']}>
-      <div className={styles['modal-container']}>
-        <button onClick={onClose} className={styles['modal-close-btn']}>
-          ✕
-        </button>
+        }
+    };
 
-        <form className={styles['modal-form']} onSubmit={handleSubmit}>
-          <div className={styles['form-group']}>
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
+    if (!isOpen) return null;
 
-          <div className={styles['form-group']}>
-            <label>Profile Picture</label>
-            <button onClick={handleImageUpload}>
-              <BsPersonFillAdd size={24} />
-            </button>
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleFileChange}
-              style={{ display: 'none' }} // Hide the file input
-            />
-            {previewImage && (
-              <div className={styles['image-preview']}>
-                <img src={previewImage} alt="Profile Preview" />
-              </div>
-            )}
-          </div>
+    return (
+        <div className={styles['modal-overlay']}>
+            <div className={styles['modal-container']}>
+                <button onClick={onClose} className={styles['modal-close-btn']}>
+                    ✕
+                </button>
 
-          <div className={styles['form-group']}>
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
+                <form className={styles['modal-form']} onSubmit={handleSubmit}>
+                    <div className={styles['form-group']}>
+                        <label htmlFor="name">Name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
 
-          <div className={styles['form-group']}>
-            <label htmlFor="bio">Bio</label>
-            <input
-              type="text"
-              id="bio"
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-            />
-          </div>
+                        <div className={styles['profile-pic-container']}>
+                            <button onClick={handleImageUpload}>
+                                <BsPersonFillAdd size={24} />
+                            </button>
+                            <input
+                                type="file"
+                                ref={fileInputRef}
+                                onChange={handleFileChange}
+                                style={{ display: 'none' }}
+                            />
+                            {previewImage && (
+                                <div className={styles['image-preview']}>
+                                    <img src={previewImage} alt="Profile Preview" />
+                                </div>
+                            )}
 
-          <div className={styles['form-group']}>
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
+                        </div>
+                    </div>
 
-          <button type="submit" className={styles['submit-btn']}>
-            Done
-          </button>
-        </form>
-      </div>
-    </div>
-  );
+
+
+
+                    {/* <div className={styles['profile-pic-container']}>
+                            <button onClick={handleImageUpload}>
+                                <BsPersonFillAdd size={24} />
+                            </button>
+                            <input
+                                type="file"
+                                ref={fileInputRef}
+                                onChange={handleFileChange}
+                                style={{ display: 'none' }}
+                            />
+                            {previewImage && (
+                                <div className={styles['image-preview']}>
+                                    <img src={previewImage} alt="Profile Preview" />
+                                </div>
+                            )}
+
+                        </div> */}
+
+                    <div className={styles['form-group']}>
+                        <label htmlFor="username">Username</label>
+                        <input
+                            type="text"
+                            id="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </div>
+
+                    <div className={styles['form-group']}>
+                        <label htmlFor="bio">Bio</label>
+                        <input
+                            type="text"
+                            id="bio"
+                            value={bio}
+                            onChange={(e) => setBio(e.target.value)}
+                        />
+                    </div>
+
+                    <div className={styles['form-group']}>
+                        <label htmlFor="email">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+
+                    <button type="submit" className={styles['submit-btn']}>
+                        Done
+                    </button>
+                </form>
+            </div>
+        </div>
+    );
 };
 
 export default EditProfile;

@@ -1,69 +1,97 @@
-// reply.module.scss
-
 .replies-container {
-    padding: 20px;
-    background-color: #f4f6f8;
-    border-radius: 8px;
-    max-width: 600px;
-    margin: 20px auto;  
-     
+    padding: 24px;
+    background-color: transparent;
+    border-radius: 12px;
+    max-width: 700px;
+    margin: 20px auto;
+    
 }
 
-.loading-text, .error-text, .no-replies {
+.loading-text,
+.error-text,
+.no-replies {
     font-size: 18px;
     text-align: center;
-    color: #555;
-    margin: 16px 0;
+    color: #888;
+    margin: 20px 0;
 }
 
-.reply-item {
-    background-color:transparent;
+.post-userProfilePic {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-right: 12px;
+    object-fit: cover;
     
-    border-radius: 8px;
+}
+.post-username {
+    color: red;
+}
+.reply-item {
+    display: flex;
+    flex-direction: column;
     padding: 16px;
-    margin-bottom: 16px;
-    transition: box-shadow 0.2s ease;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background-color: transparent;  
+    
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
+   
 
     h2 {
-        font-size: 16px;
+        font-size: 18px;
         font-weight: bold;
-        color: #333;
-        margin-bottom: 12px;
+        color: #f1f1f1; 
+        margin-bottom: 8px;
+    }
+
+    .post-image {
+        max-width: 100%;
+        margin: 10px 0;
+        border-radius: 8px;
+        object-fit: cover;
+        
     }
 }
 
 .reply-content {
     display: flex;
-    align-items: center;
-    margin-bottom: 12px;
+    align-items: flex-start;
+    margin-top: 12px;
 
     .reply-user-info {
         display: flex;
         align-items: center;
         margin-right: 12px;
 
-        .reply-image {
+        .reply-userProfilePic {
             width: 40px;
             height: 40px;
             border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #444;  
             margin-right: 8px;
-            object-fit: cover;  
         }
 
         .reply-username {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: bold;
-            color: #007bff; 
+            
+            
         }
     }
 
     .reply-text {
-        font-size: 14px;
-        color: #444;
-        background-color: #e9ecef;
-        padding: 8px;
-        border-radius: 4px;
-        max-width: 80%;  
-        word-wrap: break-word;  
+        font-size: 15px;
+        color: #fff;
+        background-color: #333;  
+        padding: 12px;
+        border-radius: 8px;
+        max-width: 80%;
+        word-wrap: break-word;
+
     }
 }
