@@ -34,7 +34,7 @@ const HomePage: React.FC = () => {
     const [userProfilePic, setProfilePic] = useState<string>('');
 
 
-    const openModal = () => setIsModalOpen(true);       
+    const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
     const openComment = () => setIsCommentOpen(true);
@@ -72,7 +72,7 @@ const HomePage: React.FC = () => {
 
     return (
         <div>
-           
+
             <Threads isOpen={isModalOpen} onClose={closeModal}>
                 <div className={styles.dp}>
                     <img
@@ -84,7 +84,7 @@ const HomePage: React.FC = () => {
                 </div>
 
             </Threads>
-          
+
             <Reply
                 isOpen={isCommentOpen}
                 onClose={closeComment}
@@ -105,10 +105,21 @@ const HomePage: React.FC = () => {
                 </div>
             </Reply>
 
-            <p className={styles.heading}>For you</p>
-         
+            <p className={styles.heading}>
+                For you
+
+            </p>
             <div className={styles["posts-container"]}>
-                
+                <div className={styles.bigbox}>
+                    <div className={styles.box1}></div>
+                    <div className={styles.box2}></div>
+                </div>
+
+                <div className={styles.samllbox1}></div>
+                <div className={styles.samllbox2}></div>
+
+
+
                 <div className={styles["new-container"]}>
                     <div className={styles.new}>
                         <div className={styles.dp}>

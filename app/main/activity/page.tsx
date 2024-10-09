@@ -8,13 +8,11 @@ import ProfileImage from '@/components/ProfileImage';
 const ActivityPage: React.FC = () => {
     const dispatch = useAppDispatch();
     const { notifications, status, error } = useAppSelector((state) => state.notifications);
-
     const [showNotifications, setShowNotifications] = useState(10);
 
     useEffect(() => {
         dispatch(fetchNotifications());
     }, [dispatch]);
-
 
     const loadMoreNotifications = () => {
         if (showNotifications < notifications.length) {
@@ -22,17 +20,13 @@ const ActivityPage: React.FC = () => {
         }
     };
 
-
     const handleScroll = () => {
         const scrollPosition = window.innerHeight + window.scrollY;
         const bottomPosition = document.documentElement.scrollHeight - 100;
-
-
         if (scrollPosition >= bottomPosition) {
             loadMoreNotifications();
         }
     };
-
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -50,9 +44,7 @@ const ActivityPage: React.FC = () => {
                     <div>No notifications available.</div>
                 )}
                 {status === 'loading' && <div>Loading notifications...</div>}
-
-
-                {notifications.slice(0, showNotifications).map((notification) => (
+                {notifications.map((notification) => (
                     <div key={notification.id}>
                         <div className={activityStyles.senderInfo}>
                             <div className={activityStyles.profilePicContainer}>
