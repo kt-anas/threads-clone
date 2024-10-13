@@ -63,19 +63,19 @@ const userSlice = createSlice({
             });
 
        
-        // Handle fetching specific user data by ID
-        builder
-            .addCase(fetchUserData.pending, (state) => {
-                state.status = "loading";
-            })
-            .addCase(fetchUserData.fulfilled, (state, action) => {
-                state.status = "succeeded";
-                state.userData = action.payload; // Set specific user data
-            })
-            .addCase(fetchUserData.rejected, (state, action) => {
-                state.status = "failed";
-                state.error = action.error?.message ?? null;
-            });
+        // // Handle fetching specific user data by ID
+        // builder
+        //     .addCase(fetchUserData.pending, (state) => {
+        //         state.status = "loading";
+        //     })
+        //     .addCase(fetchUserData.fulfilled, (state, action) => {
+        //         state.status = "succeeded";
+        //         state.userData = action.payload; // Set specific user data
+        //     })
+        //     .addCase(fetchUserData.rejected, (state, action) => {
+        //         state.status = "failed";
+        //         state.error = action.error?.message ?? null;
+        //     });
     },
 });
 

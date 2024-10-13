@@ -110,13 +110,13 @@ const HomePage: React.FC = () => {
 
             </p>
             <div className={styles["posts-container"]}>
-                <div className={styles.bigbox}>
+                {/* <div className={styles.bigbox}>
                     <div className={styles.box1}></div>
                     <div className={styles.box2}></div>
                 </div>
 
                 <div className={styles.samllbox1}></div>
-                <div className={styles.samllbox2}></div>
+                <div className={styles.samllbox2}></div> */}
 
 
 
