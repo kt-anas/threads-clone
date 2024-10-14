@@ -8,60 +8,10 @@
     position: static;
             
   }
-  .bigbox{
-    display: flex;
-    width: 100%;
-   
-    justify-content: space-between;
-   
-    z-index: 9;
-  }
-  .box1 {
-    width: 34px;
-    height: 34px;
-    background-color: #fff;
-    
-   position: fixed;
-   align-self: flex-end;
-    z-index: 7;
-    border-top: 1px solid #383939;
-    border-left: 1px solid #383939;
-    border-radius: 24px 0px 50px 0px;
-}
-
-.box2 {
-    width: 34px;
-    height: 34px;
-    background-color: #fff;
-    
-    position: fixed;
-    z-index: 7;
-    border-top: 1px solid #383939;
-    border-right: 1px solid #383939;
-    border-radius: 0px 24px 0px 50px;
-}
-
-.samllbox1{
-    width: 36px;
-    height: 36px;
-    background-color: #0A0A0A;
-    position:  absolute;
-    top:40px;
-    right: 250px;
-    z-index: 6;
-    // border-top: 1px solid #383939;
-     
-}
-.samllbox2{
-    width: 36px;
-    height: 36px;
-    background-color: #0A0A0A;
-    position:  absolute;
-    top:40px;
-    left: 240px;
-    z-index: 6;
-    // border-top: 1px solid #383939;
-}
+  
+ 
+ 
+ 
   .navbar-container {
     position: absolute;
     left: 0;  

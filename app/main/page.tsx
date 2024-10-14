@@ -15,12 +15,15 @@ import RepostButton from '@/components/repostButton/repostButton';
 import Repost from '@/components/repost/repost';
 import TimeAgo from '@/components/TimeAgo';
 import PostBtn from '@/components/postButton/postBtn';
+import { profile } from 'console';
 
 
 const HomePage: React.FC = () => {
     const dispatch = useAppDispatch();
     const { users } = useAppSelector((state) => state.users);
     const { posts } = useAppSelector((state) => state.posts);
+
+
     const [currentUser, setCurrentUser] = useState<any>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [username, setUserName] = useState<string>('');
@@ -70,6 +73,8 @@ const HomePage: React.FC = () => {
         }
     }, [currentUser]);
 
+    console.log(username)
+
     return (
         <div>
 
@@ -110,13 +115,7 @@ const HomePage: React.FC = () => {
 
             </p>
             <div className={styles["posts-container"]}>
-                {/* <div className={styles.bigbox}>
-                    <div className={styles.box1}></div>
-                    <div className={styles.box2}></div>
-                </div>
-
-                <div className={styles.samllbox1}></div>
-                <div className={styles.samllbox2}></div> */}
+                
 
 
 

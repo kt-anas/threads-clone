@@ -63,7 +63,7 @@ const ProfilePage: React.FC = () => {
         fetchPosts();
     }, []);
 
-    // Delete a post
+     
     const deletePost = async (postId: string) => {
         try {
             await axios.delete(
@@ -107,7 +107,7 @@ const ProfilePage: React.FC = () => {
                                 {selectedPostId === post._id && (
                                     <DropdownMenu>
                                         <button onClick={() => deletePost(post._id)}>Delete</button>
-                                        {/* Add more actions here */}
+                                        
                                     </DropdownMenu>
                                 )}
                             </div>

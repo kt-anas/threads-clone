@@ -20,7 +20,6 @@ const LoginPage: React.FC = () => {
     useEffect(() => {
         if (status === 'succeeded' && user) {
             const userId = user._id;
-            // User logged in successfully, navigate to main page
             localStorage.setItem('userId', userId);
             router.push('/main');
         }
