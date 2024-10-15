@@ -24,18 +24,18 @@ export const loginUser = createAsyncThunk(
       return response.data;
        
     } catch (error: any) {
-      // Send backend error message as rejected value
+    
       return rejectWithValue(error.response?.data?.message || 'An error occurred');
     }
   }
 );
 
-// Create the slice
+ 
 const loginSlice = createSlice({
   name: 'login',
   initialState,
   reducers: {
-    // Define any sync reducers here if needed
+    
     resetState: (state) => {
       state.user = null;
       state.status = 'idle';
@@ -58,8 +58,5 @@ const loginSlice = createSlice({
   },
 });
 
-// Export the reset action if needed
 export const { resetState } = loginSlice.actions;
-
-// Export the reducer
 export default loginSlice.reducer;

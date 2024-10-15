@@ -4,14 +4,17 @@ import styles from '../../../ui/main/search.module.scss';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { Icons } from '@/ui/Icons/users';
 import axiosInstance from '@/axios/axiosInstance';
+import FollowBtn from '@/components/FollowBtn/FollowBtn';
 
 const SearchPage: React.FC = () => {
     const dispatch = useAppDispatch();
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
-    const [isFollowing, setIsFollowing] = useState<{ [key: string]: boolean }>({});
+  
     const [senderId, setSenderId] = useState<string | null>(null);
+    const [userId, setUserId] = useState<string | null>(null);
     const [users, setUsers] = useState<User[]>([]);
+    const [user, setUser] = useState<User | null>(null);   
 
     interface User {
         _id: string;
@@ -21,41 +24,20 @@ const SearchPage: React.FC = () => {
         name: string;
     }
 
-    // Load senderId from localStorage and initialize state
-
-    useEffect(() => {
-        const userId = localStorage.getItem('userId');
-        if (userId) {
-                            
-            setSenderId(userId);
-        }
-    }, [senderId]);
-
-    // Fetch users once senderId is set
-    useEffect(() => {
+    useEffect(() => { 
         const getUsers = async () => {
-            if (senderId) {
-                try {
-                    const response = await axiosInstance.get('/users');
-                    if (response.status === 200) {
-                        const userMap: { [key: string]: boolean } = {};
-                        response.data.users.forEach((user: User) => {
-                            userMap[user._id] = user.followers.includes(senderId);
-                        });
-                        setUsers(response.data.users);
-                        setFilteredUsers(response.data.users);
-                        setIsFollowing(userMap);
-                        localStorage.setItem('isFollowing', JSON.stringify(userMap));
-                    }
-                } catch (error) {
-                    console.error('Error fetching users:', error);
-                }
+            try {
+                const res = await axiosInstance.get('/users');
+                setUsers(res.data.users);
+            } catch (error) {
+                console.error('Error', error);
             }
         };
         getUsers();
-    }, [senderId]);
+    }, []);  
 
-    // Handle search input changes
+  
+
     useEffect(() => {
         setFilteredUsers(
             users.filter((user) =>
@@ -68,38 +50,6 @@ const SearchPage: React.FC = () => {
         setSearchTerm(e.target.value);
     };
 
-    const handleFollow = async (userId: string) => {
-        if (!senderId) return;
-        try {
-            const followingState = { ...isFollowing };
-            if (followingState[userId]) {
-                await axiosInstance.post(`/users/unfollow/${userId}`, { userUnfollowId: senderId });
-                followingState[userId] = false;
-            } else {
-                await axiosInstance.post(`/users/follow/${userId}`, { userFollowId: senderId });
-                followingState[userId] = true;
-            }
-            setIsFollowing(followingState);
-            localStorage.setItem('isFollowing', JSON.stringify(followingState));
-
-            // Update users state with the new follow status
-            setUsers(prevUsers =>
-                prevUsers.map(user => {
-                    if (user._id === userId) {
-                        return {
-                            ...user,
-                            followers: followingState[userId]
-                                ? [...user.followers, senderId]
-                                : user.followers.filter(followerId => followerId !== senderId)
-                        };
-                    }
-                    return user;
-                })
-            );
-        } catch (error) {
-            console.error('Error handling follow/unfollow:', error);
-        }
-    };
 
     return (
         <>
@@ -131,9 +81,7 @@ const SearchPage: React.FC = () => {
                                         <p className={styles['profile-name']}>{user.username}</p>
                                         <p>{user.followers.length} followers</p>
                                     </div>
-                                    <button onClick={() => handleFollow(user._id)}>
-                                        {isFollowing[user._id] ? 'Following' : 'Follow'}
-                                    </button>
+                                    <FollowBtn userId={user._id} />
                                 </div>
                             </div>
                         </div>

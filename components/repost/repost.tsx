@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import styles from './RepostModal.module.scss';
 import axios from 'axios';

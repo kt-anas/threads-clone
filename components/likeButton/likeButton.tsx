@@ -34,11 +34,9 @@ const LikeButton = ({ initialLike, postId, userId, likedUsers }: LikeButtonProps
             const response = await axios.post(endpoint, { userId })
             console.log('Response:', response)
 
-            if (response.status !== 200) {
-                throw new Error('Failed to update like on the server.')
-            }
+           
         } catch (error) {
-            console.error('Error updating like:', error)
+            console.error('Error', error)
     
             setLike(isLiked ? like + 1 : like - 1)
             setIsLiked(isLiked)

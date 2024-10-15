@@ -58,9 +58,8 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
             setComment('');   
         } catch (error) {
             console.error("Failed to reply to post:", error);
-        } finally {
-            setLoading(false);   
-        }
+        }   
+        
     };
 
 

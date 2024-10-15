@@ -1,5 +1,5 @@
-'use client';
-import React, { useEffect, useState } from 'react';
+ 
+import React, { useState } from 'react';
 import styles from '../../ui/main/main.module.scss';
 import { useAppSelector, useAppDispatch } from '@/hooks/useAppDispatch';
 import { fetchUser } from '@/store/reducers/userSlice';
@@ -15,12 +15,14 @@ import RepostButton from '@/components/repostButton/repostButton';
 import Repost from '@/components/repost/repost';
 import TimeAgo from '@/components/TimeAgo';
 import PostBtn from '@/components/postButton/postBtn';
-import { profile } from 'console';
+import FetchUser from '@/components/FetchUser';
+import CurrentUser from '@/components/CurrentUser';
+
 
 
 const HomePage: React.FC = () => {
-    const dispatch = useAppDispatch();
-    const { users } = useAppSelector((state) => state.users);
+
+    // const { users } = useAppSelector((state) => state.users);
     const { posts } = useAppSelector((state) => state.posts);
 
 
@@ -37,6 +39,7 @@ const HomePage: React.FC = () => {
     const [userProfilePic, setProfilePic] = useState<string>('');
 
 
+
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
@@ -46,38 +49,12 @@ const HomePage: React.FC = () => {
     const openRepost = () => setIsRepostOpen(true);
     const closeRepost = () => setIsRepostOpen(false);
 
-    useEffect(() => {
-        dispatch(fetchUser());
-        dispatch(fetchPosts());
-    }, [dispatch]);
-
-    useEffect(() => {
-        const userId = localStorage.getItem('userId');
-        if (userId && users.length > 0) {
-            const user = users.find((user) => user._id === userId);
-            if (user) {
-                setCurrentUser(user);
-                setUserName(user.username || '');
-            }
-        }
-    }, [users]);
-
-    useEffect(() => {
-        if (currentUser) {
-            setUserId(currentUser._id);
-            if (currentUser.profilePic) {
-                setProfilePic(currentUser.profilePic);
-            } else {
-                setProfilePic('https://cdn-icons-png.flaticon.com/512/149/149071.png');
-            }
-        }
-    }, [currentUser]);
-
-    console.log(username)
 
     return (
         <div>
 
+            <FetchUser />
+            <CurrentUser setCurrentUser={setCurrentUser} setUserName={setUserName} setUserId={setUserId} setProfilePic={setProfilePic} currentUser={currentUser} />
             <Threads isOpen={isModalOpen} onClose={closeModal}>
                 <div className={styles.dp}>
                     <img
@@ -115,9 +92,6 @@ const HomePage: React.FC = () => {
 
             </p>
             <div className={styles["posts-container"]}>
-                
-
-
 
                 <div className={styles["new-container"]}>
                     <div className={styles.new}>
@@ -170,18 +144,17 @@ const HomePage: React.FC = () => {
                                         likedUsers={post.likes}
                                     />
                                 ) : (
-                                    <p>Please login in to like this post</p>
+                                    <p>login</p>
                                 )}
 
-                                <div className={styles['reply']} onClick={() => {
-                                    openComment();
-                                    setPostId(post._id);
-                                }}>
-                                    <ReplyButton replyCount={post.replies.length} />
+                                <div className={styles['reply']} >
+
+
+                                    <ReplyButton replyCount={post.replies.length} openComment={openComment} postId={post._id} setPostId={setPostId} />
                                 </div>
 
-                                <div onClick={() => { setPostId(post._id); openRepost() }}>
-                                    <RepostButton repostCount={post.reposts.length} />
+                                <div>
+                                    <RepostButton repostCount={post.reposts.length} postId={post._id} setPostId={setPostId} opernRepost={openRepost} />
                                 </div>
 
 
