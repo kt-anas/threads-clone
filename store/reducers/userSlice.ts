@@ -8,8 +8,7 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async () => {
     return response.data.users; 
 });
 
- 
- 
+
  
 export const fetchUserData = createAsyncThunk("user/fetchUserData", async (userId: string) => {
     const response = await axiosInstance.get(`/users/${userId}`);

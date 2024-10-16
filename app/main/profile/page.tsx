@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppDispatch } from '@/lib/hooks';
 import ProfileImage from '@/components/ProfileImage';
 import { fetchPostByUserId } from '@/store/reducers/postSlice';
 import styles from '../../../ui/main/main.module.scss';
@@ -110,8 +110,8 @@ const ProfilePage: React.FC = () => {
                         )}
                         <div className={style["post-actions-container"]}>
                             <LikeButton initialLike={post.likes.length} postId={post._id} userId={localStorage.getItem('userId')} likedUsers={post.likes} />
-                            <ReplyButton replyCount={post.replies.length} />
-                            <RepostButton repostCount={post.reposts.length} />
+                            <ReplyButton replyCount={post.replies.length}  openComment={() => setSelectedPostId(post._id)} postId={post._id} setPostId={setSelectedPostId}/>
+                            <RepostButton repostCount={post.reposts.length}     postId={post._id} setPostId={setSelectedPostId} opernRepost={() => setSelectedPostId(post._id)} />
                         </div>
                         
                     </div>

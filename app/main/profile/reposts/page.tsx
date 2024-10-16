@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppDispatch } from '@/lib/hooks';
 import axios from 'axios'; 
 import style from '../../../../ui/profile/repost.module.scss';
 import ProfileImage from '@/components/ProfileImage';

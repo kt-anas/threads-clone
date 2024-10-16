@@ -6,7 +6,7 @@ import Image from 'next/image';
 import bgPhoto from '../../public/assets/bg.webp';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
+import { useAppDispatch,useAppSelector} from '@/lib/hooks';
 import { loginUser } from '@/store/reducers/loginSlice';
 import InputField from '@/components/Inputs/InputField';
 const LoginPage: React.FC = () => {

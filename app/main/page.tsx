@@ -1,8 +1,8 @@
  'use client';
 import React, { useState } from 'react';
 import styles from '../../ui/main/main.module.scss';
-import { useAppSelector, useAppDispatch } from '@/hooks/useAppDispatch';
-import { fetchUser } from '@/store/reducers/userSlice';
+import { useAppSelector, useAppDispatch } from '@/lib/hooks';
+// import { fetchUser } from '@/store/reducers/userSlice';
 import { fetchPosts } from '@/store/reducers/postsSlice';
 import Threads from '@/components/threads/threads';
 import { addNewPost } from '@/store/reducers/postsSlice';
@@ -21,7 +21,7 @@ import CurrentUser from '@/components/CurrentUser';
 
 
 const HomePage: React.FC = () => {
-
+    
     // const { users } = useAppSelector((state) => state.users);
     const { posts } = useAppSelector((state) => state.posts);
 

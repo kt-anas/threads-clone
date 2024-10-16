@@ -1,7 +1,7 @@
-'use client';
+ 'use client';
 import React, { useState, useEffect } from 'react';
 import styles from '../../../ui/main/search.module.scss';
-import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppDispatch } from '@/lib/hooks';
 import { Icons } from '@/ui/Icons/users';
 import axiosInstance from '@/axios/axiosInstance';
 import FollowBtn from '@/components/FollowBtn/FollowBtn';

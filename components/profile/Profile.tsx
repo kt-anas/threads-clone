@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import style from './profile.module.scss';
 import ProfileImage from '@/components/ProfileImage';
 import Link from 'next/link';
-import { useAppSelector, useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppSelector, useAppDispatch } from '@/lib/hooks';
 import { fetchUser } from '@/store/reducers/userSlice';
 import EditProfile from '../editProfile/editProfile';
 

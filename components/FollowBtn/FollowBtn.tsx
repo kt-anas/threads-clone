@@ -1,5 +1,5 @@
-'use client';
-import React, { useState, useEffect } from 'react';
+ 
+import React from 'react';
 import styles from './FollowBtn.module.scss';
 import axiosInstance from '@/axios/axiosInstance';
 
@@ -8,16 +8,9 @@ interface FollowBtnProps {
 }
 
 const FollowBtn: React.FC<FollowBtnProps> = ({ userId }) => {
-    const [isFollowing, setIsFollowing] = useState<boolean>(false);
-    const [senderId, setSenderId] = useState<string | null>(null);
-    useEffect(() => {
-        const senderId = localStorage.getItem('userId');
-        if (senderId) {
-            setSenderId(senderId);
-        }
-    }, []);
-
-    useEffect(() => {
+    const [isFollowing, setIsFollowing] = React.useState<boolean>(false);
+   
+    const senderId = localStorage.getItem('userId');
         const checkFollowingStatus = async () => {
             try {
                 const res = await axiosInstance.get(`/users/${userId}`);
@@ -29,10 +22,11 @@ const FollowBtn: React.FC<FollowBtnProps> = ({ userId }) => {
                 console.error('Error ', error);
             }
         };
-        checkFollowingStatus();
-    }, [userId, senderId]);
+         
+
 
     const handleFollow = async () => {
+        checkFollowingStatus();
         try {
             if (isFollowing) {
                 await axiosInstance.post(`/users/unfollow/${userId}`, { userUnfollowId: senderId });
@@ -47,7 +41,7 @@ const FollowBtn: React.FC<FollowBtnProps> = ({ userId }) => {
     };
 
     return (
-        <button onClick={handleFollow} className={styles.followBtn}>
+        <button onClick={handleFollow} className={styles['follow-btn']}>
             {isFollowing ? 'Following' : 'Follow'}
         </button>
     );

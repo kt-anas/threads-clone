@@ -1,6 +1,6 @@
  'use client';
 import React, { useEffect } from 'react'
-import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppDispatch } from '@/lib/hooks';
 import { fetchUser } from '@/store/reducers/userSlice';
 import { fetchPosts } from '@/store/reducers/postsSlice';
 

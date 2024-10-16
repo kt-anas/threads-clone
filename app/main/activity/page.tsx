@@ -2,8 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import activityStyles from '../../../ui/activity/activity.module.scss';
 import { fetchNotifications } from '@/store/reducers/notificationSlice';
-import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import ProfileImage from '@/components/ProfileImage';
+import FollowBtn from '@/components/FollowBtn/FollowBtn';
 
 const ActivityPage: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -45,7 +46,7 @@ const ActivityPage: React.FC = () => {
                 )}
                 {status === 'loading' && <div>Loading notifications...</div>}
                 {notifications.map((notification) => (
-                    <div key={notification.id}>
+                    <div key={notification.id} className={activityStyles.notification}>
                         <div className={activityStyles.senderInfo}>
                             <div className={activityStyles.profilePicContainer}>
                                 <ProfileImage
@@ -61,6 +62,7 @@ const ActivityPage: React.FC = () => {
                                 <div>{notification.description}</div>
                             </div>
                         </div>
+                            <FollowBtn userId={notification.senderUserId._id}/>
                     </div>
                 ))}
             </div>

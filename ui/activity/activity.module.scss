@@ -1,6 +1,7 @@
 .container {
     background-color: #181818;
     width: 100%;
+    
     .title {
         background-color: #181818;
         color: #fff;
@@ -13,6 +14,15 @@
     height: 40px;
     object-fit: cover;
 }
+.notification {
+    color: #fff;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #383939;
+    
+}
 
 .senderInfo {
     display: flex;
@@ -20,6 +30,7 @@
     
   .profilePicContainer {
       padding:  12px 0px 12px 24px;
+     
   }
     .senderName {
         display: flex;
@@ -29,6 +40,6 @@
         align-items: flex-start;
         margin-left: 20px;
         gap: 5px;
-        border-bottom: 1px solid #383939;
+       
     }
 }

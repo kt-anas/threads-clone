@@ -20,15 +20,24 @@ interface Post {
 }
 interface PostsState {
     posts: Post[];
+    post: Post[];
     status: "idle" | "loading" | "succeeded" | "failed";
     error: string | null;
 }
 const initialState: PostsState = {
     posts: [],
+    post: [],
     status: "idle",
     error: null,
 };
 
+export const fetchPostsByUserId = createAsyncThunk(
+    "posts/fetchPostsByUserId",
+    async (userId: string) => {
+        const response = await axiosInstance.get(`/posts/${userId}`);
+        return response.data.posts;
+    }
+);
 
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
     const response = await axiosInstance.get('/posts');
@@ -55,6 +64,20 @@ const postsSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
+            .addCase(fetchPostsByUserId.pending,(state) => {
+                state.status = "loading";
+                state.error = null;
+            })
+            .addCase(fetchPostsByUserId.fulfilled, (state, action: PayloadAction<Post[]>) => {
+                state.status = "succeeded";
+                state.post = action.payload;
+            })
+            .addCase(fetchPostsByUserId.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.error.message || "Error";
+            })
+
+
 
             .addCase(fetchPosts.pending, (state) => {
                 state.status = "loading";
@@ -68,6 +91,8 @@ const postsSlice = createSlice({
                 state.status = "failed";
                 state.error = action.error.message || "Error";
             })
+
+
 
             .addCase(addNewPost.pending, (state) => {
                 state.status = "loading";

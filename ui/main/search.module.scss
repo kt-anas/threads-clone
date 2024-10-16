@@ -1,4 +1,4 @@
-/* search.module.scss */
+ 
 
 .search-container {
     padding-top: 100px;
@@ -35,14 +35,15 @@
   .results-container {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+  
+     
   }
   
   .result-item {
     display: flex;
     flex-direction: column;
     background-color: #181818;
-    border-radius: 10px;
+    border-bottom: 1px solid #393939;
     padding: 15px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease-in-out;
