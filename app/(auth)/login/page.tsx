@@ -1,9 +1,9 @@
 
 'use client';
 import React, { useState, useEffect } from 'react';
-import styles from '../../ui/login/LoginPage.module.scss';
+import styles from '../../../ui/login/LoginPage.module.scss';
 import Image from 'next/image';
-import bgPhoto from '../../public/assets/bg.webp';
+import bgPhoto from '../../../public/assets/bg.webp';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch,useAppSelector} from '@/lib/hooks';
