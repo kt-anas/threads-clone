@@ -1,4 +1,4 @@
-'use client'
+ 'use client';
 import React, { useEffect } from 'react'
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { fetchUser } from '@/store/reducers/userSlice';

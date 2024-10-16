@@ -12,7 +12,7 @@ interface repostButtonProps {
 }
 const RepostButton: React.FC<repostButtonProps> = ({ repostCount, postId,setPostId, opernRepost }) => {
     return (
-        <button className={styles.repostButton} onClick={() => { opernRepost; setPostId(postId) }}>
+        <button className={styles.repostButton} onClick={() => { opernRepost(); setPostId(postId) }}>
             <Icons.repost />
             <span>{repostCount}</span>
         </button>

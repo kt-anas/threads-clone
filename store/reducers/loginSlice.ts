@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import axios from "axios";
-import axiosInstance from "../../axios/axiosInstance";
+ import axiosInstance from "../../axios/axiosInstance";
 
  
 interface UserState {
@@ -25,7 +24,7 @@ export const loginUser = createAsyncThunk(
        
     } catch (error: any) {
     
-      return rejectWithValue(error.response?.data?.message || 'An error occurred');
+      return rejectWithValue(error.response?.data?.message || 'Failed to login');
     }
   }
 );

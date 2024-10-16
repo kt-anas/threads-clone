@@ -11,7 +11,7 @@ interface replyButtonProps {
 
 const ReplyButton: React.FC<replyButtonProps> = ({ replyCount, openComment, postId, setPostId }) => {
     return (
-        <button className={styles.replyButton} onClick={() => { openComment; setPostId(postId) }}>
+        <button className={styles.replyButton} onClick={() => { openComment(); setPostId(postId) }}>
             <Icons.reply />
             <span >{replyCount}</span>
         </button>

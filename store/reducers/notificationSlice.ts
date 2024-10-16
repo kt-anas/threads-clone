@@ -36,10 +36,10 @@ export const fetchNotifications = createAsyncThunk(
         const response = await axiosInstance.get(`users/notification/${userId}`);
         return response.data.notifications;
       }
-      throw new Error('User ID not found in localStorage');
+      
     } catch (error: any) {
-      console.error('Failed to fetch notifications:', error);
-      throw error.response?.data?.message || error.message;
+      console.error(' error', error);
+    
     }
   }
 );

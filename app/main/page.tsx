@@ -1,4 +1,4 @@
- 
+ 'use client';
 import React, { useState } from 'react';
 import styles from '../../ui/main/main.module.scss';
 import { useAppSelector, useAppDispatch } from '@/hooks/useAppDispatch';

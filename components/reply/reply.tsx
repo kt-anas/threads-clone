@@ -50,12 +50,14 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
 
         try {
             setLoading(true);   
-            const response = await axios.post(
-                `https://social-media-rest-apis.onrender.com/api/posts/${postId}/reply`,
+            const response = await axiosInstance.post(
+                `/posts/${postId}/reply`,
                 reply
             );
+            setLoading(false); 
 
-            setComment('');   
+            setComment('');  
+            onClose(); 
         } catch (error) {
             console.error("Failed to reply to post:", error);
         }   

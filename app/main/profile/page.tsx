@@ -13,13 +13,14 @@ import ReplyButton from '@/components/replyButton/replyButton';
 import RepostButton from '@/components/repostButton/repostButton';
 import DropdownMenu from '@/components/DropdowMenu';
 import styleMenu from '@/components/DropdowMenu.module.scss';
+import axiosInstance from '@/axios/axiosInstance';
 
 const ProfilePage: React.FC = () => {
     const dispatch = useAppDispatch();
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [selectedPostId, setSelectedPostId] = useState<string | null>(null);  // For managing dropdown
+    const [selectedPostId, setSelectedPostId] = useState<string | null>(null);   
 
     type Post = {
         _id: string;
@@ -40,23 +41,20 @@ const ProfilePage: React.FC = () => {
         username: string;
         text: string;
     };
-
-    // Fetch posts
+ 
     const fetchPosts = async () => {
         try {
             const userId = localStorage.getItem('userId');
             if (userId) {
                 const response = await axios.get(
-                    `https://social-media-rest-apis.onrender.com/api/posts/${userId}`
+                    `/posts/${userId}`
                 );
                 setPosts(response.data.post);
             }
         } catch (error) {
             console.error('Error fetching posts:', error);
-            setError('Failed to load posts. Please try again later.');
-        } finally {
-            setLoading(false);
-        }
+           
+        }  
     };
 
     useEffect(() => {
@@ -66,8 +64,8 @@ const ProfilePage: React.FC = () => {
      
     const deletePost = async (postId: string) => {
         try {
-            await axios.delete(
-                `https://social-media-rest-apis.onrender.com/api/posts/${postId}`
+            await  axiosInstance.delete(
+                `/posts/${postId}`
             );
             setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
         } catch (error) {
@@ -79,13 +77,7 @@ const ProfilePage: React.FC = () => {
         setSelectedPostId(selectedPostId === postId ? null : postId);
     };
 
-    if (loading) {
-        return <p>Loading posts...</p>;
-    }
-
-    if (error) {
-        return <p className={styles.error}>{error}</p>;
-    }
+   
 
     return (
         <div className={styles['post-list']}>

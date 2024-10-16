@@ -19,7 +19,6 @@ interface Post {
     createdAt: string;
     replies: Reply[];
     reposts: string[];
-
     updatedAt: string;
     __v: number;
 }

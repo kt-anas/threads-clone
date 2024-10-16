@@ -11,10 +11,10 @@
   }
   
   .modalContent {
-    background: #181818;
-    padding: 20px;
+    background: #0A0A0A;
+    padding: 10px;
     border-radius: 8px;
-    width: 300px;
+    width: 150px;
     text-align: center;
     position: relative;
   }
@@ -46,7 +46,11 @@
   }
   
   .repostButton {
-    background-color: #007bff;
+    background-color: #181818;
     color: white;
+  }
+  .repostButton:hover {
+    background-color: #fff;
+    color: #181818;
   }
   

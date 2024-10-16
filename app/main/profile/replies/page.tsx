@@ -4,13 +4,13 @@ import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import axios from 'axios';
 import styles from '../../../../ui/profile/reply.module.scss';
 import ProfileImage from '@/components/ProfileImage';
+import axiosInstance from '@/axios/axiosInstance';
 
 const Replies: React.FC = () => {
     const { posts: reduxPosts } = useAppSelector((state) => state.post);
     const dispatch = useAppDispatch();
     const [posts, setPosts] = useState<Post[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+ 
 
 
     type User = {
@@ -46,30 +46,22 @@ const Replies: React.FC = () => {
         try {
             const userId = localStorage.getItem('userId');
             if (userId) {
-                const response = await axios.get(
-                    `https://social-media-rest-apis.onrender.com/api/posts/${userId}`
+                const response = await axiosInstance.get(
+                    `/posts/${userId}`
                 );
                 setPosts(response.data.post);
             }
         } catch (error) {
             console.error('Error fetching posts:', error);
-            setError('Failed to load posts. Please try again later.');
-        } finally {
-            setLoading(false);
-        }
+           
+        } 
     };
 
     useEffect(() => {
         fetchPosts();
     }, []);
 
-    if (loading) {
-        return <p className={styles['loading-text']}>Loading...</p>;
-    }
-
-    if (error) {
-        return <p className={styles['error-text']}>{error}</p>;
-    }
+    
   
     
     return (

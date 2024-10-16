@@ -4,12 +4,12 @@ import { useAppDispatch } from '@/hooks/useAppDispatch';
 import axios from 'axios'; 
 import style from '../../../../ui/profile/repost.module.scss';
 import ProfileImage from '@/components/ProfileImage';
+import axiosInstance from '@/axios/axiosInstance';
 
 const Reposts: React.FC = () => {
     const dispatch = useAppDispatch();
     const [posts, setPosts] = useState<Post[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+     
 
     type Post = {
         _id: string;
@@ -31,22 +31,19 @@ const Reposts: React.FC = () => {
         text: string;
     };
 
-    // Fetch the posts
+ 
     const fetchPosts = async () => {
         try {
             const userId = localStorage.getItem('userId');
             if (userId) {
-                const response = await axios.get(
-                    `https://social-media-rest-apis.onrender.com/api/posts/${userId}`
+                const response = await axiosInstance.get(
+                    `/posts/${userId}`
                 );
                 setPosts(response.data.post);
             }
         } catch (error) {
             console.error('Error fetching posts:', error);
-            setError('Failed to load posts. Please try again later.');
-        } finally {
-            setLoading(false);
-        }
+         }  
     };
 
     useEffect(() => {
@@ -55,11 +52,7 @@ const Reposts: React.FC = () => {
 
     return (
         <div className={style['repost-container']}>
-            {loading ? (
-                <p className={style['loading-text']}>Loading...</p>
-            ) : error ? (
-                <p className={style['error-text']}>{error}</p>
-            ) : posts.length > 0 ? (
+            {  posts.length > 0 ? (
                 posts.map((post) =>
                     post.reposts && post.reposts.length > 0 ? (
                         <div key={post._id} className={style['repost-item']}>

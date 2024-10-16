@@ -1,6 +1,6 @@
 import axiosInstance from "@/axios/axiosInstance";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
+ 
 interface User {
     _id: string;
     username: string;
@@ -28,6 +28,8 @@ const initialState: PostsState = {
     status: "idle",
     error: null,
 };
+
+
 export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
     const response = await axiosInstance.get('/posts');
     return response.data.posts;
@@ -64,7 +66,7 @@ const postsSlice = createSlice({
             })
             .addCase(fetchPosts.rejected, (state, action) => {
                 state.status = "failed";
-                state.error = action.error.message || "Failed to fetch posts.";
+                state.error = action.error.message || "Error";
             })
 
             .addCase(addNewPost.pending, (state) => {
@@ -77,7 +79,7 @@ const postsSlice = createSlice({
             })
             .addCase(addNewPost.rejected, (state, action) => {
                 state.status = "failed";
-                state.error = action.error.message || "Failed to add post.";
+                state.error = action.error.message || "Error";
             });
     },
 });

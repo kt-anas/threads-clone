@@ -22,7 +22,7 @@ const TimeAgo: React.FC<TimeAgoProps> = ({ dateString }) => {
         return `Just now`;
     };
 
-    // Memoize the timeAgo value to prevent recalculating on every render
+   
     const timeAgo = useMemo(() => getTimeAgo(dateString), [dateString]);
 
     return <span>{timeAgo}</span>;
