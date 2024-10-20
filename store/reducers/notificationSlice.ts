@@ -34,7 +34,7 @@ export const fetchNotifications = createAsyncThunk(
       const userId = localStorage.getItem('userId');
       if (userId) {
         const response = await axiosInstance.get(`users/notification/${userId}`);
-        return response.data.notifications;
+        return await response.data.notifications;
       }
       
     } catch (error: any) {

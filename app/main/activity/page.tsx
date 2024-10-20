@@ -1,40 +1,22 @@
-'use client';
-import React, { useEffect, useState } from 'react';
+ 
+import React from 'react';
 import activityStyles from '../../../ui/activity/activity.module.scss';
 import { fetchNotifications } from '@/store/reducers/notificationSlice';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import ProfileImage from '@/components/ProfileImage';
 import FollowBtn from '@/components/FollowBtn/FollowBtn';
 
-const ActivityPage: React.FC = () => {
+const ActivityPage: React.FC = async () => {
+
     const dispatch = useAppDispatch();
     const { notifications, status, error } = useAppSelector((state) => state.notifications);
-    const [showNotifications, setShowNotifications] = useState(10);
+    const [showNotifications, setShowNotifications] = React.useState(10);
 
-    useEffect(() => {
-        dispatch(fetchNotifications());
-    }, [dispatch]);
 
-    const loadMoreNotifications = () => {
-        if (showNotifications < notifications.length) {
-            setShowNotifications((prev) => Math.min(prev + 10, notifications.length));
-        }
-    };
+    await dispatch( fetchNotifications());
+ 
+    
 
-    const handleScroll = () => {
-        const scrollPosition = window.innerHeight + window.scrollY;
-        const bottomPosition = document.documentElement.scrollHeight - 100;
-        if (scrollPosition >= bottomPosition) {
-            loadMoreNotifications();
-        }
-    };
-
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, [showNotifications]);
 
     return (
         <div className={activityStyles.container}>
@@ -62,7 +44,7 @@ const ActivityPage: React.FC = () => {
                                 <div>{notification.description}</div>
                             </div>
                         </div>
-                            <FollowBtn userId={notification.senderUserId._id}/>
+                        <FollowBtn userId={notification.senderUserId._id} />
                     </div>
                 ))}
             </div>
