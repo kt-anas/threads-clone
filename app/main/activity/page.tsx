@@ -1,32 +1,42 @@
- 
 import React from 'react';
 import activityStyles from '../../../ui/activity/activity.module.scss';
-import { fetchNotifications } from '@/store/reducers/notificationSlice';
-import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import ProfileImage from '@/components/ProfileImage';
 import FollowBtn from '@/components/FollowBtn/FollowBtn';
+import axiosInstance from '@/axios/axiosInstance';
+export { getServerProps } from '../../../server/FetchNotification';
+interface User {
+    _id: string;
+    name: string;
+    username: string;
+    email: string;
+    profilePic: string;
+}
 
-const ActivityPage: React.FC = async () => {
+interface Notification {
+    id: string;
+    description: string;
+    senderUserId: User; 
+}
 
-    const dispatch = useAppDispatch();
-    const { notifications, status, error } = useAppSelector((state) => state.notifications);
-    const [showNotifications, setShowNotifications] = React.useState(10);
+interface ActivityPageProps {
+    notifications: Notification[];
+    error: string | null;
+}
 
-
-    await dispatch( fetchNotifications());
+export default async function  ActivityPage() { 
+   
  
+        const userId = localStorage.getItem('userId');
+        const res = await axiosInstance.get(`users/notification/${userId}`);
     
 
-
+  
+  
     return (
         <div className={activityStyles.container}>
-            <div className={activityStyles.title}>Activity</div>
+            {/* <div className={activityStyles.title}>Activity</div>    
             <div className={activityStyles.content}>
-                {error && <div className={activityStyles.error}>{error}</div>}
-                {notifications.length === 0 && status !== 'loading' && !error && (
-                    <div>No notifications available.</div>
-                )}
-                {status === 'loading' && <div>Loading notifications...</div>}
+               
                 {notifications.map((notification) => (
                     <div key={notification.id} className={activityStyles.notification}>
                         <div className={activityStyles.senderInfo}>
@@ -47,9 +57,11 @@ const ActivityPage: React.FC = async () => {
                         <FollowBtn userId={notification.senderUserId._id} />
                     </div>
                 ))}
-            </div>
+            </div> */}
         </div>
     );
 };
 
-export default ActivityPage;
+ 
+
+
