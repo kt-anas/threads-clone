@@ -2,23 +2,18 @@
 
 'use client';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
-import { AppStore, makeStore } from './store';
-import App from 'next/app';
-import { fetchUserData } from './reducers/userSlice';
-import { setName } from './reducers/signupSlice';
+import { store } from './store';
 
-
+/**
+ * A React component that wraps its children with the Redux Provider component.
+ *
+ * @param children The children elements to be wrapped.
+ * @returns The children elements wrapped with the Redux Provider component.
+ */
 const Providers: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-
-    const storeRef = useRef<AppStore>()
-    if (!storeRef.current) {
-        // Create the store instance the first time this renders
-        storeRef.current = makeStore()
-        storeRef.current.dispatch(setName ('anas'))
-    }
-    return <Provider store={ storeRef.current}>{children}</Provider>;
+  return <Provider store={store}>{children}</Provider>;
 };
 
 export default Providers;
