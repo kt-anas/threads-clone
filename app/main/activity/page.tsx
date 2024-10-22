@@ -1,11 +1,14 @@
+
 import React from 'react';
 import activityStyles from '../../../ui/activity/activity.module.scss';
 import ProfileImage from '@/components/ProfileImage';
 import FollowBtn from '@/components/FollowBtn/FollowBtn';
 import axiosInstance from '@/axios/axiosInstance';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { getUserId } from '@/store/reducers/userSlice';
 import useUserId from '@/lib/hooks/userId';
+ 
+
+// import useUserId from '@/lib/hooks/userId';
 
 interface User {
     _id: string;
@@ -25,22 +28,26 @@ interface ActivityPageProps {
     notifications: Notification[];
     error: string | null;
 }
- 
+
 
 const getNotifications = async () => {
-    
-
+   
+     const userId =  useUserId();
+ 
     const res = await axiosInstance.get(`/users/notification/${userId}`);
     return res.data
+
 }
 
 
 
 
 export default async function ActivityPage() {
+ 
+
 
     const data = await getNotifications();
-    console.log(data, 'this post')
+    console.log(data)
 
 
     return (

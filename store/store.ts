@@ -6,10 +6,7 @@ import postSlice from "./reducers/postSlice";
 import loginSlice from "./reducers/loginSlice";
 import notificationsSlice from "./reducers/notificationSlice";
 
-
-
 export const store = configureStore( {
-
         reducer: {
             users: userSlice,
             signup: signupSlice,

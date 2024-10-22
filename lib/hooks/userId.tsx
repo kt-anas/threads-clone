@@ -1,18 +1,16 @@
  'use client'
 import { useEffect, useState } from "react";
 
- const useUserId = () => {
+const useUserId = () => {
     const [userId, setUserId] =  useState<string | null>(null);
-
-    useEffect(()=>{
-       const getUserId = async () => {
-           const userId = localStorage.getItem('userId');
-           if(userId){
-               setUserId(userId)
+    
+           const storedUserId = localStorage.getItem('userId');
+           if(storedUserId){
+               setUserId(storedUserId)
            }
-       };
-       getUserId();
-    },[]);
+       
+        
+   
     return userId;
 }
 

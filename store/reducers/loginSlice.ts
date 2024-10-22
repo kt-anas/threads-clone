@@ -18,7 +18,7 @@ export const loginUser = createAsyncThunk(
   'login/loginUser',
   async (userData: { username: string; password: string }, { rejectWithValue }) => {
     try {
-        console.log(userData)
+       
       const response = await axiosInstance.post('/users/login', userData);
       return response.data;
        
@@ -44,8 +44,11 @@ const loginSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action: PayloadAction<any>) => {
         state.status = 'succeeded';
-        
         state.user = action.payload;
+        console.log(state.user)
+        const userId =state?.user?._id;
+        localStorage.setItem('userId', userId);
+        
       })
       .addCase(loginUser.rejected, (state, action: PayloadAction<any>) => {
         state.status = 'failed';

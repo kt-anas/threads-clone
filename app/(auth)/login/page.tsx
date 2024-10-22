@@ -19,8 +19,8 @@ const LoginPage: React.FC = () => {
 
     useEffect(() => {
         if (status === 'succeeded' && user) {
-            const userId = user._id;
-            localStorage.setItem('userId', userId);
+            // const userId = user._id;
+            // localStorage.setItem('userId', userId);
             router.push('/main');
         }
     }, [status, user, router]);

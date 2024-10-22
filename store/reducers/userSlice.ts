@@ -72,9 +72,4 @@ const userSlice = createSlice({
 export const {setUserId} = userSlice.actions;
 export default userSlice.reducer;
 
-export const getUserId = () => (dispatch) => {
-    const userId = localStorage.getItem('userId');
-    if(userId){
-        dispatch(setUserId(userId));
-    }
-}
+ 
