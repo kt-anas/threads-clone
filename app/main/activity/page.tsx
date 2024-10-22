@@ -3,7 +3,10 @@ import activityStyles from '../../../ui/activity/activity.module.scss';
 import ProfileImage from '@/components/ProfileImage';
 import FollowBtn from '@/components/FollowBtn/FollowBtn';
 import axiosInstance from '@/axios/axiosInstance';
-export { getServerProps } from '../../../server/FetchNotification';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { getUserId } from '@/store/reducers/userSlice';
+import useUserId from '@/lib/hooks/userId';
+
 interface User {
     _id: string;
     name: string;
@@ -15,23 +18,31 @@ interface User {
 interface Notification {
     id: string;
     description: string;
-    senderUserId: User; 
+    senderUserId: User;
 }
 
 interface ActivityPageProps {
     notifications: Notification[];
     error: string | null;
 }
-
-export default async function  ActivityPage() { 
-   
  
-        const userId = localStorage.getItem('userId');
-        const res = await axiosInstance.get(`users/notification/${userId}`);
+
+const getNotifications = async () => {
     
 
-  
-  
+    const res = await axiosInstance.get(`/users/notification/${userId}`);
+    return res.data
+}
+
+
+
+
+export default async function ActivityPage() {
+
+    const data = await getNotifications();
+    console.log(data, 'this post')
+
+
     return (
         <div className={activityStyles.container}>
             {/* <div className={activityStyles.title}>Activity</div>    
@@ -62,6 +73,6 @@ export default async function  ActivityPage() {
     );
 };
 
- 
+
 
 

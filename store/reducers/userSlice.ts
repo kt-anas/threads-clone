@@ -28,6 +28,7 @@ interface User {
 
 interface UserState {
     users: User[];
+    userId: string | null;
     userData: User[]; 
     posts: any[]; 
     status: "idle" | "loading" | "succeeded" | "failed";
@@ -36,6 +37,7 @@ interface UserState {
 
 const initialState: UserState = {
     users: [],
+    userId:null,
     userData: [], 
     posts: [],
     status: "idle",
@@ -45,7 +47,11 @@ const initialState: UserState = {
 const userSlice = createSlice({
     name: "users",
     initialState,
-    reducers: {},
+    reducers: {
+        setUserId:(state,action) =>{
+            state.userId = action.payload
+        }
+    },
     extraReducers: (builder) => {
         
         builder
@@ -60,9 +66,15 @@ const userSlice = createSlice({
                 state.status = "failed";
                 state.error = action.error?.message ?? null;
             });
-
-       
     },
 });
 
+export const {setUserId} = userSlice.actions;
 export default userSlice.reducer;
+
+export const getUserId = () => (dispatch) => {
+    const userId = localStorage.getItem('userId');
+    if(userId){
+        dispatch(setUserId(userId));
+    }
+}
