@@ -1,42 +1,28 @@
  
-import React, { useState } from 'react';
+import React from 'react';
 import styles from '../../../ui/login/LoginPage.module.scss';
 import Image from 'next/image';
 import bgPhoto from '../../../public/assets/bg.webp';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import InputField from '@/components/Inputs/InputField';
+ 
 import axiosInstance from '@/axios/axiosInstance';
+import Form from '@/components/Form/Form';
+   
+
+export const loginUser = async (userData: { username: string; password: string }) => {
+       
+    try {
+        const res = await axiosInstance.post('/users/login', userData);
+        return res.data;
+    } catch (error) {
+        console.log(error);
+         
+    }  
+};
 
 const LoginPage: React.FC = () => {
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
- 
-    const router = useRouter();
-
-    const loginUser = async (userData: { username: string; password: string }) => {
-       
-        try {
-            const res = await axiosInstance.post('/users/login', userData);
-            return res.data;
-        } catch (error) {
-            console.log(error);
-             
-        }  
-    };
-
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const user = await loginUser({ username, password });
-
-        if (user && user._id) {  
-            const userId = user._id;
-            localStorage.setItem('userId', userId);  
-            router.push('/main');
-        }
-    };
-
+  
     return (
         <>
             <div className={styles.container}>
@@ -49,23 +35,8 @@ const LoginPage: React.FC = () => {
                 </div>
             </div>
             <div className={styles['login-container']}>
-                <form onSubmit={handleSubmit} className={styles['login-form']}>
-                    <InputField
-                        type="text"
-                        placeholder="Username, Email"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <InputField
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <button type="submit" >
-                         Login
-                    </button>
-                </form>
+
+              <Form />
                
                 <div className={styles.line}>
                     <div className={styles.line1}></div>

@@ -3,7 +3,7 @@ import userSlice from "./reducers/userSlice";
 import signupSlice from "./reducers/signupSlice";
 import postsSlice from "./reducers/postsSlice";
 import postSlice from "./reducers/postSlice";
-import loginSlice from "./reducers/loginSlice";
+ 
 import notificationsSlice from "./reducers/notificationSlice";
 
 export const store = configureStore( {
@@ -12,7 +12,7 @@ export const store = configureStore( {
             signup: signupSlice,
             posts: postsSlice,
             post: postSlice,
-            login: loginSlice,
+           
             notifications: notificationsSlice
         },
     });
