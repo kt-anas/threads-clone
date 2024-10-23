@@ -45,9 +45,7 @@ const loginSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action: PayloadAction<any>) => {
         state.status = 'succeeded';
         state.user = action.payload;
-        console.log(state.user)
-        const userId =state?.user?._id;
-        localStorage.setItem('userId', userId);
+
         
       })
       .addCase(loginUser.rejected, (state, action: PayloadAction<any>) => {
