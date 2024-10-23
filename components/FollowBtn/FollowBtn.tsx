@@ -1,42 +1,36 @@
- 
-import React from 'react';
+'use client'; 
+import React, { useEffect, useState } from 'react';
 import styles from './FollowBtn.module.scss';
-import axiosInstance from '@/axios/axiosInstance';
+import { FollowStatus, followUser, unfollowUser } from '@/lib/utils/follow';
 
 interface FollowBtnProps {
     userId: string;
 }
 
 const FollowBtn: React.FC<FollowBtnProps> = ({ userId }) => {
-    const [isFollowing, setIsFollowing] = React.useState<boolean>(false);
-   
-    const senderId = localStorage.getItem('userId');
-        const checkFollowingStatus = async () => {
-            try {
-                const res = await axiosInstance.get(`/users/${userId}`);
-                const user = res.data.user;
-                if (user.followers.includes(senderId)) {
-                    setIsFollowing(true);
-                }
-            } catch (error) {
-                console.error('Error ', error);
-            }
-        };
-         
+    const [isFollowing, setIsFollowing] = useState<boolean>(false);
 
+   
+    useEffect(() => {
+        const FollowingStatus = async () => {
+            const status = await FollowStatus(userId);
+            setIsFollowing(status);
+        };
+
+        FollowingStatus();
+    }, [userId]);
 
     const handleFollow = async () => {
-        checkFollowingStatus();
         try {
             if (isFollowing) {
-                await axiosInstance.post(`/users/unfollow/${userId}`, { userUnfollowId: senderId });
+                await unfollowUser(userId);
                 setIsFollowing(false);
             } else {
-                await axiosInstance.post(`/users/follow/${userId}`, { userFollowId: senderId });
+                await followUser(userId);
                 setIsFollowing(true);
             }
         } catch (error) {
-            console.error('Error ', error);
+            console.log(error);
         }
     };
 

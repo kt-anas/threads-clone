@@ -4,20 +4,21 @@ import Link from 'next/link';
 import styles from './Navbar.module.scss';
 import Image from 'next/image';
 import logo from '../../public/assets/thread-logo-w.svg';
-import {useRouter} from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 // import thumbtack from '../../public/assets/thumbtack.svg';
 // import logOut from '../../../public/assets/logout.svg';
 import { Icons } from '../../ui/Icons/users';
- 
- 
+import { deleteCookie } from '@/lib/utils/deleteCookie';
+
+
 
 const Navbar: React.FC = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const router = useRouter();  
-    const handleLogout = () => {
-        localStorage.clear();   
-        router.push('/login');  
+    const router = useRouter();
+    const handleLogout = async () => {
+        await deleteCookie();
+        router.push('/login');
     };
 
     const toggleDropdown = () => {
