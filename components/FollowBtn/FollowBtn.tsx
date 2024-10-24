@@ -20,6 +20,7 @@ const FollowBtn: React.FC<FollowBtnProps> = ({ userId }) => {
         FollowingStatus();
     }, [userId]);
 
+
     const handleFollow = async () => {
         try {
             if (isFollowing) {
@@ -33,6 +34,8 @@ const FollowBtn: React.FC<FollowBtnProps> = ({ userId }) => {
             console.log(error);
         }
     };
+
+
 
     return (
         <button onClick={handleFollow} className={styles['follow-btn']}>

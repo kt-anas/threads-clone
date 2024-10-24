@@ -1,4 +1,4 @@
- 'use client';
+'use client';
 import React, { useState } from 'react';
 import styles from '../../ui/main/main.module.scss';
 import { useAppSelector, useAppDispatch } from '@/lib/hooks';
@@ -21,7 +21,7 @@ import CurrentUser from '@/components/CurrentUser';
 
 
 const HomePage: React.FC = () => {
-    
+
     // const { users } = useAppSelector((state) => state.users);
     const { posts } = useAppSelector((state) => state.posts);
 
