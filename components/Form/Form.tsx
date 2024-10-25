@@ -15,9 +15,10 @@ const Form = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        
         const user = await loginUser({ username, password });
-
         if (user && user._id) {
+            console.log("tthis is a user", user);
             const userId = user._id;
             await setCookie(userId);
             router.push('/main');

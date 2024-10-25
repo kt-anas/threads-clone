@@ -15,10 +15,10 @@ const FollowBtn: React.FC<FollowBtnProps> = ({ userId }) => {
         const FollowingStatus = async () => {
             const status = await FollowStatus(userId);
             setIsFollowing(status);
-        };
+        }; 
 
         FollowingStatus();
-    }, [userId]);
+    }, []);
 
 
     const handleFollow = async () => {

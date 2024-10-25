@@ -49,7 +49,7 @@ const ProfilePage: React.FC = () => {
                 setPosts(response.data.post);
             }
         } catch (error) {
-            console.error('Error fetching posts:', error);
+            console.error('Error', error);
         }
     };
 

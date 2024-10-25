@@ -50,7 +50,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ isOpen, onClose }) => {
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        if (file) {
+        if (file) {  
             setProfilePic(file);
             setPreviewImage(URL.createObjectURL(file));
         }

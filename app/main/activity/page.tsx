@@ -61,7 +61,7 @@ export default async function ActivityPage() {
                                     <div>{notification.description}</div>
                                 </div>
                             </div>
-                            <FollowBtn userId={notification.senderUserId._id} />
+                           
                         </div>
                     ))
                 )}

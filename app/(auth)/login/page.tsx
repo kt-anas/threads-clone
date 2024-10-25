@@ -7,7 +7,6 @@ import Link from 'next/link';
 import axiosInstance from '@/axios/axiosInstance';
 import Form from '@/components/Form/Form';
    
-
 export const loginUser = async (userData: { username: string; password: string }) => {
        
     try {
@@ -19,9 +18,11 @@ export const loginUser = async (userData: { username: string; password: string }
     }  
 };
 
+
+
 const LoginPage: React.FC = () => {
 
-  
+   
     return (
         <>
             <div className={styles.container}>
