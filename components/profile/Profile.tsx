@@ -4,17 +4,18 @@ import style from './profile.module.scss';
 import ProfileImage from '@/components/ProfileImage';
 import Link from 'next/link';
 import { useAppSelector, useAppDispatch } from '@/lib/hooks';
-import { fetchUser } from '@/store/reducers/userSlice';
+import { fetchUser } from '@/store/userSlice';
 import EditProfile from '../editProfile/editProfile';
 
 const Profile = () => {
     const dispatch = useAppDispatch();
+
     const { users } = useAppSelector((state) => state.users);
 
     const [name, setName] = useState<string>('');
     const [username, setUserName] = useState<string>('');
     const [profilePic, setProfilePic] = useState<string>('');
-    const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false); 
+    const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
     const [userBio, setUserBio] = useState<string>('');
 
     useEffect(() => {
@@ -34,7 +35,7 @@ const Profile = () => {
         }
     }, [users]);
 
-   
+
     const handleEditProfileOpen = () => {
         setIsEditModalOpen(true);
     };
@@ -45,7 +46,7 @@ const Profile = () => {
 
     return (
         <div className={style.container}>
-           
+
             <EditProfile isOpen={isEditModalOpen} onClose={handleEditProfileClose} />
 
             <h1 className={style.title}>Profile</h1>
@@ -57,8 +58,8 @@ const Profile = () => {
                         <span>{username}</span>
 
                         <p className={style['profile-description']}>
-                          {userBio}
-                            </p>
+                            {userBio}
+                        </p>
 
                     </div>
 

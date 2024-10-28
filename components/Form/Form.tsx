@@ -18,8 +18,9 @@ const Form = () => {
         
         const user = await loginUser({ username, password });
         if (user && user._id) {
-            console.log("tthis is a user", user);
+             
             const userId = user._id;
+            localStorage.setItem('userId', userId);
             await setCookie(userId);
             router.push('/main');
         }

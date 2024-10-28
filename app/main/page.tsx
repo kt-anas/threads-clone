@@ -1,11 +1,11 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../../ui/main/main.module.scss';
 import { useAppSelector, useAppDispatch } from '@/lib/hooks';
-// import { fetchUser } from '@/store/reducers/userSlice';
-import { fetchPosts } from '@/store/reducers/postsSlice';
+
+import { fetchPosts } from '@/store/postsSlice';
 import Threads from '@/components/threads/threads';
-import { addNewPost } from '@/store/reducers/postsSlice';
+import { addNewPost } from '@/store/postsSlice';
 import ProfileImage from '@/components/ProfileImage';
 import { Icons } from '@/ui/Icons/users';
 import LikeButton from '@/components/likeButton/likeButton';
@@ -15,47 +15,50 @@ import RepostButton from '@/components/repostButton/repostButton';
 import Repost from '@/components/repost/repost';
 import TimeAgo from '@/components/TimeAgo';
 import PostBtn from '@/components/postButton/postBtn';
-import FetchUser from '@/components/FetchUser';
+
 import CurrentUser from '@/components/CurrentUser';
+import { fetchUser } from '@/store/userSlice';
+import { closeModal } from '@/store/modalSlice';
 
 
 
 const HomePage: React.FC = () => {
 
-    // const { users } = useAppSelector((state) => state.users);
+
     const { posts } = useAppSelector((state) => state.posts);
 
 
     const [currentUser, setCurrentUser] = useState<any>(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+   
+
+
     const [username, setUserName] = useState<string>('');
-    const [postContent, setPostContent] = useState<string>('');
-    const [postImage, setPostImage] = useState<any>(null);
-    const [preview, setPreview] = useState<string | null>(null);
-    const [isCommentOpen, setIsCommentOpen] = useState(false);
-    const [isRepostOpen, setIsRepostOpen] = useState(false);
+    
     const [postId, setPostId] = useState<string>('');
     const [userId, setUserId] = useState<string>('');
     const [userProfilePic, setProfilePic] = useState<string>('');
 
 
+    const dispatch = useAppDispatch();
 
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
+    useEffect(() => {
 
-    const openComment = () => setIsCommentOpen(true);
-    const closeComment = () => setIsCommentOpen(false);
+        dispatch(fetchPosts());
+    }, [dispatch]);
 
-    const openRepost = () => setIsRepostOpen(true);
-    const closeRepost = () => setIsRepostOpen(false);
 
+ 
+  console.log('posts', posts)
 
     return (
         <div>
 
-            <FetchUser />
-            <CurrentUser setCurrentUser={setCurrentUser} setUserName={setUserName} setUserId={setUserId} setProfilePic={setProfilePic} currentUser={currentUser} />
-            <Threads isOpen={isModalOpen} onClose={closeModal}>
+
+            <CurrentUser setCurrentUser={setCurrentUser} setUserName={setUserName}
+                setUserId={setUserId}
+                setProfilePic={setProfilePic} currentUser={currentUser}  />
+
+            <Threads >
                 <div className={styles.dp}>
                     <img
                         src={currentUser?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
@@ -67,9 +70,9 @@ const HomePage: React.FC = () => {
 
             </Threads>
 
+
+
             <Reply
-                isOpen={isCommentOpen}
-                onClose={closeComment}
                 postId={postId}
                 userProfilePic={userProfilePic}
                 userId={userId}
@@ -87,10 +90,11 @@ const HomePage: React.FC = () => {
                 </div>
             </Reply>
 
-            <p className={styles.heading}>
-                For you
 
-            </p>
+
+            <p className={styles.heading}>
+                For you 
+                </p>
             <div className={styles["posts-container"]}>
 
                 <div className={styles["new-container"]}>
@@ -107,12 +111,15 @@ const HomePage: React.FC = () => {
                         </div>
                     </div>
 
-                    <PostBtn onClick={openModal} />
+                    <PostBtn  />
 
                 </div>
 
                 <div className={styles["posts-list"]}>
+
+
                     {posts.map((post) => (
+
                         <div key={post._id} className={styles["post-item"]}>
 
 
@@ -135,34 +142,30 @@ const HomePage: React.FC = () => {
                                 </div>
                             </div>
                             {post.image && <img src={post.image} alt="post" className={styles["post-image"]} />}
+
                             <div className={styles['post-icons']}>
-                                {currentUser ? (
-                                    <LikeButton
-                                        initialLike={post.likes.length}
-                                        postId={post._id}
-                                        userId={currentUser._id}
-                                        likedUsers={post.likes}
-                                    />
-                                ) : (
-                                    <p>login</p>
-                                )}
+
+                                <LikeButton
+                                    initialLike={post.likes.length}
+                                    postId={post._id}
+
+                                    likedUsers={post.likes}
+                                />
+
 
                                 <div className={styles['reply']} >
 
 
-                                    <ReplyButton replyCount={post.replies.length} openComment={openComment} postId={post._id} setPostId={setPostId} />
+                                    <ReplyButton replyCount={post.replies.length }   postId={post._id} setPostId={setPostId} />
                                 </div>
 
                                 <div>
-                                    <RepostButton repostCount={post.reposts.length} postId={post._id} setPostId={setPostId} opernRepost={openRepost} />
+                                    <RepostButton repostCount={post.reposts.length} postId={post._id} setPostId={setPostId}  />
                                 </div>
 
 
-
-
                                 <Repost
-                                    isOpen={isRepostOpen}
-                                    onClose={closeRepost}
+                                    
                                     postId={postId}
                                     userId={userId}
                                     userProfilePic={userProfilePic}
@@ -172,6 +175,7 @@ const HomePage: React.FC = () => {
 
                         </div>
                     ))}
+
                 </div>
             </div>
         </div>

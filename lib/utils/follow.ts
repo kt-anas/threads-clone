@@ -14,7 +14,7 @@ export const FollowStatus = async (userId:string):Promise<boolean> =>{
 
     }catch(error){
         console.log(error);
-        return false
+        return false 
     }
 
 };

@@ -1,8 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { useAppDispatch , useAppSelector} from '@/lib/hooks';
  
-import { RootState } from '../store/store';
+import axiosInstance from '@/axios/axiosInstance';
 
 interface Props {
     setCurrentUser:(user:any)=>void
@@ -13,18 +12,21 @@ interface Props {
 }
 
 const CurrentUser: React.FC<Props> = ({ setCurrentUser, setUserName, setUserId, setProfilePic, currentUser }) => {
-    const { users } = useAppSelector((state:RootState) => state.users);
-
+ 
+    const userId = localStorage.getItem('userId');  
     useEffect(() => {
-        const userId = localStorage.getItem('userId');
-        if (userId && users.length > 0) {
-            const user = users.find((user) => user._id === userId);
-            if (user) {
-                setCurrentUser(user);
-                setUserName(user.username || '');
-            }
-        }
-    }, [users]);
+
+       async function getCurrentUser() { 
+        const response = await axiosInstance.get(`/users/${userId}`);
+        setCurrentUser(response.data.user);
+        setUserName(response.data.user.name);
+        setUserId(response.data.user._id);
+        setProfilePic(response.data.user.profilePic);
+      }
+      getCurrentUser();
+
+    }, [userId]);
+
 
     useEffect(() => {
         if (currentUser) {

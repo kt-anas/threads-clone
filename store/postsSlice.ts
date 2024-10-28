@@ -43,6 +43,7 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
     const response = await axiosInstance.get('/posts');
     return response.data.posts;
 });
+
 export const addNewPost = createAsyncThunk(
     "posts/addNewPost",
     async (newPost: { userId: string; text: string; image: string }, { rejectWithValue }) => {

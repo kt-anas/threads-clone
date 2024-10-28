@@ -10,11 +10,14 @@ import { useRouter } from 'next/navigation';
 // import logOut from '../../../public/assets/logout.svg';
 import { Icons } from '../../ui/Icons/users';
 import { deleteCookie } from '@/lib/utils/deleteCookie';
+import { useAppDispatch } from '@/lib/hooks';
+import { openModal } from '@/store/modalSlice';
 
 
 
 const Navbar: React.FC = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const dispatch = useAppDispatch();
     const router = useRouter();
     const handleLogout = async () => {
         await deleteCookie();
@@ -46,8 +49,7 @@ const Navbar: React.FC = () => {
                 </li>
                 <li>
                     <Link href=''>
-                        <Icons.create />
-
+                        <Icons.create  onClick={()=> dispatch(openModal())}/>
                     </Link>
 
                 </li>

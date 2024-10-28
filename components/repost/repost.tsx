@@ -3,22 +3,24 @@ import React, { useState } from 'react';
 import styles from './RepostModal.module.scss';
  
 import axiosInstance from '@/axios/axiosInstance';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { closeRepost } from '@/store/modalSlice';
 
 interface RepostProps {
-    isOpen: boolean;
-    onClose: () => void;
+    
+   
     postId: string;
     userProfilePic: string;
     userId: string;
     username: string;
 }
 
-const Repost: React.FC<RepostProps> = ({ isOpen, onClose, postId, userProfilePic, userId, username }) => {
+const Repost: React.FC<RepostProps> = ({ postId, userProfilePic, userId, username }) => {
+    const dispatch = useAppDispatch();
+    const isRepostOpen  = useAppSelector((state) => state.modal.isRepostOpen);
     
     const handleRepost = async () => {
        
-       
-
         const repost = {
             userId: userId,
             userProfilePic: userProfilePic,
@@ -27,13 +29,12 @@ const Repost: React.FC<RepostProps> = ({ isOpen, onClose, postId, userProfilePic
        
 
         try {
-            console.log('this is a post id', postId);
-            const response = await axiosInstance.post(`/posts/repost/${postId}`, repost
-            );
+            
+            const response = await axiosInstance.post(`/posts/repost/${postId}`, repost );
             postId = '';
-            console.log("Reposted:", response.data);
+           
           
-            onClose();
+             dispatch(closeRepost());
         } catch (err) {
             console.error("Failed to repost:", err);
             
@@ -41,13 +42,12 @@ const Repost: React.FC<RepostProps> = ({ isOpen, onClose, postId, userProfilePic
         }
     };
 
-    if (!isOpen) return null;
+    if (!isRepostOpen) return null;
 
     return (
-        <div className={styles.modalOverlay} onClick={onClose}>
+        <div className={styles.modalOverlay} onClick={ ()=> dispatch(closeRepost())}>
             <div className={styles.modalContent}>
                 
-
                 <div className={styles.modalActions}>
                    
                     <button className={styles.repostButton} onClick={handleRepost}  >

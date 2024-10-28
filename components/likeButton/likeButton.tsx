@@ -7,15 +7,16 @@ import axios from 'axios'
 interface LikeButtonProps {
     initialLike: number
     postId: string
-    userId: string
+    
     likedUsers: string[]  
 }
 
-const LikeButton = ({ initialLike, postId, userId, likedUsers }: LikeButtonProps) => {
+const LikeButton = ({ initialLike, postId,  likedUsers }: LikeButtonProps) => {
     const [like, setLike] = useState(initialLike)
     const [isLiked, setIsLiked] = useState(false)
+    const userId = localStorage.getItem('userId')
     useEffect(() => {
-        if (likedUsers.includes(userId)) {
+        if (likedUsers.includes(userId as string)) {
             setIsLiked(true)
         }
     }, [likedUsers, userId])

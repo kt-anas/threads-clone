@@ -1,13 +1,14 @@
 'use client';
 import React, { useEffect, useState, ReactNode } from 'react';
 import styles from './reply.module.scss';
-import axios from 'axios';
+ 
 import ProfileImage from '../ProfileImage';
 import axiosInstance from '@/axios/axiosInstance';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { closeComment } from '@/store/modalSlice';
 
 interface ReplyProps {
-    isOpen: boolean;
-    onClose: () => void;
+   
     children: ReactNode;
     postId: string;
     userId: string;
@@ -15,13 +16,15 @@ interface ReplyProps {
     username: string;
 }
 
-const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId, userProfilePic, username }) => {
+const Reply: React.FC<ReplyProps> = ({  children, postId, userId, userProfilePic, username }) => {
+
     const [post, setPost] = useState<any>(null);
     const [comment, setComment] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
-
+    const dispatch = useAppDispatch();  
+  const  isCommentOpen = useAppSelector((state) => state.modal.isCommentOpen);
     useEffect(() => {
-        if (isOpen) {
+        if (isCommentOpen) {
             const fetchPost = async () => {
                 try {
                     const response = await axiosInstance.get(
@@ -30,12 +33,12 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
                     setPost(response.data.post);
                     console.log('this is a post', post)
                 } catch (error) {
-                    console.error("Failed to fetch post:", error);
+                    console.error("error", error);
                 }
             };
             fetchPost();
         }
-    }, [isOpen, postId]);
+    }, [ isCommentOpen, postId]);
 
 
     const handleReplySubmit = async () => {
@@ -57,22 +60,24 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
             setLoading(false); 
 
             setComment('');  
-            onClose(); 
+          
+
+          dispatch(closeComment());
         } catch (error) {
-            console.error("Failed to reply to post:", error);
+            console.error( error);
         }   
         
     };
 
 
 
-    if (!isOpen) return null;
+    if (!isCommentOpen) return null;
 
     return (
         <div className={styles.overlay}>
             <div className={styles.modal}>
                 <div className={styles.header}>
-                    <button className={styles["close-btn"]} onClick={onClose}>
+                    <button className={styles["close-btn"]} onClick={() => dispatch(closeComment())}>
                         &times;
                     </button>
                 </div>
@@ -111,7 +116,9 @@ const Reply: React.FC<ReplyProps> = ({ isOpen, onClose, children, postId, userId
                     </div>
                 )}
 
-                <div className={styles.user}>{children}</div>
+                <div className={styles.user}>
+                    {children}
+                    </div>
 
                 <div className={styles.body}>
                     <textarea

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch } from '@/lib/hooks';
 import ProfileImage from '@/components/ProfileImage';
-import { fetchPostByUserId } from '@/store/reducers/postSlice';
+// import { fetchPostByUserId } from '@/store/reducers/postSlice';
 import styles from '../../../ui/main/main.module.scss';
 import TimeAgo from '@/components/TimeAgo';
 import style from '../../../ui/main/profile.module.scss';
@@ -99,12 +99,12 @@ const ProfilePage: React.FC = () => {
                         <LikeButton
                             initialLike={post.likes.length}
                             postId={post._id}
-                            userId={localStorage.getItem('userId')}
+                           
                             likedUsers={post.likes}
                         />
                         <ReplyButton
                             replyCount={post.replies.length}
-                            openComment={() => setSelectedPostId(post._id)}
+                            
                             postId={post._id}
                             setPostId={setSelectedPostId}
                         />
@@ -112,7 +112,7 @@ const ProfilePage: React.FC = () => {
                             repostCount={post.reposts.length}
                             postId={post._id}
                             setPostId={setSelectedPostId}
-                            opernRepost={() => setSelectedPostId(post._id)}
+                            
                         />
                     </div>
                 </div>

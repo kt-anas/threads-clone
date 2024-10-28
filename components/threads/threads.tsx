@@ -4,37 +4,32 @@ import styles from '../../ui/main/main.module.scss';
  
 
 import style from './threads.module.scss';
+
 // import { addNewPost } from '@/store/reducers/postsSlice';
-// import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
+ 
+
 import { Icons } from '@/ui/Icons/users';
 import axiosInstance from '@/axios/axiosInstance';
 import PostBtn from '../postButton/postBtn';
+import { closeModal } from '@/store/modalSlice';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
  
 
 interface ThreadsProps {
-    isOpen: boolean;
-    onClose: () => void;
+   
+   
     children: ReactNode;
 }
 
-/**
- * Threads is a modal component that allows users to create a new post.
- * It takes in the following props:
- * - isOpen: a boolean indicating whether the modal is open or not
- * - onClose: a function to call when the user closes the modal
- * - children: any ReactNode that will be rendered inside the modal
- *
- * The component renders a modal with a textarea for the user to write a post,
- * a button to upload an image, and a button to post the thread.
- * When the user clicks the post button, the component will send a request to the server to add a new post to the database.
- * If the request is successful, the component will close the modal.
- */
-const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
+ 
+const Threads: React.FC<ThreadsProps> = ({ children }) => {
     const [postContent, setPostContent] = useState<string>('');
     const [postImage, setPostImage] = useState<any>(null);
     const [preview, setPreview] = useState<string | null>(null);
 
-    // const dispatch = useAppDispatch();
+ const dispatch = useAppDispatch();
+ const isModalOpen = useAppSelector((state) => state.modal.isModalOpen);
+
     const handlePostSubmit = async () => {
         const userId = localStorage.getItem('userId');
         if (postContent.trim() === '') {
@@ -45,6 +40,7 @@ const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
             alert('User not found! Please log in.');
             return;
         }
+
         const newPostFormData = new FormData();
         newPostFormData.append('userId', userId);
         newPostFormData.append('text', postContent);
@@ -63,7 +59,7 @@ const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
         setPostContent('');
         setPostImage(null);
         
-        onClose();
+        dispatch(closeModal());
     };
 
 
@@ -85,12 +81,12 @@ const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
         }
     };
 
-    if (!isOpen) return null;
+    if (!isModalOpen) return null;
 
     return (
         <div className={style.overlay}>
             <div className={style.modal}>
-                <button onClick={onClose} className={style.closeButton}>
+                <button onClick={()=>dispatch(closeModal())} className={style.closeButton}>
                     &times;
                 </button>
 
@@ -123,14 +119,14 @@ const Threads: React.FC<ThreadsProps> = ({ isOpen, onClose, children }) => {
                             </label>
                         </div>
                     </div>
-                    <div className={styles['post-thread']}>
+                    <div className={styles['post-thread']} onClick={handlePostSubmit}>
                         {/* <button
                             className={styles['past-btn']}
                             onClick={handlePostSubmit}
                         >
                             Post
                         </button> */}
-                        <PostBtn onClick={handlePostSubmit}/>
+                        <PostBtn />
                     </div>
                 </div>
             </div>

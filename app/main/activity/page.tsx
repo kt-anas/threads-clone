@@ -12,7 +12,7 @@ interface User {
     username: string;
     email: string;
     profilePic: string;
-}
+} 
 
 interface Notification {
     _id: string;
@@ -26,8 +26,11 @@ async function getNotifications() {
     return res.data.notifications;
 }
 
+
 export default async function ActivityPage() {
+
     let notifications: Notification[] = [];
+
     try {
         notifications = await getNotifications();
         console.log(notifications)
