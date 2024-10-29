@@ -9,6 +9,7 @@ import axiosInstance from '@/axios/axiosInstance';
 interface ReplyButtonProps {
     postId: string;
     setPostId: (postId: string) => void;
+    replyCount: number
 }
 
 interface Replies {
@@ -22,7 +23,7 @@ interface postReply {
     postReply: Replies[];
 }
 
-const ReplyButton: React.FC<ReplyButtonProps> = ({ postId, setPostId }) => {
+const ReplyButton: React.FC<ReplyButtonProps> = ({ postId, setPostId,replyCount }) => {
     const dispatch = useAppDispatch();
     const [replies, setReplies] = useState<postReply[]>([]);  
 
@@ -46,7 +47,7 @@ const ReplyButton: React.FC<ReplyButtonProps> = ({ postId, setPostId }) => {
     return (
         <button className={styles.replyButton} onClick={handleClick}>
             <Icons.reply />
-            <span>{replies.length}</span> 
+            <span>{replyCount}</span> 
         </button>
     );
 };

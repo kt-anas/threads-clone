@@ -43,7 +43,7 @@ const Signup: React.FC = () => {
 
     
     if (!email.includes('@')) {
-      setError("Please enter a valid email address.");
+      setError("Please enter a valid email .");
       return;
     }
     if (password !== confirmPassword) {

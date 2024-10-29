@@ -22,11 +22,11 @@
   
   .hello {
     width: 640px;
-    height: calc(100vh - 60px); /* Adjust height to account for the fixed navbar */
+    height: calc(100vh - 60px); 
     color: white;
-    background-color: #0A0A0A;
+ 
     text-align: center;
-    margin: 0 auto; /* Center align the content */
-    padding: 20px; /* Optional padding for better spacing */
+    margin: 0 auto; 
+    padding: 20px; 
   }
   

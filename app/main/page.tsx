@@ -50,6 +50,8 @@ const HomePage: React.FC = () => {
  
   console.log('posts', posts)
 
+
+
     return (
         <div>
 
