@@ -11,16 +11,16 @@ interface RepostProps {
    
     postId: string;
     userProfilePic: string;
-    userId: string;
+    
     username: string;
 }
 
-const Repost: React.FC<RepostProps> = ({ postId, userProfilePic, userId, username }) => {
+const Repost: React.FC<RepostProps> = ({ postId, userProfilePic, username }) => {
     const dispatch = useAppDispatch();
     const isRepostOpen  = useAppSelector((state) => state.modal.isRepostOpen);
     
     const handleRepost = async () => {
-       
+       const userId = localStorage.getItem('userId');
         const repost = {
             userId: userId,
             userProfilePic: userProfilePic,

@@ -84,7 +84,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ isOpen, onClose }) => {
         <div className={styles['modal-overlay']}>
             <div className={styles['modal-container']}>
                 <button onClick={onClose} className={styles['modal-close-btn']}>
-                    ✕
+                    x
                 </button>
 
                 <form className={styles['modal-form']} onSubmit={handleSubmit}>
@@ -119,23 +119,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ isOpen, onClose }) => {
 
 
 
-                    {/* <div className={styles['profile-pic-container']}>
-                            <button onClick={handleImageUpload}>
-                                <BsPersonFillAdd size={24} />
-                            </button>
-                            <input
-                                type="file"
-                                ref={fileInputRef}
-                                onChange={handleFileChange}
-                                style={{ display: 'none' }}
-                            />
-                            {previewImage && (
-                                <div className={styles['image-preview']}>
-                                    <img src={previewImage} alt="Profile Preview" />
-                                </div>
-                            )}
-
-                        </div> */}
+                   
 
                     <div className={styles['form-group']}>
                         <label htmlFor="username">Username</label>

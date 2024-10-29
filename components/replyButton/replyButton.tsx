@@ -42,7 +42,7 @@ const ReplyButton: React.FC<ReplyButtonProps> = ({ postId, setPostId,replyCount 
         fetchPostReplies(postId); 
     };
 
-    console.log('replies', typeof replies);
+    
 
     return (
         <button className={styles.replyButton} onClick={handleClick}>

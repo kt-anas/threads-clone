@@ -31,7 +31,7 @@ const Reply: React.FC<ReplyProps> = ({  children, postId, userId, userProfilePic
                         `/posts/post/${postId}`
                     );
                     setPost(response.data.post);
-                    console.log('this is a post', post)
+                   
                 } catch (error) {
                     console.error("error", error);
                 }

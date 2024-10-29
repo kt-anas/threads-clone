@@ -19,6 +19,7 @@ import PostBtn from '@/components/postButton/postBtn';
 import CurrentUser from '@/components/CurrentUser';
 import { fetchUser } from '@/store/userSlice';
 import { closeModal } from '@/store/modalSlice';
+import axiosInstance from '@/axios/axiosInstance';
 
 
 
@@ -29,8 +30,6 @@ const HomePage: React.FC = () => {
 
 
     const [currentUser, setCurrentUser] = useState<any>(null);
-   
-
 
     const [username, setUserName] = useState<string>('');
     
@@ -48,7 +47,31 @@ const HomePage: React.FC = () => {
 
 
  
-  console.log('posts', posts)
+    const userId = localStorage.getItem('userId');  
+    useEffect(() => {
+
+       async function getCurrentUser() { 
+        const response = await axiosInstance.get(`/users/${userId}`);
+        setCurrentUser(response.data.user);
+        setUserName(response.data.user.name);
+        setUserId(response.data.user._id);
+        setProfilePic(response.data.user.profilePic);
+      }
+      getCurrentUser();
+
+    }, [userId]);
+
+
+    useEffect(() => {
+        if (currentUser) {
+            setUserId(currentUser._id);
+            if (currentUser.profilePic) {
+                setProfilePic(currentUser.profilePic);
+            } else {
+                setProfilePic('https://cdn-icons-png.flaticon.com/512/149/149071.png');
+            }
+        }
+    }, [currentUser]);
 
 
 
@@ -56,9 +79,8 @@ const HomePage: React.FC = () => {
         <div>
 
 
-            <CurrentUser setCurrentUser={setCurrentUser} setUserName={setUserName}
-                setUserId={setUserId}
-                setProfilePic={setProfilePic} currentUser={currentUser}  />
+            
+
 
             <Threads >
                 <div className={styles.dp}>
@@ -75,18 +97,22 @@ const HomePage: React.FC = () => {
 
 
             <Reply
+            
                 postId={postId}
                 userProfilePic={userProfilePic}
                 userId={userId}
                 username={username}
             >
+               
                 <div>
                     <div>
+                        
                         <img
                             src={currentUser?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
                             alt="profile"
                             className={styles['profile-image']}
                         />
+                        
                         <p className={styles['profile-name']}>{username}</p>
                     </div>
                 </div>
@@ -97,6 +123,8 @@ const HomePage: React.FC = () => {
             <p className={styles.heading}>
                 For you 
                 </p>
+
+
             <div className={styles["posts-container"]}>
 
                 <div className={styles["new-container"]}>
@@ -113,9 +141,11 @@ const HomePage: React.FC = () => {
                         </div>
                     </div>
 
-                    <PostBtn  />
+                    <PostBtn />
 
                 </div>
+
+
 
                 <div className={styles["posts-list"]}>
 
@@ -164,12 +194,10 @@ const HomePage: React.FC = () => {
                                 <div>
                                     <RepostButton repostCount={post.reposts.length} postId={post._id} setPostId={setPostId}  />
                                 </div>
-
-
-                                <Repost
+                                 <Repost
                                     
                                     postId={postId}
-                                    userId={userId}
+                                   
                                     userProfilePic={userProfilePic}
                                     username={username}
                                 />
@@ -177,6 +205,9 @@ const HomePage: React.FC = () => {
 
                         </div>
                     ))}
+
+
+
 
                 </div>
             </div>

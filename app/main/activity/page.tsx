@@ -38,7 +38,8 @@ export default async function ActivityPage() {
         console.error(error);
 
     }
-
+ console.log('notifications',notifications)
+ 
     return (
         <div className={activityStyles.container}>
             <h2 className={activityStyles.title}>Activity</h2>
