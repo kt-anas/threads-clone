@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 
 interface ProfileImageProps {
@@ -10,7 +11,7 @@ const ProfileImage: React.FC<ProfileImageProps> = ({ profilePic, altText = 'prof
     const defaultImage = 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
 
     return (
-        <img
+        <Image
             src={profilePic || defaultImage}
             alt={altText}
             className={className}

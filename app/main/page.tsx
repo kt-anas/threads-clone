@@ -125,7 +125,7 @@ const HomePage: React.FC = () => {
 
             <p className={styles.heading}>
                 For you 
-                </p>
+            </p>
 
 
             <div className={styles["posts-container"]}>
