@@ -6,6 +6,7 @@ import ProfileImage from '../ProfileImage';
 import axiosInstance from '@/axios/axiosInstance';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { closeComment } from '@/store/modalSlice';
+import { fetchPosts } from '@/store/postsSlice';
 
 interface ReplyProps {
    
@@ -22,7 +23,9 @@ const Reply: React.FC<ReplyProps> = ({  children, postId, userId, userProfilePic
     const [comment, setComment] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
     const dispatch = useAppDispatch();  
-  const  isCommentOpen = useAppSelector((state) => state.modal.isCommentOpen);
+     const  isCommentOpen = useAppSelector((state) => state.modal.isCommentOpen);
+
+
     useEffect(() => {
         if (isCommentOpen) {
             const fetchPost = async () => {
@@ -63,6 +66,8 @@ const Reply: React.FC<ReplyProps> = ({  children, postId, userId, userProfilePic
           
 
           dispatch(closeComment());
+          
+          dispatch(fetchPosts());
         } catch (error) {
             console.error( error);
         }   

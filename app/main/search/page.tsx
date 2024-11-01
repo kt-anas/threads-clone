@@ -81,7 +81,7 @@ const SearchPage: React.FC = () => {
                                         <p className={styles['profile-name']}>{user.username}</p>
                                         <p>{user.followers.length} followers</p>
                                     </div>
-                                    <FollowBtn userId={user._id} />
+                                    <FollowBtn userId={user._id}  followers={user.followers} />
                                 </div>
                             </div>
                         </div>

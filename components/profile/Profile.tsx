@@ -17,6 +17,7 @@ const Profile = () => {
     const [profilePic, setProfilePic] = useState<string>('');
     const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
     const [userBio, setUserBio] = useState<string>('');
+    const [followersCount, setFollowersCount] = useState<number>(0);
 
     useEffect(() => {
         dispatch(fetchUser());
@@ -31,6 +32,7 @@ const Profile = () => {
                 setUserName(user.username || '');
                 setProfilePic(user.profilePic || '');
                 setUserBio(user.bio || '');
+                setFollowersCount(user.followers.length);
             }
         }
     }, [users]);
@@ -60,6 +62,7 @@ const Profile = () => {
                         <p className={style['profile-description']}>
                             {userBio}
                         </p>
+                        <div>{followersCount} Followers</div>
 
                     </div>
 

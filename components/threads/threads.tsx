@@ -13,6 +13,7 @@ import axiosInstance from '@/axios/axiosInstance';
 import PostBtn from '../postButton/postBtn';
 import { closeModal } from '@/store/modalSlice';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { fetchPosts } from '@/store/postsSlice';
  
 
 interface ThreadsProps {
@@ -60,6 +61,7 @@ const Threads: React.FC<ThreadsProps> = ({ children }) => {
         setPostImage(null);
         
         dispatch(closeModal());
+        dispatch(fetchPosts());
     };
 
 

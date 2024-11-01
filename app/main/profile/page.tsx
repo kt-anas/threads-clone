@@ -85,6 +85,7 @@ const ProfilePage: React.FC = () => {
                             <TimeAgo dateString={post.createdOn} />
                         </div>
                         <div className={styleMenu['menu-container']}>
+                            
                             <Icons.circleMenu className={styleMenu['menu']} onClick={() => toggleDropdown(post._id)} />
                             {selectedPostId === post._id && (
                                 <DropdownMenu>
@@ -92,6 +93,8 @@ const ProfilePage: React.FC = () => {
                                 </DropdownMenu>
                             )}
                         </div>
+
+
                     </div>
                     <p className={styles['post-text']}>{post.text}</p>
                     {post.image && <img src={post.image} alt="post" className={styles['post-image']} />}

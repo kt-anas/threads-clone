@@ -30,9 +30,7 @@ const HomePage: React.FC = () => {
 
 
     const [currentUser, setCurrentUser] = useState<any>(null);
-
     const [username, setUserName] = useState<string>('');
-    
     const [postId, setPostId] = useState<string>('');
     const [userId, setUserId] = useState<string>('');
     const [userProfilePic, setProfilePic] = useState<string>('');
@@ -44,13 +42,15 @@ const HomePage: React.FC = () => {
 
         dispatch(fetchPosts());
     }, [dispatch]);
-
+    
 
  
-    const userId = localStorage.getItem('userId');  
+    
     useEffect(() => {
 
        async function getCurrentUser() { 
+        const userId = localStorage.getItem('userId');
+        
         const response = await axiosInstance.get(`/users/${userId}`);
         setCurrentUser(response.data.user);
         setUserName(response.data.user.name);
@@ -150,6 +150,8 @@ const HomePage: React.FC = () => {
                 <div className={styles["posts-list"]}>
 
 
+
+
                     {posts.map((post) => (
 
                         <div key={post._id} className={styles["post-item"]}>
@@ -196,7 +198,7 @@ const HomePage: React.FC = () => {
                                 </div>
                                  <Repost
                                     
-                                    postId={postId}
+                                    postId={ postId}
                                    
                                     userProfilePic={userProfilePic}
                                     username={username}

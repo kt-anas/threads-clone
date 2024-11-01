@@ -5,13 +5,13 @@ import styles from './RepostModal.module.scss';
 import axiosInstance from '@/axios/axiosInstance';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { closeRepost } from '@/store/modalSlice';
+import { fetchPosts } from '@/store/postsSlice';
 
 interface RepostProps {
     
    
     postId: string;
     userProfilePic: string;
-    
     username: string;
 }
 
@@ -35,6 +35,7 @@ const Repost: React.FC<RepostProps> = ({ postId, userProfilePic, username }) => 
            
           
              dispatch(closeRepost());
+             dispatch(fetchPosts());
         } catch (err) {
             console.error("Failed to repost:", err);
             
