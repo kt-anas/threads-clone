@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch } from '@/lib/hooks';
 import ProfileImage from '@/components/ProfileImage';
-// import { fetchPostByUserId } from '@/store/reducers/postSlice';
+ 
 import styles from '../../../ui/main/main.module.scss';
 import TimeAgo from '@/components/TimeAgo';
 import style from '../../../ui/main/profile.module.scss';
@@ -12,7 +12,7 @@ import LikeButton from '@/components/likeButton/likeButton';
 import ReplyButton from '@/components/replyButton/replyButton';
 import RepostButton from '@/components/repostButton/repostButton';
 import DropdownMenu from '@/components/DropdowMenu';
-import styleMenu from '@/components/DropdowMenu.module.scss';
+ 
 
 const ProfilePage: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -84,7 +84,7 @@ const ProfilePage: React.FC = () => {
                             <h3>{post.username}</h3>
                             <TimeAgo dateString={post.createdOn} />
                         </div>
-                        <div className={styleMenu['menu-container']}>
+                        {/* <div className={styleMenu['menu-container']}>
                             
                             <Icons.circleMenu className={styleMenu['menu']} onClick={() => toggleDropdown(post._id)} />
                             {selectedPostId === post._id && (
@@ -92,7 +92,7 @@ const ProfilePage: React.FC = () => {
                                     <button onClick={() => deletePost(post._id)}>Delete</button>
                                 </DropdownMenu>
                             )}
-                        </div>
+                        </div> */}
 
 
                     </div>
