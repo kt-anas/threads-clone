@@ -7,6 +7,7 @@ import axiosInstance from '@/axios/axiosInstance';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { closeComment } from '@/store/modalSlice';
 import { fetchPosts } from '@/store/postsSlice';
+import Image from 'next/image';
 
 interface ReplyProps {
    
@@ -91,13 +92,13 @@ const Reply: React.FC<ReplyProps> = ({  children, postId, userId, userProfilePic
                         <div className={styles['user-info']}>
 
                             {post.postById.profilePic ? (
-                                <img
+                                <Image
                                     src={post.postById.profilePic}
                                     alt={`${post.postById.username}'s profile`}
                                     className={styles['profile-image']}
                                 />
                             ) : (
-                                <img
+                                <Image
                                     src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
                                     alt="profile"
                                     className={styles['profile-image']}
@@ -114,7 +115,7 @@ const Reply: React.FC<ReplyProps> = ({  children, postId, userId, userProfilePic
                         </div>
                         {post.image && (
                             <div className={styles['post-image-container']}>
-                                <img src={post.image} alt="Post" className={styles['post-image']} />
+                                <Image src={post.image} alt="Post" className={styles['post-image']} />
 
                             </div>
                         )}

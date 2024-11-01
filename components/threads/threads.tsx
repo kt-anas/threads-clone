@@ -14,6 +14,7 @@ import PostBtn from '../postButton/postBtn';
 import { closeModal } from '@/store/modalSlice';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { fetchPosts } from '@/store/postsSlice';
+import Image from 'next/image';
  
 
 interface ThreadsProps {
@@ -105,7 +106,7 @@ const Threads: React.FC<ThreadsProps> = ({ children }) => {
                         />
                         {preview && (
                             <div className={styles['image-preview-container']}>
-                                <img src={preview} alt="Preview" className={styles['image-preview']} />
+                                <Image src={preview} alt="Preview" className={styles['image-preview']} />
                             </div>
                         )}
                         <div className={styles['file-upload-container']}>
