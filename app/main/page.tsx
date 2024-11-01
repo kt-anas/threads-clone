@@ -20,6 +20,7 @@ import CurrentUser from '@/components/CurrentUser';
 import { fetchUser } from '@/store/userSlice';
 import { closeModal } from '@/store/modalSlice';
 import axiosInstance from '@/axios/axiosInstance';
+import Image from 'next/image';
 
 
 
@@ -84,10 +85,12 @@ const HomePage: React.FC = () => {
 
             <Threads >
                 <div className={styles.dp}>
-                    <img
+                    <Image
                         src={currentUser?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
                         alt="profile"
                         className={styles['profile-image']}
+                        width={50}
+                        height={50}
                     />
                     <p className={styles['profile-name']}>{username}</p>
                 </div>
@@ -107,7 +110,7 @@ const HomePage: React.FC = () => {
                 <div>
                     <div>
                         
-                        <img
+                        <Image
                             src={currentUser?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
                             alt="profile"
                             className={styles['profile-image']}
@@ -158,7 +161,7 @@ const HomePage: React.FC = () => {
 
 
                             <div className={styles["post-user"]}>
-                                <img
+                                <Image
                                     src={post.postById?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
                                     alt="profile"
                                     className={styles['profile-image']}
@@ -175,7 +178,7 @@ const HomePage: React.FC = () => {
                                     <p className={styles['post-text']}>{post.text}</p>
                                 </div>
                             </div>
-                            {post.image && <img src={post.image} alt="post" className={styles["post-image"]} />}
+                            {post.image && <Image src={post.image} alt="post" className={styles["post-image"]} />}
 
                             <div className={styles['post-icons']}>
 
