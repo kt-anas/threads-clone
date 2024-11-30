@@ -5,12 +5,10 @@ import styles from './Navbar.module.scss';
 import Image from 'next/image';
 import logo from '../../public/assets/thread-logo-w.svg';
 import { useRouter } from 'next/navigation';
-
 // import thumbtack from '../../public/assets/thumbtack.svg';
 // import logOut from '../../../public/assets/logout.svg';
 import { Icons } from '../../ui/Icons/users';
-import { deleteCookie } from '@/lib/utils/deleteCookie';
-import { useAppDispatch } from '@/lib/hooks';
+import { useAppDispatch } from '@/hooks';
 import { openModal } from '@/store/modalSlice';
 
 
@@ -20,7 +18,7 @@ const Navbar: React.FC = () => {
     const dispatch = useAppDispatch();
     const router = useRouter();
     const handleLogout = async () => {
-        await deleteCookie();
+        localStorage.removeItem('userId');
         router.push('/login');
     };
 
@@ -49,7 +47,7 @@ const Navbar: React.FC = () => {
                 </li>
                 <li>
                     <Link href=''>
-                        <Icons.create  onClick={()=> dispatch(openModal())}/>
+                        <Icons.create onClick={() => dispatch(openModal())} />
                     </Link>
 
                 </li>

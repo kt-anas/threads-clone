@@ -1,16 +1,16 @@
 'use client';
 import React, { useEffect, useState, ReactNode } from 'react';
 import styles from './reply.module.scss';
- 
+
 import ProfileImage from '../ProfileImage';
 import axiosInstance from '@/axios/axiosInstance';
-import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 import { closeComment } from '@/store/modalSlice';
 import { fetchPosts } from '@/store/postsSlice';
 import Image from 'next/image';
 
 interface ReplyProps {
-   
+
     children: ReactNode;
     postId: string;
     userId: string;
@@ -18,13 +18,13 @@ interface ReplyProps {
     username: string;
 }
 
-const Reply: React.FC<ReplyProps> = ({  children, postId, userId, userProfilePic, username }) => {
+const Reply: React.FC<ReplyProps> = ({ children, postId, userId, userProfilePic, username }) => {
 
     const [post, setPost] = useState<any>(null);
     const [comment, setComment] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
-    const dispatch = useAppDispatch();  
-     const  isCommentOpen = useAppSelector((state) => state.modal.isCommentOpen);
+    const dispatch = useAppDispatch();
+    const isCommentOpen = useAppSelector((state) => state.modal.isCommentOpen);
 
 
     useEffect(() => {
@@ -35,14 +35,14 @@ const Reply: React.FC<ReplyProps> = ({  children, postId, userId, userProfilePic
                         `/posts/post/${postId}`
                     );
                     setPost(response.data.post);
-                   
+
                 } catch (error) {
                     console.error("error", error);
                 }
             };
             fetchPost();
         }
-    }, [ isCommentOpen, postId]);
+    }, [isCommentOpen, postId]);
 
 
     const handleReplySubmit = async () => {
@@ -56,23 +56,23 @@ const Reply: React.FC<ReplyProps> = ({  children, postId, userId, userProfilePic
         };
 
         try {
-            setLoading(true);   
+            setLoading(true);
             const response = await axiosInstance.post(
                 `/posts/${postId}/reply`,
                 reply
             );
-            setLoading(false); 
+            setLoading(false);
 
-            setComment('');  
-          
+            setComment('');
 
-          dispatch(closeComment());
-          
-          dispatch(fetchPosts());
+
+            dispatch(closeComment());
+
+            dispatch(fetchPosts());
         } catch (error) {
-            console.error( error);
-        }   
-        
+            console.error(error);
+        }
+
     };
 
 
@@ -124,7 +124,7 @@ const Reply: React.FC<ReplyProps> = ({  children, postId, userId, userProfilePic
 
                 <div className={styles.user}>
                     {children}
-                    </div>
+                </div>
 
                 <div className={styles.body}>
                     <textarea
@@ -144,7 +144,7 @@ const Reply: React.FC<ReplyProps> = ({  children, postId, userId, userProfilePic
                 </div>
                 <div className={styles.repliesContainer}>
                     {post?.replies?.length > 0 ? (
-                       [...post.replies].reverse().map((reply: any, index: number) => (
+                        [...post.replies].reverse().map((reply: any, index: number) => (
                             <div key={index} className={styles.reply}>
                                 <div className={styles['reply-user-info']}>
                                     <ProfileImage profilePic={reply.userProfilePic

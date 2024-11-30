@@ -1,20 +1,20 @@
- 'use client';
+'use client';
 import React, { useState, useEffect } from 'react';
 import styles from '../../../ui/main/search.module.scss';
-import { useAppDispatch } from '@/lib/hooks';
+import { useAppDispatch } from '@/hooks';
 import { Icons } from '@/ui/Icons/users';
 import axiosInstance from '@/axios/axiosInstance';
 import FollowBtn from '@/components/FollowBtn/FollowBtn';
+import Image from 'next/image';
 
 const SearchPage: React.FC = () => {
     const dispatch = useAppDispatch();
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
-  
     const [senderId, setSenderId] = useState<string | null>(null);
     const [userId, setUserId] = useState<string | null>(null);
     const [users, setUsers] = useState<User[]>([]);
-    const [user, setUser] = useState<User | null>(null);   
+    const [user, setUser] = useState<User | null>(null);
 
     interface User {
         _id: string;
@@ -24,7 +24,7 @@ const SearchPage: React.FC = () => {
         name: string;
     }
 
-    useEffect(() => { 
+    useEffect(() => {
         const getUsers = async () => {
             try {
                 const res = await axiosInstance.get('/users');
@@ -34,9 +34,7 @@ const SearchPage: React.FC = () => {
             }
         };
         getUsers();
-    }, []);  
-
-  
+    }, []);
 
     useEffect(() => {
         setFilteredUsers(
@@ -49,7 +47,6 @@ const SearchPage: React.FC = () => {
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value);
     };
-
 
     return (
         <>
@@ -70,10 +67,13 @@ const SearchPage: React.FC = () => {
                     {filteredUsers.map((user) => (
                         <div key={user._id} className={styles['result-item']}>
                             <div className={styles['post-user']}>
-                                <img
+                                <Image
                                     src={user.profilePic || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'}
                                     alt="profile"
                                     className={styles['profile-image']}
+                                    width={50} // Replace with the appropriate width
+                                    height={50} // Replace with the appropriate height
+                                    priority
                                 />
                                 <div className={styles['user-details']}>
                                     <div className={styles['user-info']}>
@@ -81,7 +81,7 @@ const SearchPage: React.FC = () => {
                                         <p className={styles['profile-name']}>{user.username}</p>
                                         <p>{user.followers.length} followers</p>
                                     </div>
-                                    <FollowBtn userId={user._id}  followers={user.followers} />
+                                    <FollowBtn userId={user._id} followers={user.followers} />
                                 </div>
                             </div>
                         </div>

@@ -37,11 +37,7 @@ const Signup: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    
     setError(null);
-
-    
     if (!email.includes('@')) {
       setError("Please enter a valid email .");
       return;
@@ -50,9 +46,7 @@ const Signup: React.FC = () => {
       setError("Passwords do not match.");
       return;
     }
-
-    const userData: UserData = { name, username, email, password, phone };
-    
+    const userData: UserData = { name, username, email, password, phone }; 
     setLoading(true);
     const res = await signup(userData);
     setLoading(false);
@@ -63,9 +57,6 @@ const Signup: React.FC = () => {
       setError('Signup failed. Please try again.');
     }
   };
-
-
-  
   return (
     <div className={styles.signupContainer}>
       <form onSubmit={handleSubmit} className={styles.signupForm}>

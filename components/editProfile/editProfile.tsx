@@ -3,9 +3,10 @@ import styles from './editProfile.module.scss';
 import { BsPersonFillAdd } from 'react-icons/bs';
 import axiosInstance from '@/axios/axiosInstance';
 import { useRouter } from 'next/navigation';
-import { useAppDispatch } from '@/lib/hooks';
+import { useAppDispatch } from '@/hooks';
 import { fetchUser } from '@/store/userSlice';
- 
+import Image from 'next/image';
+
 
 interface EditProfileProps {
     isOpen: boolean;
@@ -21,7 +22,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ isOpen, onClose }) => {
     const [previewImage, setPreviewImage] = useState<string | null>(null);
     const router = useRouter();
     const dispatch = useAppDispatch();
- 
+
     const fileInputRef = React.useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
@@ -54,7 +55,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ isOpen, onClose }) => {
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        if (file) {  
+        if (file) {
             setProfilePic(file);
             setPreviewImage(URL.createObjectURL(file));
         }
@@ -115,7 +116,14 @@ const EditProfile: React.FC<EditProfileProps> = ({ isOpen, onClose }) => {
                             />
                             {previewImage && (
                                 <div className={styles['image-preview']}>
-                                    <img src={previewImage} alt="Profile Preview" />
+                                    <Image
+                                        src={previewImage}
+                                        alt="Profile Preview"
+                                        width={100} 
+                                        height={100}  
+                                        className={styles['preview-img']} 
+                                        priority  
+                                    />
                                 </div>
                             )}
 
@@ -125,7 +133,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ isOpen, onClose }) => {
 
 
 
-                   
+
 
                     <div className={styles['form-group']}>
                         <label htmlFor="username">Username</label>

@@ -1,50 +1,20 @@
-
+'use client';
 import React from 'react';
 import activityStyles from '../../../ui/activity/activity.module.scss';
 import ProfileImage from '@/components/ProfileImage';
-import FollowBtn from '@/components/FollowBtn/FollowBtn';
-import axiosInstance from '@/axios/axiosInstance';
-import { getUserId } from '@/lib/utils/getCookie';
+import { useNotifications } from '@/hooks/useNotifications';
 
-interface User {
-    _id: string;
-    name: string;
-    username: string;
-    email: string;
-    profilePic: string;
-} 
+export default function ActivityPage() {
+    const { notifications, error } = useNotifications();
 
-interface Notification {
-    _id: string;
-    description: string;
-    senderUserId: User;
-}
-
-async function getNotifications() {
-    const userId = getUserId();
-    const res = await axiosInstance.get(`/users/notification/${userId}`);
-    return res.data.notifications;
-}
-
-
-export default async function ActivityPage() {
-
-    let notifications: Notification[] = [];
-
-    try {
-        notifications = await getNotifications();
-        console.log(notifications)
-    } catch (error) {
-        console.error(error);
-
+    if (error) {
+        return <div className={activityStyles.error}>Error: {error}</div>;
     }
- console.log('notifications',notifications)
- 
+
     return (
         <div className={activityStyles.container}>
             <h2 className={activityStyles.title}>Activity</h2>
             <div className={activityStyles.content}>
-
                 {notifications.length === 0 ? (
                     <p>No notifications available.</p>
                 ) : (
@@ -53,19 +23,18 @@ export default async function ActivityPage() {
                             <div className={activityStyles.senderInfo}>
                                 <div className={activityStyles.profilePicContainer}>
                                     <ProfileImage
-                                        profilePic={notification.senderUserId.profilePic}
+                                        profilePic={notification.senderUserId?.profilePic}
                                         altText="Profile"
                                         className={activityStyles.profilePic}
                                     />
                                 </div>
                                 <div className={activityStyles.senderName}>
                                     <div className={activityStyles.sender}>
-                                        {notification.senderUserId.name}
+                                        {notification.senderUserId?.name}
                                     </div>
                                     <div>{notification.description}</div>
                                 </div>
                             </div>
-                           
                         </div>
                     ))
                 )}

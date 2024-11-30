@@ -11,11 +11,17 @@ const ProfileImage: React.FC<ProfileImageProps> = ({ profilePic, altText = 'prof
     const defaultImage = 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
 
     return (
-        <Image
-            src={profilePic || defaultImage}
-            alt={altText}
-            className={className}
-        />
+        <div className={className}>
+            <Image
+                src={profilePic || defaultImage}
+                alt={altText}
+                width={50}  
+                height={50}  
+                className={className}
+                placeholder="blur"  
+                blurDataURL="/placeholder-image-path.png" 
+            />
+        </div>
     );
 };
 

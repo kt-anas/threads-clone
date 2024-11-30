@@ -1,56 +1,43 @@
 'use client';
-import React, { ReactNode, useState, useEffect} from 'react';
+import React, { ReactNode, useState, useEffect } from 'react';
 import styles from '../../ui/main/main.module.scss';
- 
+
 
 import style from './threads.module.scss';
 
 // import { addNewPost } from '@/store/reducers/postsSlice';
- 
+
 
 import { Icons } from '@/ui/Icons/users';
 import axiosInstance from '@/axios/axiosInstance';
 import PostBtn from '../postButton/postBtn';
 import { closeModal } from '@/store/modalSlice';
-import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 import { fetchPosts } from '@/store/postsSlice';
 import Image from 'next/image';
- 
-
 interface ThreadsProps {
-   
-   
     children: ReactNode;
 }
-
- 
 const Threads: React.FC<ThreadsProps> = ({ children }) => {
     const [postContent, setPostContent] = useState<string>('');
     const [postImage, setPostImage] = useState<any>(null);
     const [preview, setPreview] = useState<string | null>(null);
-
- const dispatch = useAppDispatch();
- const isModalOpen = useAppSelector((state) => state.modal.isModalOpen);
-
+    const dispatch = useAppDispatch();
+    const isModalOpen = useAppSelector((state) => state.modal.isModalOpen);
     const handlePostSubmit = async () => {
         const userId = localStorage.getItem('userId');
         if (postContent.trim() === '') {
             alert('Please write something before posting!');
             return;
         }
-        if (! userId) {
+        if (!userId) {
             alert('User not found! Please log in.');
             return;
         }
-
         const newPostFormData = new FormData();
         newPostFormData.append('userId', userId);
         newPostFormData.append('text', postContent);
-        newPostFormData.append('image', postImage);
-
-      
- 
-        // dispatch(addNewPost(newPost));
+        newPostFormData.append('image', postImage);  
         try {
             console.log('Sending new post data:', newPostFormData);
             const response = await axiosInstance.post('/posts', newPostFormData);
@@ -60,12 +47,10 @@ const Threads: React.FC<ThreadsProps> = ({ children }) => {
         }
         setPostContent('');
         setPostImage(null);
-        
+
         dispatch(closeModal());
         dispatch(fetchPosts());
     };
-
-
     const handlePostChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setPostContent(event.target.value);
     };
@@ -89,7 +74,7 @@ const Threads: React.FC<ThreadsProps> = ({ children }) => {
     return (
         <div className={style.overlay}>
             <div className={style.modal}>
-                <button onClick={()=>dispatch(closeModal())} className={style.closeButton}>
+                <button onClick={() => dispatch(closeModal())} className={style.closeButton}>
                     &times;
                 </button>
 
@@ -106,7 +91,14 @@ const Threads: React.FC<ThreadsProps> = ({ children }) => {
                         />
                         {preview && (
                             <div className={styles['image-preview-container']}>
-                                <Image src={preview} alt="Preview" className={styles['image-preview']} />
+                                <Image
+                                    src={preview}
+                                    alt="Preview"
+                                    className={styles['image-preview']}
+                                    width={100} // Adjust width
+                                    height={100} // Adjust height
+                                    priority
+                                />
                             </div>
                         )}
                         <div className={styles['file-upload-container']}>
@@ -118,17 +110,17 @@ const Threads: React.FC<ThreadsProps> = ({ children }) => {
                                 className={styles['file-input']}
                             />
                             <label htmlFor="file-upload" className={styles['file-upload-label']}>
-                               <Icons.image />
+                                <Icons.image />
                             </label>
                         </div>
                     </div>
                     <div className={styles['post-thread']} onClick={handlePostSubmit}>
-                        {/* <button
+                        <button
                             className={styles['past-btn']}
                             onClick={handlePostSubmit}
                         >
                             Post
-                        </button> */}
+                        </button>
                         <PostBtn />
                     </div>
                 </div>

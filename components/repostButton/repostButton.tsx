@@ -3,16 +3,16 @@ import React from 'react';
 
 import { Icons } from '@/ui/Icons/users';
 import styles from './repostButton.module.scss';
-import { useAppDispatch } from '@/lib/hooks';
+import { useAppDispatch } from '@/hooks';
 import { openRepost } from '@/store/modalSlice';
 interface repostButtonProps {
     repostCount: number
     setPostId: (postId: string) => void
-    
+
     postId: string
 
 }
-const RepostButton: React.FC<repostButtonProps> = ({ repostCount, postId,setPostId}) => {
+const RepostButton: React.FC<repostButtonProps> = ({ repostCount, postId, setPostId }) => {
     const dispatch = useAppDispatch();
     return (
         <button className={styles.repostButton} onClick={() => { dispatch(openRepost()); setPostId(postId) }}>

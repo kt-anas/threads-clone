@@ -1,51 +1,44 @@
-'use client'; 
+'use client';
 import React, { useEffect, useState } from 'react';
 import styles from './FollowBtn.module.scss';
 import axiosInstance from '@/axios/axiosInstance';
-import { getUserId } from '@/lib/utils/getCookie';
- 
 interface FollowBtnProps {
     userId: string;
     followers: string[];
 }
-
-const FollowBtn: React.FC<FollowBtnProps> = ({ userId ,followers}) => {
-
+const FollowBtn: React.FC<FollowBtnProps> = ({ userId, followers }) => {
     const [isFollowing, setIsFollowing] = useState<boolean>(false);
     useEffect(() => {
-            const senderId = localStorage.getItem('userId');  
-            console.log(senderId);
-            console.log(followers);
-            
-        const fetchIsFollowing =  () => {
+        const senderId = localStorage.getItem('userId');
+        const fetchIsFollowing = () => {
             if (senderId) {
-                setIsFollowing (followers.includes(senderId));
-            } else  {
-                
+                setIsFollowing(followers.includes(senderId));
+            } else {
+
                 setIsFollowing(false);
             }
         };
 
         fetchIsFollowing();
 
-    }, [ followers]);
+    }, [followers]);
 
 
     const handleFollow = async () => {
         try {
             if (isFollowing) {
-                const senderId = localStorage.getItem('userId');  
-               
+                const senderId = localStorage.getItem('userId');
+
                 await axiosInstance.post(`/users/unfollow/${userId}`, { userUnfollowId: senderId });
-                setIsFollowing(false);  
+                setIsFollowing(false);
             } else {
-                const senderId = localStorage.getItem('userId');  
+                const senderId = localStorage.getItem('userId');
                 await axiosInstance.post(`/users/follow/${userId}`, { userFollowId: senderId });
-                setIsFollowing(true);  
-            }      
+                setIsFollowing(true);
+            }
         } catch (error) {
             console.error(error);
-            
+
         }
     };
 

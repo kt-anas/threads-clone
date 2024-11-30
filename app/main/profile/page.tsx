@@ -1,8 +1,8 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch } from '@/lib/hooks';
+import { useAppDispatch } from '@/hooks';
 import ProfileImage from '@/components/ProfileImage';
- 
+import styleMenu from '../../../ui/main/profile.module.scss';
 import styles from '../../../ui/main/main.module.scss';
 import TimeAgo from '@/components/TimeAgo';
 import style from '../../../ui/main/profile.module.scss';
@@ -12,7 +12,8 @@ import LikeButton from '@/components/likeButton/likeButton';
 import ReplyButton from '@/components/replyButton/replyButton';
 import RepostButton from '@/components/repostButton/repostButton';
 import DropdownMenu from '@/components/DropdowMenu';
- 
+import Image from 'next/image';
+
 
 const ProfilePage: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -84,30 +85,41 @@ const ProfilePage: React.FC = () => {
                             <h3>{post.username}</h3>
                             <TimeAgo dateString={post.createdOn} />
                         </div>
-                        {/* <div className={styleMenu['menu-container']}>
-                            
+                        <div className={styleMenu['menu-container']}>
+
                             <Icons.circleMenu className={styleMenu['menu']} onClick={() => toggleDropdown(post._id)} />
                             {selectedPostId === post._id && (
                                 <DropdownMenu>
                                     <button onClick={() => deletePost(post._id)}>Delete</button>
                                 </DropdownMenu>
                             )}
-                        </div> */}
+                        </div>
 
 
                     </div>
                     <p className={styles['post-text']}>{post.text}</p>
-                    {post.image && <img src={post.image} alt="post" className={styles['post-image']} />}
+
+                    {post.image && (
+                        <Image
+                            src={post.image}
+                            alt="post"
+                            className={styles['post-image']}
+                            width={500}
+                            height={300}
+                            priority={true}
+                        />
+                    )}
+
                     <div className={style['post-actions-container']}>
                         <LikeButton
                             initialLike={post.likes.length}
                             postId={post._id}
-                           
+
                             likedUsers={post.likes}
                         />
                         <ReplyButton
                             replyCount={post.replies.length}
-                            
+
                             postId={post._id}
                             setPostId={setSelectedPostId}
                         />
@@ -115,7 +127,7 @@ const ProfilePage: React.FC = () => {
                             repostCount={post.reposts.length}
                             postId={post._id}
                             setPostId={setSelectedPostId}
-                            
+
                         />
                     </div>
                 </div>

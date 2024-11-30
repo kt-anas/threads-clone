@@ -1,17 +1,12 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import axios from 'axios';
+import axiosInstance from '@/axios/axiosInstance';
+import Image from 'next/image';
 import styles from '../../../../ui/profile/reply.module.scss';
 import ProfileImage from '@/components/ProfileImage';
-import axiosInstance from '@/axios/axiosInstance';
 
 const Replies: React.FC = () => {
-    const { posts: reduxPosts } = useAppSelector((state) => state.post);
-    const dispatch = useAppDispatch();
     const [posts, setPosts] = useState<Post[]>([]);
- 
-
 
     type User = {
         _id: string;
@@ -23,7 +18,6 @@ const Replies: React.FC = () => {
         userProfilePic: string;
         username: string;
         postById: User;
-
         text: string;
         image: string;
         createdOn: string;
@@ -41,45 +35,57 @@ const Replies: React.FC = () => {
         text: string;
     };
 
-    
     const fetchPosts = async () => {
         try {
             const userId = localStorage.getItem('userId');
             if (userId) {
-                const response = await axiosInstance.get(
-                    `/posts/${userId}`
-                );
+                const response = await axiosInstance.get(`/posts/${userId}`);
                 setPosts(response.data.post);
             }
         } catch (error) {
             console.error('Error fetching posts:', error);
-           
-        } 
+        }
     };
 
     useEffect(() => {
         fetchPosts();
     }, []);
 
-    
-  
-    
     return (
         <div className={styles['replies-container']}>
             {posts.length > 0 ? (
                 posts.map((post) =>
                     post.replies && post.replies.length > 0 ? (
                         <div key={post._id} className={styles['reply-item']}>
-                            <ProfileImage profilePic={post.userProfilePic} className={styles['post-userProfilePic']} />
-                            <h2 className={styles['post-username']}>{post.postById.username}</h2>
-                            {post.replies && <img src={post.image} alt="" className={styles['post-image']} />}
+                            <ProfileImage
+                                profilePic={post.userProfilePic}
+                                className={styles['post-userProfilePic']}
+                            />
+                            <h2 className={styles['post-username']}>
+                                {post.postById.username}
+                            </h2>
+                            {post.image && (
+                                <Image
+                                    src={post.image}
+                                    alt="Post Image"
+                                    className={styles['post-image']}
+                                    width={500}
+                                    height={300}
+                                    priority
+                                />
+                            )}
                             {post.replies.map((reply) => (
                                 <div key={reply._id} className={styles['reply-content']}>
                                     <div className={styles['reply-user-info']}>
                                         {reply.userProfilePic && (
-                                            <ProfileImage profilePic={reply.userProfilePic} className={styles['reply-userProfilePic']} />
+                                            <ProfileImage
+                                                profilePic={reply.userProfilePic}
+                                                className={styles['reply-userProfilePic']}
+                                            />
                                         )}
-                                        <h4 className={styles['reply-username']}>{reply.username}</h4>
+                                        <h4 className={styles['reply-username']}>
+                                            {reply.username}
+                                        </h4>
                                     </div>
                                     <p className={styles['reply-text']}>{reply.text}</p>
                                 </div>

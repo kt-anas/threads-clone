@@ -3,7 +3,7 @@ import { Icons } from '@/ui/Icons/users';
 import React, { useState } from 'react';
 import styles from './replyButton.module.scss';
 import { openComment } from '@/store/modalSlice';
-import { useAppDispatch } from '@/lib/hooks';
+import { useAppDispatch } from '@/hooks';
 import axiosInstance from '@/axios/axiosInstance';
 
 interface ReplyButtonProps {
@@ -23,14 +23,14 @@ interface postReply {
     postReply: Replies[];
 }
 
-const ReplyButton: React.FC<ReplyButtonProps> = ({ postId, setPostId,replyCount }) => {
+const ReplyButton: React.FC<ReplyButtonProps> = ({ postId, setPostId, replyCount }) => {
     const dispatch = useAppDispatch();
-    const [replies, setReplies] = useState<postReply[]>([]);  
+    const [replies, setReplies] = useState<postReply[]>([]);
 
     const fetchPostReplies = async (postId: string) => {
         try {
             const response = await axiosInstance.get(`/posts/reply/${postId}`);
-            setReplies(response.data.postReply);  
+            setReplies(response.data.postReply);
         } catch (error) {
             console.error('Error fetching replies:', error);
         }
@@ -39,15 +39,15 @@ const ReplyButton: React.FC<ReplyButtonProps> = ({ postId, setPostId,replyCount 
     const handleClick = () => {
         setPostId(postId);
         dispatch(openComment());
-        fetchPostReplies(postId); 
+        fetchPostReplies(postId);
     };
 
-    
+
 
     return (
         <button className={styles.replyButton} onClick={handleClick}>
             <Icons.reply />
-            <span>{replyCount}</span> 
+            <span>{replyCount}</span>
         </button>
     );
 };

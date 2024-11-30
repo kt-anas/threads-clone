@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch } from '@/lib/hooks';
-import axios from 'axios'; 
+import { useAppDispatch } from '@/hooks';
+import Image from 'next/image';
 import style from '../../../../ui/profile/repost.module.scss';
 import ProfileImage from '@/components/ProfileImage';
 import axiosInstance from '@/axios/axiosInstance';
@@ -9,7 +9,6 @@ import axiosInstance from '@/axios/axiosInstance';
 const Reposts: React.FC = () => {
     const dispatch = useAppDispatch();
     const [posts, setPosts] = useState<Post[]>([]);
-     
 
     type Post = {
         _id: string;
@@ -31,19 +30,16 @@ const Reposts: React.FC = () => {
         text: string;
     };
 
- 
     const fetchPosts = async () => {
         try {
             const userId = localStorage.getItem('userId');
             if (userId) {
-                const response = await axiosInstance.get(
-                    `/posts/${userId}`
-                );
+                const response = await axiosInstance.get(`/posts/${userId}`);
                 setPosts(response.data.post);
             }
         } catch (error) {
             console.error('Error fetching posts:', error);
-         }  
+        }
     };
 
     useEffect(() => {
@@ -52,16 +48,28 @@ const Reposts: React.FC = () => {
 
     return (
         <div className={style['repost-container']}>
-            {  posts.length > 0 ? (
+            {posts.length > 0 ? (
                 posts.map((post) =>
                     post.reposts && post.reposts.length > 0 ? (
                         <div key={post._id} className={style['repost-item']}>
                             <div className={style['user-info']}>
-                                <ProfileImage  profilePic={post.userProfilePic} className={style['profile-pic']} />
+                                <ProfileImage
+                                    profilePic={post.userProfilePic}
+                                    className={style['profile-pic']}
+                                />
                                 <h2 className={style['username']}>{post.username}</h2>
                             </div>
                             <p className={style['repost-text']}>{post.text}</p>
-                            {post.image && <img src={post.image} alt="Repost" className={style['repost-image']} />}
+                            {post.image && (
+                                <Image
+                                    src={post.image}
+                                    alt="Repost"
+                                    className={style['repost-image']}
+                                    width={500}
+                                    height={300}
+                                    priority
+                                />
+                            )}
                         </div>
                     ) : null
                 )

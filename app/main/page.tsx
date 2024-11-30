@@ -1,13 +1,10 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import styles from '../../ui/main/main.module.scss';
-import { useAppSelector, useAppDispatch } from '@/lib/hooks';
-
+import { useAppSelector, useAppDispatch } from '@/hooks';
 import { fetchPosts } from '@/store/postsSlice';
 import Threads from '@/components/threads/threads';
-import { addNewPost } from '@/store/postsSlice';
 import ProfileImage from '@/components/ProfileImage';
-import { Icons } from '@/ui/Icons/users';
 import LikeButton from '@/components/likeButton/likeButton';
 import Reply from '@/components/reply/reply';
 import ReplyButton from '@/components/replyButton/replyButton';
@@ -15,10 +12,6 @@ import RepostButton from '@/components/repostButton/repostButton';
 import Repost from '@/components/repost/repost';
 import TimeAgo from '@/components/TimeAgo';
 import PostBtn from '@/components/postButton/postBtn';
-
-import CurrentUser from '@/components/CurrentUser';
-import { fetchUser } from '@/store/userSlice';
-import { closeModal } from '@/store/modalSlice';
 import axiosInstance from '@/axios/axiosInstance';
 import Image from 'next/image';
 
@@ -35,34 +28,22 @@ const HomePage: React.FC = () => {
     const [postId, setPostId] = useState<string>('');
     const [userId, setUserId] = useState<string>('');
     const [userProfilePic, setProfilePic] = useState<string>('');
-
-
     const dispatch = useAppDispatch();
-
     useEffect(() => {
-
         dispatch(fetchPosts());
     }, [dispatch]);
-    
-
- 
-    
     useEffect(() => {
-
-       async function getCurrentUser() { 
-        const userId = localStorage.getItem('userId');
-        
-        const response = await axiosInstance.get(`/users/${userId}`);
-        setCurrentUser(response.data.user);
-        setUserName(response.data.user.name);
-        setUserId(response.data.user._id);
-        setProfilePic(response.data.user.profilePic);
-      }
-      getCurrentUser();
+        async function getCurrentUser() {
+            const userId = localStorage.getItem('userId');
+            const response = await axiosInstance.get(`/users/${userId}`);
+            setCurrentUser(response.data.user);
+            setUserName(response.data.user.name);
+            setUserId(response.data.user._id);
+            setProfilePic(response.data.user.profilePic);
+        }
+        getCurrentUser();
 
     }, [userId]);
-
-
     useEffect(() => {
         if (currentUser) {
             setUserId(currentUser._id);
@@ -73,16 +54,8 @@ const HomePage: React.FC = () => {
             }
         }
     }, [currentUser]);
-
-
-
     return (
         <div>
-
-
-            
-
-
             <Threads >
                 <div className={styles.dp}>
                     <Image
@@ -96,38 +69,29 @@ const HomePage: React.FC = () => {
                 </div>
 
             </Threads>
-
-
-
             <Reply
-            
                 postId={postId}
                 userProfilePic={userProfilePic}
                 userId={userId}
                 username={username}
             >
-               
                 <div>
                     <div>
-                        
+
                         <Image
                             src={currentUser?.profilePic || "https://cdn-icons-png.flaticon.com/512/149/149071.png"}
                             alt="profile"
                             className={styles['profile-image']}
                         />
-                        
+
                         <p className={styles['profile-name']}>{username}</p>
                     </div>
                 </div>
             </Reply>
 
-
-
             <p className={styles.heading}>
-                For you 
+                For you
             </p>
-
-
             <div className={styles["posts-container"]}>
 
                 <div className={styles["new-container"]}>
@@ -140,7 +104,7 @@ const HomePage: React.FC = () => {
                             />
                         </div>
                         <div className={styles['new-text']}>
-                            <span>What's new?</span>
+                            <span>Whats new?</span>
                         </div>
                     </div>
 
@@ -193,16 +157,16 @@ const HomePage: React.FC = () => {
                                 <div className={styles['reply']} >
 
 
-                                    <ReplyButton replyCount={post.replies.length }   postId={post._id} setPostId={setPostId} />
+                                    <ReplyButton replyCount={post.replies.length} postId={post._id} setPostId={setPostId} />
                                 </div>
 
                                 <div>
-                                    <RepostButton repostCount={post.reposts.length} postId={post._id} setPostId={setPostId}  />
+                                    <RepostButton repostCount={post.reposts.length} postId={post._id} setPostId={setPostId} />
                                 </div>
-                                 <Repost
-                                    
-                                    postId={ postId}
-                                   
+                                <Repost
+
+                                    postId={postId}
+
                                     userProfilePic={userProfilePic}
                                     username={username}
                                 />
@@ -210,9 +174,6 @@ const HomePage: React.FC = () => {
 
                         </div>
                     ))}
-
-
-
 
                 </div>
             </div>
